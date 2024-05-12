@@ -302,6 +302,10 @@ void ED1005 (void)
 void ED1006 (void)
 {
   // Identificacao de dados
+  ref_int_matrix matrix = null;
+  ref_int_matrix Fmatrix;
+  ref_int_matrix resultado;
+
   // Apresentacao
   println ("ED1006");
   println ("");                  // Pular uma linha
@@ -309,8 +313,30 @@ void ED1006 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  matrix = ReadIntMatrix();
+
+  // Escrever matrix em um arquivo
+  IntWriteMatrixFile ("DADOS06.TXT", matrix);
+
+  // Ler dados do arquivo
+  Fmatrix = IntMatrixFile ("DADOS06.TXT");
+
+  if (Fmatrix)
+  {
+    // Calcular transposta
+    resultado = IntTransposeMatrix(Fmatrix);
+
+    if (resultado)
+    {
+      // Mostrar dados
+      println ("Matrix normal-");
+      IntPrintMatrix (Fmatrix);
+    
+      println ("\nMatrix trasposta-");
+      IntPrintMatrix(resultado);
+    }
+  }
+
 
   // Fim
   println ("");                  // Pular uma linha

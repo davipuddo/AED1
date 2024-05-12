@@ -685,34 +685,7 @@ void DoubleWriteMatrixFile (char *fileName, int rows, int columns, double matrix
   fclose (arquivo);
 }
 
-/** Escrever uma matrix de valores inteiros em um arquivo
- *  @param Nome do arquivo 
- *  @param Quantidade de linhas da matrix
- *  @param Quantidade de colunas da matrix
- *  @param Matrix
-*/
-void IntWriteMatrixFile (char *fileName, int rows, int columns, int matrix[][columns])
-{
-  FILE *arquivo = fopen (fileName, "wt");
-  int i = 0;
-  
-  // Guardar dimensoes da matrix
-  fprintf (arquivo, "%d\n", rows);
-  fprintf (arquivo, "%d\n", columns);
 
-  while (!feof(arquivo) && i < (rows*columns))
-  {
-    for (int x = 0; x < rows; x++)
-    {
-      for (int y = 0; y < columns; y++)
-      {
-        fprintf (arquivo, "%d\n", matrix[x][y]);
-        i++;
-      }
-    }
-  }
-  fclose (arquivo);
-}
 
 /** Mostrar uma matrix de valores inteiros 
  *  @param Quantidade de linhas da matrix
@@ -1274,6 +1247,8 @@ typedef struct int_matrix_s
   int rows;
   int columns;
   int** data;
+  int ix;
+  int iy;
 } 
 int_matrix;
 
@@ -1283,11 +1258,10 @@ typedef int_matrix* ref_int_matrix;
  *  @param Quantidade de linhas
  *  @param Quantidade de colunas
  *  @returns Matrix de valores inteiros tipo struct
- *  @note NAO TESTADA!
 */
-int_matrix* IntNewMatrix (int r, int c)
+ref_int_matrix IntNewMatrix (int r, int c)
 {
-  int_matrix* matrix = (int_matrix*)malloc(sizeof(int_matrix));
+  ref_int_matrix matrix = (ref_int_matrix)malloc(sizeof(int_matrix));
 
   if (matrix == null)
   {
@@ -1295,38 +1269,48 @@ int_matrix* IntNewMatrix (int r, int c)
   }
   else
   {
-    matrix->rows = -1;
-    matrix->columns = -1;
+    matrix->rows = 0;
+    matrix->columns = 0;
     matrix->data = null;
+
     if (r > 0 && c > 0)
     {
       matrix->rows = r;
       matrix->columns = c;
-      matrix->data = (int**)malloc((r*c)*sizeof(int));
+      matrix->data = (int**)malloc(r*sizeof(int*));
+      
+      if (matrix->data)
+      {
+        for (int i = 0; i < matrix->rows; i++)
+        {
+          matrix->data[i] = (int*)malloc(c*sizeof(int));
+        }
+      }
     }
     else
     {
       println ("ERRO: Dimensoes invalidas. ");
     }
+    matrix->ix = 0;
+    matrix->iy = 0;
   }
   return (matrix);
 }
 
 /** Mostrar uma matrix de valores inteiros
  *  @param Matrix de valores inteiros tipo struct
- *  @note NAO TESTADA
 */
-void IntPrintMatrix (int_matrix matrix)
+void IntPrintMatrix (ref_int_matrix matrix)
 {
-  if (matrix.data)
+  if (matrix != null && matrix->data != null)
   {
-    if (matrix.rows > 0 && matrix.columns > 0)
+    if (matrix->rows > 0 && matrix->columns > 0)
     {
-      for (int x = 0; x < matrix.rows; x++)
+      for (int x = 0; x < matrix->rows; x++)
       {
-        for (int y = 0; y < matrix.columns; y++)
+        for (int y = 0; y < matrix->columns; y++)
         {
-          printf ("%3d\t", matrix.data[x][y]);
+          printf ("%3d\t", matrix->data[x][y]);
         }
         println ("");
       }
@@ -1338,30 +1322,149 @@ void IntPrintMatrix (int_matrix matrix)
  *  @returns Matrix de valores inteiros tipo struct
  *  @note NAO TESTADA
 */
-int_matrix ReadIntMatrix ()
+ref_int_matrix ReadIntMatrix ()
 {
-  int_matrix matrix;
-  do 
-  {
-    matrix.rows = ReadInt ("Forneca a quantidade de linhas da matrix: ");
-    matrix.columns = ReadInt ("Forneca a quantidade de colunas da matrix: ");
-  } while (matrix.rows <= 0 && matrix.columns <= 0);
+  int rows = 0;
+  int columns = 0;
 
-  matrix.data = (int**)malloc((matrix.rows*matrix.columns)*sizeof(int));
+  rows    = ReadPositiveInt ("Forneca a quantidade de linhas da matrix:  ");
+  columns = ReadPositiveInt ("Forneca a quantidade de colunas da matrix: ");
 
-  if (matrix.data == null)
+  ref_int_matrix matrix = IntNewMatrix(rows, columns);
+
+  if (matrix == null)
   {
     println ("ERRO: Falta espaco. ");
   }
   else
   {
-    for (int x = 0; x < matrix.rows; x++)
+    if (matrix->data == null)
     {
-      for (int y = 0; y < matrix.columns; y++)
+      matrix->columns = 0;
+      matrix->rows = 0;
+    }
+    else
+    {
+      for (int x = 0; x < matrix->rows; x++)
       {
-        matrix.data[x][y] = ReadInt ("Forneca um elemento para a matrix: ");
+        for (int y = 0; y < matrix->columns; y++)
+        {
+          matrix->data[x][y] = ReadInt ("Forneca um elemento para a matrix: ");
+        }
       }
     }
   }
   return (matrix);
+}
+
+/** Gravar uma matrix de valores inteiros em um arquivo
+ *  @param Nome do arquivo
+ *  @param matrix
+*/
+void IntWriteMatrixFile (char* fileName, ref_int_matrix matrix)
+{
+  if (matrix == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    FILE *arquivo = fopen (fileName, "wt");
+
+    if (arquivo)
+    {
+      fprintf (arquivo, "%d\n", matrix->rows);
+      fprintf (arquivo, "%d\n", matrix->columns);
+
+    if (matrix->data != null)
+    {
+      for (matrix->ix = 0; matrix->ix < matrix->rows; matrix->ix++)
+      {
+        for (matrix->iy = 0; matrix->iy < matrix->columns; matrix->iy++)
+        {
+          fprintf (arquivo, "%d\n", matrix->data[matrix->ix][matrix->iy]);
+        }
+      }
+    }
+    fclose (arquivo);
+    }
+  }
+}
+
+ref_int_matrix IntMatrixFile (char* fileName)
+{
+  ref_int_matrix matrix = null;
+  int rows = 0;
+  int columns = 0;
+  FILE *arquivo = fopen (fileName, "rt");
+  if (arquivo)
+  {
+    fscanf (arquivo, "%d", &rows);
+    fscanf (arquivo, "%d", &columns);
+    if (rows <= 0 && columns <= 0)
+    {
+      println ("ERRO: Dimensoes invalidas. ");
+    }
+    else
+    {
+      matrix = IntNewMatrix(rows, columns);
+      if (matrix == null && matrix->data == null)
+      {
+        matrix->rows = 0;
+        matrix->columns = 0;
+        matrix->ix = 0;
+        matrix->iy = 0;
+        matrix->data = null;
+      }
+      else if (matrix->data != null)
+      {
+        for (matrix->ix = 0; matrix->ix < rows; matrix->ix++)
+        {
+          for (matrix->iy = 0; matrix->iy < columns; matrix->iy++)
+          {
+            fscanf(arquivo, "%d", &matrix->data[matrix->ix][matrix->iy]);
+          }
+        }
+        matrix->ix = 0;
+        matrix->iy = 0;
+      }
+    }
+  }
+  return (matrix);
+}
+
+ref_int_matrix IntTransposeMatrix (ref_int_matrix matrix)
+{
+  ref_int_matrix resultado = null;
+  if (matrix == null && matrix->data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (matrix->rows <= 0 || matrix->columns <= 0)
+    {
+      println ("ERRO: Dimensoes invalidas. ");
+    }
+    else
+    {
+      // Inverter as dimensoes
+      resultado = IntNewMatrix(matrix->columns, matrix->rows);
+      if (resultado == null && resultado->data == null)
+      { 
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (resultado->ix = 0; resultado->ix < resultado->rows; resultado->ix++)
+        {
+          for (resultado->iy = 0; resultado->iy < resultado->columns; resultado->iy++)
+          {
+            resultado->data[resultado->ix][resultado->iy] = matrix->data[resultado->iy][resultado->ix];
+          }
+        }
+      }
+    }
+  }
+  return (resultado);
 }
