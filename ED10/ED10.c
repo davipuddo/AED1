@@ -231,11 +231,11 @@ void ED1004 (void)
       // Mostrar dados
       if (resultado)
       {
-        println ("Arranjo 1 -\n");
+        println ("Arranjo 1 -");
         IntPrintArray (Farray1);
-        println ("\nArranjo 2 -\n");
+        println ("\nArranjo 2 -");
         IntPrintArray (Farray2);
-        println ("\nSoma -\n");
+        println ("\nSoma -");
         IntPrintArray (*resultado);
 
         // Liberar memoria
