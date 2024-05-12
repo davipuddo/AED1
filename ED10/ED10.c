@@ -253,6 +253,10 @@ void ED1004 (void)
 void ED1005 (void)
 {
   // Identificacao de dados
+  int_array array;
+  int_array Farray;
+  int resultado = 0;
+
   // Apresentacao
   println ("ED1005");
   println ("");                  // Pular uma linha
@@ -260,8 +264,34 @@ void ED1005 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  array = ReadIntArray();
+
+  // Verificar existencia dos dados
+  if (array.data)
+  {
+    // Gravar arranjo em um arquivo
+    IntWriteArrayFile ("DADOS05.TXT", array);
+  }
+
+  // Ler arranjo do arquivo
+  Farray = IntArrayFile("DADOS05.TXT");
+  
+  // Verificar existencia dos dados
+  if (Farray.data)
+  {
+    resultado = IntArrayDescending(array);
+
+    // Mostrar dados
+    if (resultado == 1)
+    {
+      println ("O arranjo e decrescente. ");
+    }
+    else
+    {
+      println ("O arranjo nao e decrescente. ");
+    }
+  }
+
 
   // Fim
   println ("");                  // Pular uma linha
