@@ -6,7 +6,7 @@
 /** Somar 2 arrays, onde o segundo e escalado por uma constante
  *  @param Array 1
  *  @param Array 2
- *  @returns Ponteiro do resultado
+ *  @returns referencia da struct de um arranjo contendo o resultado
 */
 ref_int_array IntAddConstArray (int_array array1, int_array array2, const int p)
 {
