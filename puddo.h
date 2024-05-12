@@ -1095,6 +1095,20 @@ ref_int_array IntAddConstArray (int_array array1, int_array array2, const int p)
   return (resultado);
 }
 
+/** Liberar espaco de um array
+ *  @param referencia da struct do array
+*/
+void IntFreeArray (ref_int_array array)
+{
+  if (array != null)
+  {
+    if (array->data != null)
+    {
+      free (array->data);
+    }
+    free (array);
+  }
+}
 
 /*                                                         arrays reais
  * --------------------------------------------------------------------
