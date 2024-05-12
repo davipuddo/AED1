@@ -1064,37 +1064,6 @@ ref_int_array IntAddArray (int_array array1, int_array array2)
   return (resultado);
 }
 
-/** Somar 2 arrays, onde o segundo e escalado por uma constante
- *  @param Array 1
- *  @param Array 2
- *  @returns Ponteiro do resultado
-*/
-ref_int_array IntAddConstArray (int_array array1, int_array array2, const int p)
-{
-  ref_int_array resultado;
-  if (array1.length <= 0 || array2.length <= 0)
-  {
-    println ("ERRO: Tamanho invalido. ");
-  }
-  else if (array1.length != (int)((double)array2.length / (double)p))
-  {
-    println ("ERRO: O tamanho dos arranjos sao incompativeis. ");
-  }
-  else
-  {
-    resultado = IntNewArray(array1.length);
-    int w = p-1;
-    int i = 0;
-    while (i < array1.length && w < array2.length)
-    {
-      resultado->data[i] = array1.data[i] + array2.data[w];
-      i++;
-      w += p;
-    }
-  }
-  return (resultado);
-}
-
 /** Liberar espaco de um array
  *  @param referencia da struct do array
 */
