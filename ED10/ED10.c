@@ -175,12 +175,10 @@ void ED1004 (void)
   if (array1.data)
   {
     IntWriteArrayFile ("DADOS41.TXT", array1);
-    free (array1.data);
   }
   if (array2.data)
   {
     IntWriteArrayFile ("DADOS42.TXT", array2);
-    free (array2.data);
   }
 
   // Ler arranjos do arquivo
@@ -199,9 +197,7 @@ void ED1004 (void)
   IntPrintArray (*resultado);
 
   // Liberar memoria
-  free (Farray1.data);
-  free (Farray2.data);
-  free (resultado);
+  IntFreeArray (resultado);
 
   // Fim
   println ("");                  // Pular uma linha
