@@ -1254,7 +1254,7 @@ int_matrix;
 
 typedef int_matrix* ref_int_matrix;
 
-/** Gerar uma matrix de valores inteiros 
+/** Alocar espaco para uma matrix de valores inteiros 
  *  @param Quantidade de linhas
  *  @param Quantidade de colunas
  *  @returns Matrix de valores inteiros tipo struct
@@ -1391,6 +1391,10 @@ void IntWriteMatrixFile (char* fileName, ref_int_matrix matrix)
   }
 }
 
+/** Retornar uma matrix de um arquivo
+ *  @param Nome do arquivo
+ *  @returns Apontador da struct da matrix
+*/
 ref_int_matrix IntMatrixFile (char* fileName)
 {
   ref_int_matrix matrix = null;
@@ -1431,6 +1435,21 @@ ref_int_matrix IntMatrixFile (char* fileName)
     }
   }
   return (matrix);
+}
+
+/** Liberar espaco da matrix da memoria
+ *  @param Apontador da struct da matrix
+*/
+void IntFreeMatrix(ref_int_matrix matrix)
+{
+  if (matrix)
+  {
+    if (matrix->data)
+    {
+      free (matrix->data);
+    }
+  }
+  free (matrix);
 }
 
 ref_int_matrix IntTransposeMatrix (ref_int_matrix matrix)
