@@ -205,7 +205,7 @@ void ED1004 (void)
   // Testar compatibilidade
   if (array1.length != (int)((double)array2.length/(double)constante))
   {
-    pritln ("O tamanho dos arranjos sao incompativeis");
+    println ("O tamanho dos arranjos sao incompativeis");
   }
   else
   {
