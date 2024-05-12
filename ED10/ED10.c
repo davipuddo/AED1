@@ -155,15 +155,53 @@ void ED1003 (void)
 void ED1004 (void)
 {
   // Identificacao de dados
+  int_array array1;
+  int_array array2;
+  int constante = 0;
+  ref_int_array resultado;
+
   // Apresentacao
   println ("ED1004");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
-    
+
   // Ler dados
-  // Verificar dados
+  constante = ReadPositiveInt ("Forneca um valor inteiro para definir o escalamento do segundo arranjo: ");
+  array1 = ReadIntArray();
+  array2 = ReadIntArray();
+
+  // Escrever arranjos em arquivos
+  if (array1.data)
+  {
+    IntWriteArrayFile ("DADOS41.TXT", array1);
+    free (array1.data);
+  }
+  if (array2.data)
+  {
+    IntWriteArrayFile ("DADOS42.TXT", array2);
+    free (array2.data);
+  }
+
+  // Ler arranjos do arquivo
+  int_array Farray1 = IntArrayFile("DADOS41.TXT");
+  int_array Farray2 = IntArrayFile("DADOS42.TXT");
+
+  // Somar arranjos
+  resultado = IntAddConstArray (Farray1, Farray2, constante);
+
   // Mostrar dados
+  println ("Arranjo 1 -\n");
+  IntPrintArray (Farray1);
+  println ("\nArranjo 2 -\n");
+  IntPrintArray (Farray2);
+  println ("\nSoma -\n");
+  IntPrintArray (*resultado);
+
+  // Liberar memoria
+  free (Farray1.data);
+  free (Farray2.data);
+  free (resultado);
 
   // Fim
   println ("");                  // Pular uma linha
