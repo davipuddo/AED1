@@ -206,7 +206,9 @@ void ED1001 (void)
   // Apresentacao
   println ("ED1001");
   println ("");                  // Pular uma linha
-  println (" ");
+  printf  ("Gerar um valor inteiro aleatorio dentro de um intervalo, cujos os limites de inicio e fim serao dados como parametros. ");
+  printf  ("Para testar ler os limites do intervalo do teclado, ler uma quantidade [n] de valores e gerar tais valores e armazena-los em ");
+  println  ("um arranjo, gravar o arranjo em um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -243,7 +245,8 @@ void ED1002 (void)
   // Apresentacao
   println ("ED1002");
   println ("");                  // Pular uma linha
-  println (" ");
+  printf  ("Incluir uma funcao para procurar certo valor inteiro em um arranjo. Para testar receber um nome de arquivo como parametro e ");
+  println ("receber de tal arquivo um arranjo, aplicar a funcao sobre os valores lidos. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -279,16 +282,14 @@ void ED1003 (void)
   // Identificacao de dados
   int_array array1;
   int_array array2;
-  
   int_array farray1;
   int_array farray2;
-
   int resultado = 0;
 
   // Apresentacao
   println ("ED1003");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Incluir uma funcao para operar a comparacao de dois arranjos inteiros. Para testar receber os arranjos de 2 arquivos diferentes.");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -355,7 +356,8 @@ void ED1004 (void)
   // Apresentacao
   println ("ED1004");
   println ("");                  // Pular uma linha
-  println (" ");
+  printf  ("Incluir uma funcao para operar uma soma de dois arranjos, com o segundo sendo escalado por uma constante. Para testar ");
+  println ("receber os arranjos de 2 arquivos diferentes e aplicar a funcao sobre eles. ");
   println ("");                  // Pular uma linha
 
   // Ler dados
@@ -421,7 +423,7 @@ void ED1005 (void)
   // Apresentacao
   println ("ED1005");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Incluir uma funcao para verificar se um arranjo esta em ordem decrescente. Para testar ler o arranjo de um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -470,7 +472,7 @@ void ED1006 (void)
   // Apresentacao
   println ("ED1006");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Incluir uma funcao para obter a transposta de uma matrix. Para testar receber a matrix de um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -515,7 +517,7 @@ void ED1007 (void)
   // Apresentacao
   println ("ED1007");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Incluir uma funcao para testar se os valores de uma matrix sao iguais a zero. Para testar receber uma matrix de um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -563,7 +565,7 @@ void ED1008 (void)
   // Apresentacao
   println ("ED1008");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Incluir uma funcao para testar a igualdade de duas matrizes. Para testar receber as matrizes de 2 arquivos diferentes. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -623,7 +625,8 @@ void ED1009 (void)
   // Apresentacao
   println ("ED1009");
   println ("");                  // Pular uma linha
-  println (" ");
+  printf  ("Incluir uma funcao para operar uma soma de matrizes com a segunda escalada por uma constante. Para testar receber as ");
+  println ("matrizes de 2 arquivos diferentes. ");
   println ("");                  // Pular uma linha
 
   // Ler dados
@@ -690,7 +693,7 @@ void ED1010 (void)
   // Apresentacao
   println ("ED1010");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Incluir uma funcao para obter o produto de duas matrizes inteiras. Para testar receber as matrizes de dois arquivos. ");
   println ("");                  // Pular uma linha
     
   println ("Matrix 1: ");
