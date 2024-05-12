@@ -1078,7 +1078,7 @@ ref_int_array IntAddConstArray (int_array array1, int_array array2, const int p)
   }
   else if (array1.length != (int)((double)array2.length / (double)p))
   {
-    println ("ERRO: Os arranjos sao incompativeis. ");
+    println ("ERRO: O tamanho dos arranjos sao incompativeis. ");
   }
   else
   {

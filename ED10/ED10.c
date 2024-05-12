@@ -171,33 +171,47 @@ void ED1004 (void)
   array1 = ReadIntArray();
   array2 = ReadIntArray();
 
-  // Escrever arranjos em arquivos
-  if (array1.data)
+  // Testar compatibilidade
+  if (array1.length != (int)((double)array2.length/(double)constante))
   {
-    IntWriteArrayFile ("DADOS41.TXT", array1);
+    pritln ("O tamanho dos arranjos sao incompativeis");
   }
-  if (array2.data)
+  else
   {
-    IntWriteArrayFile ("DADOS42.TXT", array2);
+    // Escrever arranjos em arquivos
+    if (array1.data)
+    {
+      IntWriteArrayFile ("DADOS41.TXT", array1);
+    }
+    if (array2.data)
+    {
+      IntWriteArrayFile ("DADOS42.TXT", array2);
+    }
+
+    // Ler arranjos do arquivo
+    int_array Farray1 = IntArrayFile("DADOS41.TXT");
+    int_array Farray2 = IntArrayFile("DADOS42.TXT");
+
+    // Somar arranjos
+    if (Farray1.data && Farray2.data)
+    {
+      resultado = IntAddConstArray (Farray1, Farray2, constante);
+
+      // Mostrar dados
+      if (resultado)
+      {
+        println ("Arranjo 1 -\n");
+        IntPrintArray (Farray1);
+        println ("\nArranjo 2 -\n");
+        IntPrintArray (Farray2);
+        println ("\nSoma -\n");
+        IntPrintArray (*resultado);
+
+        // Liberar memoria
+        IntFreeArray (resultado);
+      }
+    }
   }
-
-  // Ler arranjos do arquivo
-  int_array Farray1 = IntArrayFile("DADOS41.TXT");
-  int_array Farray2 = IntArrayFile("DADOS42.TXT");
-
-  // Somar arranjos
-  resultado = IntAddConstArray (Farray1, Farray2, constante);
-
-  // Mostrar dados
-  println ("Arranjo 1 -\n");
-  IntPrintArray (Farray1);
-  println ("\nArranjo 2 -\n");
-  IntPrintArray (Farray2);
-  println ("\nSoma -\n");
-  IntPrintArray (*resultado);
-
-  // Liberar memoria
-  IntFreeArray (resultado);
 
   // Fim
   println ("");                  // Pular uma linha
