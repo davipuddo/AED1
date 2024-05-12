@@ -943,16 +943,21 @@ void IntWriteArrayFile (char *fileName, int_array array)
     // Abrir arquivo
     FILE *arquivo = fopen (fileName, "wt");
 
-    // Guardar size
-    fprintf (arquivo, "%d\n", array.length);
-
-    // Guardar valores
-    for (array.i = 0; array.i < array.length; array.i++)
+    // Verificar existencia do arquivo
+    if (arquivo)
     {
-      fprintf (arquivo, "%d\n", array.data[array.i]);
+      // Guardar size
+      fprintf (arquivo, "%d\n", array.length);
+
+      // Guardar valores
+      for (array.i = 0; array.i < array.length; array.i++)
+      {
+        fprintf (arquivo, "%d\n", array.data[array.i]);
+      }
+
+      // Fechar arquivo
+      fclose (arquivo);
     }
-    // Fechar arquivo
-    fclose (arquivo);
   }
 }
 
@@ -1006,6 +1011,11 @@ int IntFindArray (int value, int i, int_array array)
   return (resultado);
 }
 
+/** Comparar 2 arrays
+ *  @param Array 1
+ *  @param Array 2
+ *  @returns Valor booleano
+*/
 int IntCmpArray (int_array array1, int_array array2)
 {
   bool resultado = 0;
@@ -1078,6 +1088,44 @@ void IntFreeArray (ref_int_array array)
     free (array);
   }
 }
+
+/** Verificar se um arranjo esta em ordem decrescente
+ *  @param Array
+ *  @returns Valor booleano referente ao resultado
+*/
+int IntArrayDescending (int_array array)
+{
+  int i = 1;
+  if (array.data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (array.length <= 0)
+    {
+      println ("ERRO: Tamanho invalido. ");
+    }
+    else
+    {
+      while (i < array.length && array.data[i-1] > array.data[i])
+      {
+        i++;
+      }
+
+      if (i < (array.length))
+      {
+        i = 0;
+      }
+      else
+      {
+        i = 1;
+      }
+    }
+  }
+  return (i);
+}
+
 
 /*                                                         arrays reais
  * --------------------------------------------------------------------
