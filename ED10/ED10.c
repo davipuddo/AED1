@@ -34,6 +34,82 @@ ref_int_array IntAddConstArray (int_array array1, int_array array2, const int p)
   return (resultado);
 }
 
+/** Verificar se os elementos de uma matrix sao iguais a zero
+ *  @param Apontador do struct de uma matrix de valores inteiros
+ *  @return Valor booleano referente ao resultado
+*/
+int IntCheckNullMatrix (ref_int_matrix matrix)
+{
+  bool resultado = 0;
+  if (matrix == null && matrix->data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    matrix->ix = 0;
+    matrix->iy = 0;
+    int x = 0;
+    for (matrix->ix = 0; matrix->ix < matrix->rows; matrix->ix++)
+    {
+      for (matrix->iy = 0; matrix->iy < matrix->columns; matrix->iy++)
+      {
+        if (matrix->data[matrix->ix][matrix->iy] != 0)
+        {
+          x++;
+        }
+      }
+    }
+    matrix->ix = 0;
+    matrix->iy = 0;
+    if (x == 0)
+    {
+      resultado = 1;
+    }
+  }
+  return ((int)resultado);
+}
+
+/** Verificar se duas matrizes sao iguais
+ *  @param matrix 1
+ *  @parma matrix 2
+ *  @returns Valore booleano referente ao resultado
+*/
+int IntCheckEqualMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
+{
+  bool resultado = 0;
+  if (matrix1 == null || matrix1->data == null || matrix2 == null || matrix2->data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns)
+    {
+      matrix1->ix = 0;
+      matrix1->iy = 0;
+      int x = 0;
+      for (matrix1->ix = 0; matrix1->ix < matrix1->rows; matrix1->ix++)
+      {
+        for (matrix1->iy = 0; matrix1->iy < matrix1->columns; matrix1->iy++)
+        {
+          if (matrix1->data[matrix1->ix][matrix1->iy] != matrix2->data[matrix1->ix][matrix1->iy])
+          {
+            x++;
+          }
+        }
+      } 
+      matrix1->ix = 0;
+      matrix1->iy = 0;
+      if (x == 0)
+      {
+        resultado = 1;
+      }
+    }
+  }
+  return ((int)resultado);
+}
+
 void ED1001 (void)
 {
   // Identificacao de dados
@@ -189,7 +265,7 @@ void ED1004 (void)
   int_array array1;
   int_array array2;
   int constante = 0;
-  ref_int_array resultado;
+  ref_int_array resultado = null;
 
   // Apresentacao
   println ("ED1004");
@@ -303,8 +379,8 @@ void ED1006 (void)
 {
   // Identificacao de dados
   ref_int_matrix matrix = null;
-  ref_int_matrix Fmatrix;
-  ref_int_matrix resultado;
+  ref_int_matrix Fmatrix = null;
+  ref_int_matrix resultado = null;
 
   // Apresentacao
   println ("ED1006");
@@ -347,6 +423,10 @@ void ED1006 (void)
 void ED1007 (void)
 {
   // Identificacao de dados
+  ref_int_matrix matrix = null;
+  ref_int_matrix Fmatrix = null;
+  int resultado = 0;
+
   // Apresentacao
   println ("ED1007");
   println ("");                  // Pular uma linha
@@ -354,9 +434,32 @@ void ED1007 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  matrix = ReadIntMatrix();
 
+  // Gravar matrix no arquivo
+  if (matrix)
+  {
+    IntWriteMatrixFile ("DADOS07.TXT", matrix);
+  
+    // Ler matrix do arquivo
+    Fmatrix = IntMatrixFile("DADOS07.TXT");
+
+    if (Fmatrix)
+    {
+      // Verificar se os valores da matrix sao iguais a zero
+      resultado = IntCheckNullMatrix(Fmatrix);
+
+      // Mostrar dados
+      if (resultado == 1)
+      {
+        println ("Todos os elementos da matrix sao iguais a zero. ");
+      }
+      else if (resultado == 0)
+      {
+        println ("A matrix possui valores diferentes de zero. ");
+      }
+    }
+  }
   // Fim
   println ("");                  // Pular uma linha
   println ("");                  // Pular uma linha
@@ -366,6 +469,12 @@ void ED1007 (void)
 void ED1008 (void)
 {
   // Identificacao de dados
+  ref_int_matrix matrix1 = null;
+  ref_int_matrix matrix2 = null;
+  ref_int_matrix Fmatrix1 = null;
+  ref_int_matrix Fmatrix2 = null;
+  int resultado = 0;
+
   // Apresentacao
   println ("ED1008");
   println ("");                  // Pular uma linha
@@ -373,8 +482,43 @@ void ED1008 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  println ("Matrix 1: ");
+  matrix1 = ReadIntMatrix();
+  println ("\nMatrix 2: ");
+  matrix2 = ReadIntMatrix();
+
   // Verificar dados
-  // Mostrar dados
+  if (matrix1 == null || matrix2 == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    // Gravar dados em 2 arquivos
+    IntWriteMatrixFile ("DADOS0801.TXT", matrix1);
+    IntWriteMatrixFile ("DADOS0802.TXT", matrix2);
+
+    // Ler dados dos arquivos
+    Fmatrix1 = IntMatrixFile ("DADOS0801.TXT");
+    Fmatrix2 = IntMatrixFile ("DADOS0802.TXT");
+
+    // Verificar dados 
+    if (Fmatrix1 != null || Fmatrix2 != null)
+    {
+      // Verificar se as matrizes sao iguais
+      resultado = IntCheckEqualMatrix (Fmatrix1, Fmatrix2);
+
+      // Mostrar dados
+      if (resultado == 1)
+      {
+        println ("As matrizes sao iguais. ");
+      }
+      else
+      {
+        println ("As matrizes sao diferentes. ");
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -385,14 +529,45 @@ void ED1008 (void)
 void ED1009 (void)
 {
   // Identificacao de dados
+  ref_int_matrix matrix1 = null;
+  ref_int_matrix matrix2 = null;
+  ref_int_matrix Fmatrix1 = null;
+  ref_int_matrix Fmatrix2 = null;
+  ref_int_matrix resultado = null;
+
   // Apresentacao
   println ("ED1009");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
-    
+
   // Ler dados
+  println ("Matrix 1: ");
+  matrix1 = ReadIntMatrix();
+  println ("\nMatrix 2: ");
+  matrix2 = ReadIntMatrix();
+
   // Verificar dados
+  if (matrix1 == null || matrix2 == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    // Gravar dados em 2 arquivos
+    IntWriteMatrixFile ("DADOS0801.TXT", matrix1);
+    IntWriteMatrixFile ("DADOS0802.TXT", matrix2);
+
+    // Ler dados dos arquivos
+    Fmatrix1 = IntMatrixFile ("DADOS0801.TXT");
+    Fmatrix2 = IntMatrixFile ("DADOS0802.TXT");
+
+    // Verificar dados 
+    if (Fmatrix1 != null || Fmatrix2 != null)
+    {
+
+    }
+  }
   // Mostrar dados
 
   // Fim
