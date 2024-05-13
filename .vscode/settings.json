@@ -3,6 +3,8 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "math.h": "c",
-        "windows.h": "c"
+        "windows.h": "c",
+        "io.h": "c",
+        "puddo.h": "c"
     }
 }
