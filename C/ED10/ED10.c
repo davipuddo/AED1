@@ -115,7 +115,7 @@ int IntCheckEqualMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
  *  @param Matrix 2
  *  @returns Matrix com os valores somados
 */
-ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
+ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2, const int p)
 {
   ref_int_matrix resultado = null;
   int size1 = 0;
@@ -130,22 +130,27 @@ ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
     size2 = (matrix2->rows * matrix2->columns);
     if (size1 > 0 && size2 > 0)
     {
-      if (matrix1->rows != matrix2->rows)
+      if (size1 != (int)((double)size2/(double)p))
       {
-        if (matrix1->rows == matrix2->columns && matrix1->columns == matrix2->rows)
-        {
-          matrix2 = IntTransposeMatrix(matrix2);
-        }
+        println ("ERRO: Dimensoes incompativeis. ");
+        resultado = null;
       }
-      if (matrix1->rows == matrix2->rows && size1 == size2)
+      else
       {
-        resultado = IntNewMatrix(matrix1->rows, matrix1->columns);
-        for (matrix1->ix = 0; matrix1->ix < matrix1->rows; matrix1->ix++)
+        matrix2->ix = p-1;
+        matrix2->iy = matrix2->ix;
+        matrix1->ix = 0;
+        matrix1->iy = 0;
+        while (matrix1->ix < matrix1->rows && matrix2->ix < matrix2->rows)
         {
-          for (matrix1->iy = 0; matrix1->iy < matrix1->columns; matrix1->iy++)
+          while (matrix1->iy < matrix1->columns && matrix2->iy < matrix2->columns)
           {
-            resultado->data[matrix1->ix][matrix1->iy] = (matrix1->data[matrix1->ix][matrix1->iy] + matrix2->data[matrix1->ix][matrix1->iy]);
+            resultado->data[matrix1->ix][matrix1->iy] = matrix1->data[matrix1->ix][matrix1->iy] + matrix2->data[matrix2->ix][matrix2->iy];
+            matrix1->iy++;
+            matrix2->iy += p;
           }
+          matrix1->ix++;
+          matrix2->ix += p;
         }
       }
     }
@@ -621,6 +626,7 @@ void ED1009 (void)
   ref_int_matrix Fmatrix1 = null;
   ref_int_matrix Fmatrix2 = null;
   ref_int_matrix resultado = null;
+  int constante = 0;
 
   // Apresentacao
   println ("ED1009");
@@ -630,6 +636,7 @@ void ED1009 (void)
   println ("");                  // Pular uma linha
 
   // Ler dados
+  constante = ReadPositiveInt("Forneca um valor inteiro para definir a constante: ");
   println ("Matrix 1: ");
   matrix1 = ReadIntMatrix();
   println ("\nMatrix 2: ");
@@ -658,7 +665,7 @@ void ED1009 (void)
     if (Fmatrix1 != null && Fmatrix2 != null)
     {
       // Calcular soma das matrizes
-      resultado = IntAddMatrix(Fmatrix1, Fmatrix2);
+      resultado = IntAddMatrix(Fmatrix1, Fmatrix2, constante);
 
       // Mostrar dados
       println ("Matriz 1-");
