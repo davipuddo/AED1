@@ -137,7 +137,6 @@ ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2, con
       }
       else
       {
-        resultado = IntNewMatrix(matrix1, matrix2);
         matrix2->ix = p-1;
         matrix2->iy = matrix2->ix;
         matrix1->ix = 0;

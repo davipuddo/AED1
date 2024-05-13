@@ -1,7 +1,7 @@
 //853355_AED1
 
-#include "../io.hpp"
-#include "../puddo.hpp"
+#include "io.hpp"
+#include "puddo.hpp"
 
 void ED0X01 (void)
 {

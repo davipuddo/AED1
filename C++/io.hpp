@@ -549,20 +549,7 @@ int IO_length ( char* text )
     return ( x );
 } // fim IO_length ( )
 
-/**
-    Funcao para obter simbolo de certa posicao 
-    em cadeia de caracteres.
-    @return simbolo, se existir; '\0', caso contrario
-    @param  text  - cadeia de caracteres
-    @param  index - posicao desejada
- */
-char IO_charAt ( char* text, unsigned int index )
-{
-    char x = '\0';
-    if ( text && 0 <= index && index < strlen(text) )
-    {  x = text [ index ]; }
-    return ( x );
-} // fim IO_charAt ( )
+
 
 /**
     Funcao para copiar parte de uma cadeia de caracteres.
