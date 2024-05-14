@@ -6,15 +6,23 @@
 void ED0X01 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  Array <int> int_array(5,0);
+
+  // Identificacao
   println ("ED0X01");
-  println ("");                  // Pular uma linha
-  println (" ");
-  println ("");                  // Pular uma linha
-    
-  // Ler dados
-  // Verificar dados
+
+  // Definir dados
+  int_array.set(0,1);
+  int_array.set(1,2);
+  int_array.set(2,3);
+  int_array.set(3,4);
+  int_array.set(4,5);
+
   // Mostrar dados
+  int_array.print();
+
+  // Liberar espaco da memoria
+  int_array.free();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -25,15 +33,19 @@ void ED0X01 (void)
 void ED0X02 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  Array <int> int_array(5,0);
+
+  // Identificacao
   println ("ED0X02");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Operacao
+  int_array.read();
+
   // Mostrar dados
+  int_array.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -44,15 +56,28 @@ void ED0X02 (void)
 void ED0X03 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  Array <int> int_array(5,0);
+
+  // Identificacao
   println ("ED0X03");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  int_array.read();
+
+  // Gravar dados no arquivo
+  int_array.fwrite("TESTE03.TXT");
+
+  // Ler dados gravados
+  int_array.fread("TESTE03.TXT");
+
   // Mostrar dados
+  int_array.print();
+
+  // Liberar espaco da memoria
+  int_array.free();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -63,15 +88,20 @@ void ED0X03 (void)
 void ED0X04 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  int other[] = {1,2,3,4,5};
+  Array <int> int_array(10, other);
+
+  // Identificacao
   println ("ED0X04");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
-    
-  // Ler dados
-  // Verificar dados
+  
   // Mostrar dados
+  int_array.print();
+
+  // Liberar espaco da memoria
+  int_array.free();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -82,15 +112,31 @@ void ED0X04 (void)
 void ED0X05 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  Array <int> int_array1(1, 0);
+
+  // Identificacao
   println ("ED0X05");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  int_array1.fread("TESTE03.TXT");
+
   // Mostrar dados
+  println ("Original-");
+  int_array1.print();
+
+  // Criar copia
+  Array <int> int_array2(int_array1);
+
+  // Mostrar dados
+  println ("Copia-");
+  int_array2.print();
+
+  // Liberar espaco da memoria
+  int_array1.free();
+  int_array2.free();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -101,15 +147,32 @@ void ED0X05 (void)
 void ED0X06 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  Array <int> int_array1 (1,0);
+  Array <int> int_array2 (1,0);
+
+  // Identificacao
   println ("ED0X06");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  int_array1.fread("TESTE03.TXT");
+
   // Mostrar dados
+  println ("Original-");
+  int_array1.print();
+
+  // Copiar dados
+  int_array2 = int_array1;
+
+  // Mostrar dados
+  println ("Copia-");
+  int_array2.print();
+
+  // Liberar espaco da memoria
+  int_array1.free();
+  int_array2.free();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -120,15 +183,44 @@ void ED0X06 (void)
 void ED0X07 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  int other[] = {1,2,3};
+  Array <int> int_array1 (3, other);
+  Array <int> int_array2 (3, other);
+
+  // Identificacao
   println ("ED0X07");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
-    
-  // Ler dados
-  // Verificar dados
+  
   // Mostrar dados
+  println ("");
+  println ("Array1-");
+  int_array1.print();
+
+  println ("Array2-");
+  int_array2.print();
+
+  // Mostar comparacao
+  std::cout << "Igualdade = " << (int_array1 == int_array2) << std::endl;
+
+  // Alterar dado
+  int_array2.set(0,(-1));
+
+  // Mostrar dados
+  println ("");
+  println ("Array1-");
+  int_array1.print();
+
+  println ("Array2-");
+  int_array2.print();
+
+  // Mostar comparacao
+  std::cout << "Igualdade = " << (int_array1 == int_array2) << std::endl;
+
+  // Liberar espaco da memoria
+  int_array1.free();
+  int_array2.free();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -139,7 +231,7 @@ void ED0X07 (void)
 void ED0X08 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  // Identificacao
   println ("ED0X08");
   println ("");                  // Pular uma linha
   println (" ");
@@ -158,7 +250,7 @@ void ED0X08 (void)
 void ED0X09 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  // Identificacao
   println ("ED0X09");
   println ("");                  // Pular uma linha
   println (" ");
@@ -177,7 +269,7 @@ void ED0X09 (void)
 void ED0X10 (void)
 {
   // Identificacao de dados
-  // Apresentacao
+  // Identificacao
   println ("ED0X10");
   println ("");                  // Pular uma linha
   println (" ");

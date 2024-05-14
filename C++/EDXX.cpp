@@ -3,6 +3,7 @@
 #include "io.hpp"
 #include "puddo.hpp"
 
+
 void ED0X01 (void)
 {
   // Identificacao de dados
@@ -13,7 +14,7 @@ void ED0X01 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  // Operacao
   // Mostrar dados
 
   // Fim
