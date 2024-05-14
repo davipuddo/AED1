@@ -1,7 +1,7 @@
 //853355_AED1
 
-#include "..\io.h"
-#include "..\puddo.h"
+#include "../io.h"
+#include "../puddo.h"
 
 /** Somar 2 arrays, onde o segundo e escalado por uma constante
  *  @param Array 1
