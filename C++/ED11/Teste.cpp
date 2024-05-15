@@ -296,7 +296,8 @@ void Teste09 (void)
 void Teste10 (void)
 {
   // Identificacao de dados
-  Matrix <int> matrix(4, 4, 0);
+  Matrix <int> matrix(3, 3, 0);
+  int x = 0;
 
   // Identificacao
   println ("Teste10");
@@ -308,6 +309,14 @@ void Teste10 (void)
   matrix.write();
 
   // Mostrar dados
+  println ("Matriz Normal- ");
+  matrix.print();
+
+  // Alterar valor na posicao 2:2 para 22
+  matrix.set(2,2,22);
+
+  // Mostar valor alterado
+  println ("Matriz Alterada- ");
   matrix.print();
 
   // Liberar matrix da memoria
