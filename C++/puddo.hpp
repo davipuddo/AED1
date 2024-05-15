@@ -69,6 +69,13 @@ int IntRandom (int x, int y)
   return (resultado);
 }
 
+void IntInvertValues(int *x, int *y)
+{
+  int tmp = *x;
+  *x = *y;
+  *y = tmp;
+}
+
 #ifndef _MYARRAY_HPP
 #define _MYARRAY_HPP
 
@@ -81,28 +88,6 @@ class Array
   T *data;
   
   public:
-  T addinterval (int inicio, int fim)
-  {
-    int x = 0;
-    if (inicio > fim)
-    {
-      int tmp = inicio;
-      inicio = fim;
-      fim = tmp;
-    }
-    if (inicio < 0 || fim > length)
-    {
-      println ("ERRO: Intervalo invalido. ");
-    }
-    else
-    {
-      for (int i = inicio+1; i < fim; i++)
-      {
-        x += this->data[i];
-      }
-    }
-    return (x);
-  }
 
   Array (int n, T initial)
   {
@@ -264,20 +249,15 @@ class Array
     return (value);
   }
 
-  void random (int inferior, int superior)
+  int getlength ()
   {
-    srand(time(0));
-    if (length <= 0)
-    {
-      println ("ERRO: Tamanho invalido. ");
-    }
-    else
-    {
-      for (int i = 0; i < length; i++)
-      {
-        data[i] = rand() % (superior - inferior + 1) + inferior;
-      }
-    }
+    return (length);
+  }
+
+  bool isValid ()
+  {
+    bool result = (data != nullptr && length > 0);
+    return (result);
   }
 
   void print ()
@@ -334,6 +314,22 @@ class Array
       }
     }
     file.close();
+  }
+
+  void random (int inferior, int superior)
+  {
+    srand(time(0));
+    if (length <= 0)
+    {
+      println ("ERRO: Tamanho invalido. ");
+    }
+    else
+    {
+      for (int i = 0; i < length; i++)
+      {
+        data[i] = rand() % (superior - inferior + 1) + inferior;
+      }
+    }
   }
 
   void even ()
@@ -429,6 +425,48 @@ class Array
     }
     return (resultado);    
   }
+
+  T addinterval (int inicio, int fim)
+  {
+    T result = 0;
+
+    if (inicio > fim)
+    {
+      IntInvertValues(&inicio, &fim);
+    }
+    if (inicio < 0 || fim > length)
+    {
+      println ("ERRO: Intervalo invalido. ");
+    }
+    else
+    {
+      for (int i = inicio; i < fim; i++)
+      {
+        result += this->data[i];
+      }
+    }
+    return (result);
+  }
+
+  double average(int inicio, int fim )
+  {
+    double result = 0.0;
+    if (inicio > fim) 
+    {
+      IntInvertValues(&inicio, &fim);
+    }
+    if (inicio < 0 || fim > length)
+    {
+      println ("ERRO: Intervalo invalido. ");
+    }
+    else
+    {
+      T soma = addinterval(inicio, fim);
+      result = ((double)soma / (double)((fim-inicio)));
+    }
+    return (result);
+  }
+
 };
 
 #endif

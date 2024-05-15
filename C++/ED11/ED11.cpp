@@ -3,8 +3,6 @@
 #include "../io.hpp"
 #include "../puddo.hpp"
 
-
-
 void ED1101 (void)
 {
   // Identificacao de dados
@@ -141,7 +139,7 @@ void ED1103 (void)
 void ED1104 (void)
 {
   // Identificacao de dados
-  Array <int> array(5,0);
+  Array <int> array(10,0);
   int inicio = 0;
   int fim = 0;
   int soma = 0;
@@ -155,33 +153,54 @@ void ED1104 (void)
   // Ler dados
   Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
 
-  // Dar valores aleatorios para o array
-  Farray.random(0, 30);
+  // Verificacao dos dados
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    // Dar valores aleatorios para o array
+    Farray.random(0, 30);
 
-  // Gravar array em um arquivo
-  Farray.fwrite("DADOS04.TXT");
+    // Verificacao dos dados
+    if (!Farray.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    // Gravar array em um arquivo
+    Farray.fwrite("DADOS04.TXT");
 
-  // Liberar array da memoria
-  Farray.free();
+    // Liberar array da memoria
+    Farray.free();
 
-  // Ler dados do arquivo
-  array.fread("DADOS04.TXT");
+    // Ler dados do arquivo
+    array.fread("DADOS04.TXT");
 
-  // Ler dados
-  inicio = ReadInt("Forneca um valor inteiro para definir a posicao inicial a ser somada: ");
-  fim = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser somada: ");
+    // Verificacao dos dados
+    if (!array.isValid())
+    {
+      println("(Array) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Ler dados
+      inicio = ReadInt("Forneca um valor inteiro para definir a posicao inicial a ser somada: ");
+      fim = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser somada: ");
 
-  // Somar valores do intervalo dado
-  soma = array.addinterval(inicio, fim);
+      // Somar valores do intervalo dado
+      soma = array.addinterval(inicio, fim);
 
-  // Mostrar dados
-  println ("Array- ");
-  array.print();
-  println ("Soma- ");
-  std::cout << soma << std::endl;
+      // Mostrar dados
+      println ("Array- ");
+      array.print();
+      println ("Soma- ");
+      std::cout << soma << std::endl;
 
-  // Liberar array da memoria
-  array.free();
+      // Liberar array da memoria
+      array.free();
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -192,6 +211,11 @@ void ED1104 (void)
 void ED1105 (void)
 {
   // Identificacao de dados
+  Array <int> array(10, 0);
+  double media = 0.0;
+  int inicio = 0;
+  int fim = 0;
+
   // Apresentacao
   println ("ED1105");
   println ("");                  // Pular uma linha
@@ -199,8 +223,59 @@ void ED1105 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  Array <int> Farray(ReadPositiveInt("Forneca um valor para definir o tamanho do array: "), 0);
+
+  // Verificacao dos dados
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    // Dar valores aleatorios para o array
+    Farray.random(0, 30);
+
+    // Verificacao dos dados
+    if (!Farray.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Gravar dados em um arquivo
+      Farray.fwrite("DADOS05.TXT");
+
+      // Liberar array da memoria
+      Farray.free();
+
+      // Ler dados do arquivo
+      array.fread("DADOS05.TXT");
+
+      // Verificacao dos dados
+      if (!array.isValid())
+      {
+        println ("(array) ERRO: Dados invalidos.  ");
+      }
+      else
+      {
+        // Ler intervalo
+        inicio = ReadInt("Forneca um valor inteiro para definir a posicao inicial a ser somada: ");
+        fim = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser somada: ");
+
+        // Descobrir media
+        media = array.average(inicio, fim);
+        
+        // Mostrar dados
+        println ("Array- ");
+        array.print();
+        println ("Media- ");
+        std::cout << media << std::endl;
+
+        // Liberar array da memoria
+        array.free();
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
