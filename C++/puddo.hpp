@@ -51,7 +51,6 @@ int ReadInt (std::string text)
   return (x);
 }
 
-
 int ReadPositiveInt (std::string text)
 {
   int x = 0;
@@ -408,5 +407,113 @@ class Array
     return (resultado);    
   }
 };
+#endif
 
+#ifndef _MYMATRIX_HPP
+#define _MYMATRIX_HPP
+
+template <typename T>
+class Matrix
+{
+  private:
+  int rows;
+  int columns;
+  T optional;
+  T **data;
+
+  public:
+  Matrix (int r, int c, T initial)
+  {
+    optional = initial;
+    rows = 0;
+    columns = 0;
+    data = nullptr;
+    if (r > 0 && c > 0)
+    {
+      rows = r;
+      columns = c;
+      data = (int**)malloc(r*sizeof(int*));
+      for (int i = 0; i < this->rows; i++)
+      {
+        data[i] = new T[columns];
+      }
+    }
+  }
+
+  Matrix ()
+  {
+    rows = 0;
+    columns = 0;
+    data = nullptr;
+  }
+
+  void set(int r, int c, int value)
+  {
+    if (r >= 0 && r < rows && c >= 0 && c < columns)
+    {
+      data[r][c] = value;
+    }
+  }
+
+  T get (int r, int c)
+  {
+    T x = optional;
+    if (r >= 0 && r < rows && c >= 0 && c < columns)
+    {
+      x = data[r][c];
+    }
+  }
+
+  void write()
+  {
+    println ("");
+    if (rows <= 0 && columns <= 0)
+    {
+      println ("ERRO: Dimensoes invalidas. ");
+    }
+    else
+    {
+      for (int r = 0; r < rows; r++)
+      {
+        for (int c = 0; c < columns; c++)
+        {
+          std::cout << std::setw(3) << r << "," << c << ":" << std::setw(3);
+          std::cin >> data[r][c]; 
+        }
+      }
+    }
+  }
+
+  void print()
+  {
+    println ("");
+    if (data == nullptr)
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      if (rows > 0 && columns > 0)
+      {
+        for (int x = 0; x < rows; x++)
+        {
+          for (int y = 0; y < columns; y++)
+          {
+            std::cout << std::setw(3) << data[x][y] << " ";
+          }
+          std::cout << std::endl;
+        } 
+      }
+    }
+  }
+
+  void free()
+  {
+    if (data != nullptr)
+    {
+      delete(data);
+      data = nullptr;
+    }
+  }
+};
 #endif

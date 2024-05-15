@@ -296,6 +296,8 @@ void ED0X09 (void)
 void ED0X10 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix(4, 4, 0);
+
   // Identificacao
   println ("ED0X10");
   println ("");                  // Pular uma linha
@@ -303,8 +305,13 @@ void ED0X10 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  matrix.write();
+
   // Mostrar dados
+  matrix.print();
+
+  // Liberar matrix da memoria
+  matrix.free();
 
   // Fim
   println ("");                  // Pular uma linha
