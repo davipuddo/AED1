@@ -18,11 +18,17 @@
 #include <time.h>      // para medir tempo
 #include <iomanip>
 
+/** Mostrar uma cadeia de caracteres e pular uma linha
+ *  @param Texto a ser mostrado
+*/
 void println (std::string text)
 {
     std::cout << text << std::endl;
 }
 
+/** Pausar execucao do programa
+ *  @param Texto a ser mostrado
+*/
 void pause (std::string text)
 {
     std::string dummy;
@@ -31,6 +37,19 @@ void pause (std::string text)
     std::cin.ignore();
     std::getline(std::cin, dummy);
     std::cout << std::endl << std::endl;
+}
+
+/** Ler um valor inteiro
+ *  @param Texto a ser mostrado
+ *  @returns Valor inteiro
+*/
+int ReadInt (std::string text)
+{
+  int x = 0;
+  println (text);
+  std::cin >> x;
+  getchar( );
+  return (x);
 }
 
 int IntRandom (int x, int y)
@@ -167,17 +186,17 @@ class Array
     return (resultado);
   }
 
-  T& operator[] (const int postition)
+  T& operator[] (const int position)
   {
     static T value = optional;
 
-    if (position <= 0 || length <= postition)
+    if (position <= 0 || length <= position)
     {
       println ("ERRO: Posicao invalida. ");
     }
     else
     {
-      value = data[postition];
+      value = data[position];
     }
     return (value);
   }
@@ -211,10 +230,9 @@ class Array
     return (value);
   }
 
-  T random (int x, int y)
+  void random (int inferior, int superior)
   {
     srand(time(0));
-    static T resultado = 0;
     if (length <= 0)
     {
       println ("ERRO: Tamanho invalido. ");
@@ -223,7 +241,7 @@ class Array
     {
       for (int i = 0; i < length; i++)
       {
-        data[i] = rand() % 
+        data[i] = rand() % (superior - inferior + 1) + inferior;
       }
     }
   }
@@ -238,7 +256,7 @@ class Array
     println ("");
   }
 
-  void read ()
+  void write ()
   {
     println("");
     for (int x = 0; x < length; x++)
