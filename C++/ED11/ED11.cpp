@@ -56,10 +56,13 @@ void ED1102 (void)
   // Ler dados
   size = ReadInt("Forneca o tamanho do array: ");
 
+  // Verificar tamanho
   if (size > 0)
   {
+    // Inicializar array
     Array <int> array(size, 0);
 
+    // Ler dados
     array.write();
 
     // Gravar array em um arquivo
@@ -102,9 +105,13 @@ void ED1103 (void)
   // Ler dados
   size = ReadInt("Forneca o tamanho do array: ");
 
+  // Verificar tamanho
   if (size > 0)
   {
+    // Inicializar array
     Array <int> array(size, 0);
+
+    // Ler dados
     array.write();
 
     // Gravar dados no arquivo
