@@ -279,23 +279,23 @@ class Array
 
   void fwrite (std::string fileName)
   {
-    std::ofstream afile;
+    std::ofstream file;
 
-    afile.open (fileName);
-    afile << length << std::endl;
+    file.open (fileName);
+    file << length << std::endl;
     for (int i = 0; i < length; i++)
     {
-      afile << data[i] << std::endl;
+      file << data[i] << std::endl;
     }
-    afile.close();
+    file.close();
   }
 
   void fread (std::string fileName)
   {
     int n = 0;
-    std::ifstream afile;
-    afile.open (fileName);
-    afile >> n;
+    std::ifstream file;
+    file.open (fileName);
+    file >> n;
     if (n <= 0)
     {
       println ("ERRO: Tamanho invalido. ");
@@ -307,10 +307,10 @@ class Array
 
       for (int i = 0; i < length; i++)
       {
-        afile >> data[i];
+        file >> data[i];
       }
     }
-    afile.close();
+    file.close();
   }
 
   void even ()
