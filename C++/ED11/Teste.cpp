@@ -42,7 +42,7 @@ void ED0X02 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  int_array.read();
+  int_array.write();
 
   // Mostrar dados
   int_array.print();
@@ -65,7 +65,7 @@ void ED0X03 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  int_array.read();
+  int_array.write();
 
   // Gravar dados no arquivo
   int_array.fwrite("TESTE03.TXT");
@@ -242,8 +242,8 @@ void ED0X08 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  int_array1.read();
-  int_array2.read();
+  int_array1.write();
+  int_array2.write();
 
   // Somar
   int_array3 = int_array1 + int_array2;
@@ -265,6 +265,8 @@ void ED0X08 (void)
 void ED0X09 (void)
 {
   // Identificacao de dados
+  Array <int> array(5, 0);
+
   // Identificacao
   println ("ED0X09");
   println ("");                  // Pular uma linha
@@ -272,8 +274,18 @@ void ED0X09 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  array.write();
+
   // Mostrar dados
+  println ("Normal-");
+  array.print();
+
+  // Encontrar valores pares
+  array.even();
+
+  // Mostrar dados
+  println ("Pares-");
+  array.print();
 
   // Fim
   println ("");                  // Pular uma linha

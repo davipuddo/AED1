@@ -4,7 +4,7 @@
 #include "../puddo.hpp"
 
 
-void ED0X01 (void)
+void ED1101 (void)
 {
   // Identificacao de dados
   Array <int> array(5, 0);
@@ -12,7 +12,7 @@ void ED0X01 (void)
   int superior = 0;
 
   // Apresentacao
-  println ("ED0X01");
+  println ("ED1101");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -40,22 +40,39 @@ void ED0X01 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X02 (void)
+void ED1102 (void)
 {
   // Identificacao de dados
-  Array <int> array(5, 0);
+  Array <int> Farray(10, 0);
+  int x = 0;
 
   // Apresentacao
-  println ("ED0X02");
+  println ("ED1102");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
   // Ler dados
+  Array <int> array(ReadInt("Forneca o tamanho do array: "), 0);
+
   array.write();
-  
+
+  // Gravar array em um arquivo
+  array.fwrite("DADOS02.TXT");
+
+  // Liberar array da memoria
+  array.free();
+
+  // Ler array do arquivo
+  Farray.fread("DADOS02.TXT");
+
   // Operacao
+  Farray.even();
+  x = Farray.biggest();
+
   // Mostrar dados
+  println ("");
+  std::cout << x << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -63,11 +80,11 @@ void ED0X02 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X03 (void)
+void ED1103 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X03");
+  println ("ED1103");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -82,11 +99,11 @@ void ED0X03 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X04 (void)
+void ED1104 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X04");
+  println ("ED1104");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -101,11 +118,11 @@ void ED0X04 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X05 (void)
+void ED1105 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X05");
+  println ("ED1105");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -120,11 +137,11 @@ void ED0X05 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X06 (void)
+void ED1106 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X06");
+  println ("ED1106");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -139,11 +156,11 @@ void ED0X06 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X07 (void)
+void ED1107 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X07");
+  println ("ED1107");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -158,11 +175,11 @@ void ED0X07 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X08 (void)
+void ED1108 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X08");
+  println ("ED1108");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -177,11 +194,11 @@ void ED0X08 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X09 (void)
+void ED1109 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X09");
+  println ("ED1109");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -196,11 +213,11 @@ void ED0X09 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X10 (void)
+void ED1110 (void)
 {
   // Identificacao de dados
   // Apresentacao
-  println ("ED0X10");
+  println ("ED1110");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -227,7 +244,7 @@ int main (void)
 
       // Identificacao
       println ("");              // Pular uma linha
-      println ("ED0X - v0.0 - 00/00/00" );
+      println ("ED11 - v0.0 - 00/00/00" );
       println ("853355_AED1 - Davi Puddo");
       println ("");              // Pular uma linha
 
@@ -235,11 +252,11 @@ int main (void)
       println ("Exercicios: ");
       println ("");              // Pular uma linha
       println ("0 - sair");
-      println ("1 - ED0X01   2 - ED0X02");
-      println ("3 - ED0X03   4 - ED0X04");
-      println ("5 - ED0X05   6 - ED0X06");
-      println ("7 - ED0X07   8 - ED0X08");
-      println ("9 - ED0X09  10 - ED0X10");
+      println ("1 - ED1101   2 - ED1102");
+      println ("3 - ED1103   4 - ED1104");
+      println ("5 - ED1105   6 - ED1106");
+      println ("7 - ED1107   8 - ED1108");
+      println ("9 - ED1109  10 - ED1110");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -252,25 +269,25 @@ int main (void)
         {
           case 0:
             break;
-          case 1:  ED0X01();
+          case 1:  ED1101();
             break;
-          case 2:  ED0X02();
+          case 2:  ED1102();
             break;
-          case 3:  ED0X03();
+          case 3:  ED1103();
             break;
-          case 4:  ED0X04();
+          case 4:  ED1104();
             break;
-          case 5:  ED0X05();
+          case 5:  ED1105();
             break;
-          case 6:  ED0X06();
+          case 6:  ED1106();
             break;
-          case 7:  ED0X07();
+          case 7:  ED1107();
             break;
-          case 8:  ED0X08();
+          case 8:  ED1108();
             break;
-          case 9:  ED0X09();
+          case 9:  ED1109();
             break;
-          case 10: ED0X10();
+          case 10: ED1110();
             break;
           default: 
               println ("");                // Pular uma linha
@@ -289,6 +306,6 @@ int main (void)
 
 /*
     Versao      Data        Teste      Modificacoes
-    0.0         00/00/00    (OK)       Criacao do arquivo ED0X e seus metodos
+    0.0         00/00/00    (OK)       Criacao do arquivo ED11 e seus metodos
 
 */

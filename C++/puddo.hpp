@@ -301,6 +301,87 @@ class Array
     }
     afile.close();
   }
+
+  void even ()
+  {
+    Array <T> tmpArray(this->length, 0);
+    if (length <= 0)
+    {
+      println ("ERRO: Tamanho invalido. ");
+    }
+    else
+    {
+      int c = 0;
+      for (int i = 0; i < this->length; i++)
+      {
+        if (this->data[i] % 2 == 0)
+        {
+          tmpArray.data[c] = this->data[i];
+          c++;
+        }
+      }
+      if (c <= 0)
+      {
+        println ("Nenhum valor par foi encontrado no arranjo. ");
+      }
+      else
+      {
+        this->length = c;
+        for (int i = 0; i < this->length; i++)
+        {
+          this->data[i] = tmpArray.data[i];
+        }
+      }
+      tmpArray.free();
+    }
+  }
+
+  void odd ()
+  {
+    Array <T> tmpArray(this->length, 0);
+    if (length <= 0)
+    {
+      println ("ERRO: Tamanho invalido. ");
+    }
+    else
+    {
+      int c = 0;
+      for (int i = 0; i < this->length; i++)
+      {
+        if (this->data[i] % 2 != 0)
+        {
+          tmpArray.data[c] = this->data[i];
+          c++;
+        }
+      }
+      if (c <= 0)
+      {
+        println ("Nenhum valor par foi encontrado no arranjo. ");
+      }
+      else
+      {
+        this->length = c;
+        for (int i = 0; i < this->length; i++)
+        {
+          this->data[i] = tmpArray.data[i];
+        }
+      }
+      tmpArray.free();
+    }
+  }
+
+  T biggest ()
+  {
+    T resultado = this->data[0];
+    for (int i = 0; i < this->length; i++)
+    {
+      if (resultado < this->data[i])
+      {
+        resultado = this->data[i];
+      }
+    }
+    return (resultado);    
+  }
 };
 
 #endif
