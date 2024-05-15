@@ -52,6 +52,19 @@ int ReadInt (std::string text)
   return (x);
 }
 
+
+int ReadPositiveInt (std::string text)
+{
+  int x = 0;
+  do
+  { 
+    println (text);
+    std::cin >> x;
+    getchar();
+  } while (x <= 0);
+  return (x);
+}
+
 int IntRandom (int x, int y)
 {
   int resultado = rand() % x + y;
@@ -376,6 +389,19 @@ class Array
     for (int i = 0; i < this->length; i++)
     {
       if (resultado < this->data[i])
+      {
+        resultado = this->data[i];
+      }
+    }
+    return (resultado);    
+  }
+
+  T smallest ()
+  {
+    T resultado = this->data[0];
+    for (int i = 0; i < this->length; i++)
+    {
+      if (resultado > this->data[i])
       {
         resultado = this->data[i];
       }

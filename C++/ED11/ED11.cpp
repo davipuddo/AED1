@@ -45,6 +45,7 @@ void ED1102 (void)
   // Identificacao de dados
   Array <int> Farray(10, 0);
   int x = 0;
+  int size = 0;
 
   // Apresentacao
   println ("ED1102");
@@ -53,26 +54,31 @@ void ED1102 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  Array <int> array(ReadInt("Forneca o tamanho do array: "), 0);
+  size = ReadInt("Forneca o tamanho do array: ");
 
-  array.write();
+  if (size > 0)
+  {
+    Array <int> array(size, 0);
 
-  // Gravar array em um arquivo
-  array.fwrite("DADOS02.TXT");
+    array.write();
 
-  // Liberar array da memoria
-  array.free();
+    // Gravar array em um arquivo
+    array.fwrite("DADOS02.TXT");
 
-  // Ler array do arquivo
-  Farray.fread("DADOS02.TXT");
+    // Liberar array da memoria
+    array.free();
 
-  // Operacao
-  Farray.even();
-  x = Farray.biggest();
+    // Ler array do arquivo
+    Farray.fread("DADOS02.TXT");
 
-  // Mostrar dados
-  println ("");
-  std::cout << x << std::endl;
+    // Operacao
+    Farray.even();
+    x = Farray.biggest();
+
+    // Mostrar dados
+    println ("");
+    std::cout << x << std::endl;
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -83,6 +89,10 @@ void ED1102 (void)
 void ED1103 (void)
 {
   // Identificacao de dados
+  Array <int> Farray(10, 0);
+  int x = 0;
+  int size = 0;
+
   // Apresentacao
   println ("ED1103");
   println ("");                  // Pular uma linha
@@ -90,9 +100,30 @@ void ED1103 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  size = ReadInt("Forneca o tamanho do array: ");
 
+  if (size > 0)
+  {
+    Array <int> array(size, 0);
+    array.write();
+
+    // Gravar dados no arquivo
+    array.fwrite("DADOS03.TXT");
+
+    // Liberar array da memoria
+    array.free();
+
+    // Ler dados do arquivo
+    Farray.fread("DADOS03.TXT");
+
+    // Encontrar menor valor impar
+    Farray.odd();
+    x = Farray.smallest();
+
+    // Mostrar dados
+    println ("");
+    std::cout << x << std::endl;
+  }
   // Fim
   println ("");                  // Pular uma linha
   println ("");                  // Pular uma linha
