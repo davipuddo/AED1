@@ -432,7 +432,7 @@ class Matrix
     {
       rows = r;
       columns = c;
-      data = (int**)malloc(r*sizeof(int*));
+      data = new T*[rows];
       for (int i = 0; i < this->rows; i++)
       {
         data[i] = new T[columns];
