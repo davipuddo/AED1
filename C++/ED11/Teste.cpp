@@ -231,6 +231,10 @@ void ED0X07 (void)
 void ED0X08 (void)
 {
   // Identificacao de dados
+  Array <int> int_array1(5,0);
+  Array <int> int_array2(5,0);
+  Array <int> int_array3(5,0);
+
   // Identificacao
   println ("ED0X08");
   println ("");                  // Pular uma linha
@@ -238,8 +242,19 @@ void ED0X08 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  int_array1.read();
+  int_array2.read();
+
+  // Somar
+  int_array3 = int_array1 + int_array2;
+
   // Mostrar dados
+  println ("Array1-");
+  int_array1.print();
+  println ("Array2-");
+  int_array2.print();
+  println ("Soma: ");
+  int_array3.print();
 
   // Fim
   println ("");                  // Pular uma linha

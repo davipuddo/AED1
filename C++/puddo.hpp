@@ -33,6 +33,12 @@ void pause (std::string text)
     std::cout << std::endl << std::endl;
 }
 
+int IntRandom (int x, int y)
+{
+  int resultado = rand() % x + y;
+  return (resultado);
+}
+
 #ifndef _MYARRAY_HPP
 #define _MYARRAY_HPP
 
@@ -137,6 +143,45 @@ class Array
     return (resultado);
   }
 
+  Array& operator+ (const Array <T> other)
+  {
+    static Array <int> resultado (other);
+    if (other.length <= 0)
+    {
+      println ("ERRO: Falta dados. ");
+    }
+    else
+    {
+      if (other.length != this->length)
+      {
+        println ("ERRO: Os arrays sao incompativeis. ");
+      }
+      else
+      {
+        for (int i = 0; i < this->length; i++)
+        {
+          resultado.data[i] += this->data[i];
+        }
+      }
+    }
+    return (resultado);
+  }
+
+  T& operator[] (const int postition)
+  {
+    static T value = optional;
+
+    if (position <= 0 || length <= postition)
+    {
+      println ("ERRO: Posicao invalida. ");
+    }
+    else
+    {
+      value = data[postition];
+    }
+    return (value);
+  }
+
   void free()
   {
     if (data != nullptr)
@@ -166,14 +211,31 @@ class Array
     return (value);
   }
 
+  T random (int x, int y)
+  {
+    srand(time(0));
+    static T resultado = 0;
+    if (length <= 0)
+    {
+      println ("ERRO: Tamanho invalido. ");
+    }
+    else
+    {
+      for (int i = 0; i < length; i++)
+      {
+        data[i] = rand() % 
+      }
+    }
+  }
+
   void print ()
   {
-    std::cout << std::endl;
+    println ("");
     for (int i = 0; i < length; i++)
     {
       std::cout << std::setw(3) << i << ":" << std::setw(9) << data[i] << std::endl;
     }
-    std::cout << std::endl;
+    println ("");
   }
 
   void read ()
