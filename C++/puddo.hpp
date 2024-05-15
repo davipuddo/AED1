@@ -81,6 +81,29 @@ class Array
   T *data;
   
   public:
+  T addinterval (int inicio, int fim)
+  {
+    int x = 0;
+    if (inicio > fim)
+    {
+      int tmp = inicio;
+      inicio = fim;
+      fim = tmp;
+    }
+    if (inicio < 0 || fim > length)
+    {
+      println ("ERRO: Intervalo invalido. ");
+    }
+    else
+    {
+      for (int i = inicio+1; i < fim; i++)
+      {
+        x += this->data[i];
+      }
+    }
+    return (x);
+  }
+
   Array (int n, T initial)
   {
     optional = initial;
@@ -407,6 +430,7 @@ class Array
     return (resultado);    
   }
 };
+
 #endif
 
 #ifndef _MYMATRIX_HPP

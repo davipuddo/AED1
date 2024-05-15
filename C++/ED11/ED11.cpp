@@ -4,6 +4,7 @@
 #include "../puddo.hpp"
 
 
+
 void ED1101 (void)
 {
   // Identificacao de dados
@@ -54,7 +55,7 @@ void ED1102 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  size = ReadInt("Forneca o tamanho do array: ");
+  size = ReadPositiveInt("Forneca o tamanho do array: ");
 
   // Verificar tamanho
   if (size > 0)
@@ -103,7 +104,7 @@ void ED1103 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  size = ReadInt("Forneca o tamanho do array: ");
+  size = ReadPositiveInt("Forneca o tamanho do array: ");
 
   // Verificar tamanho
   if (size > 0)
@@ -140,6 +141,11 @@ void ED1103 (void)
 void ED1104 (void)
 {
   // Identificacao de dados
+  Array <int> array(5,0);
+  int inicio = 0;
+  int fim = 0;
+  int soma = 0;
+
   // Apresentacao
   println ("ED1104");
   println ("");                  // Pular uma linha
@@ -147,8 +153,35 @@ void ED1104 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
+
+  // Dar valores aleatorios para o array
+  Farray.random(0, 30);
+
+  // Gravar array em um arquivo
+  Farray.fwrite("DADOS04.TXT");
+
+  // Liberar array da memoria
+  Farray.free();
+
+  // Ler dados do arquivo
+  array.fread("DADOS04.TXT");
+
+  // Ler dados
+  inicio = ReadInt("Forneca um valor inteiro para definir a posicao inicial a ser somada: ");
+  fim = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser somada: ");
+
+  // Somar valores do intervalo dado
+  soma = array.addinterval(inicio, fim);
+
   // Mostrar dados
+  println ("Array- ");
+  array.print();
+  println ("Soma- ");
+  std::cout << soma << std::endl;
+
+  // Liberar array da memoria
+  array.free();
 
   // Fim
   println ("");                  // Pular uma linha
