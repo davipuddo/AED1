@@ -3,13 +3,13 @@
 #include "../io.hpp"
 #include "../puddo.hpp"
 
-void ED0X01 (void)
+void Teste01 (void)
 {
   // Identificacao de dados
   Array <int> int_array(5,0);
 
   // Identificacao
-  println ("ED0X01");
+  println ("Teste01");
 
   // Definir dados
   int_array.set(0,1);
@@ -30,13 +30,13 @@ void ED0X01 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X02 (void)
+void Teste02 (void)
 {
   // Identificacao de dados
   Array <int> int_array(5,0);
 
   // Identificacao
-  println ("ED0X02");
+  println ("Teste02");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -53,13 +53,13 @@ void ED0X02 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X03 (void)
+void Teste03 (void)
 {
   // Identificacao de dados
   Array <int> int_array(5,0);
 
   // Identificacao
-  println ("ED0X03");
+  println ("Teste03");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -85,14 +85,14 @@ void ED0X03 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X04 (void)
+void Teste04 (void)
 {
   // Identificacao de dados
   int other[] = {1,2,3,4,5};
   Array <int> int_array(10, other);
 
   // Identificacao
-  println ("ED0X04");
+  println ("Teste04");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -109,13 +109,13 @@ void ED0X04 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X05 (void)
+void Teste05 (void)
 {
   // Identificacao de dados
   Array <int> int_array1(1, 0);
 
   // Identificacao
-  println ("ED0X05");
+  println ("Teste05");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -144,14 +144,14 @@ void ED0X05 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X06 (void)
+void Teste06 (void)
 {
   // Identificacao de dados
   Array <int> int_array1 (1,0);
   Array <int> int_array2 (1,0);
 
   // Identificacao
-  println ("ED0X06");
+  println ("Teste06");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -180,7 +180,7 @@ void ED0X06 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X07 (void)
+void Teste07 (void)
 {
   // Identificacao de dados
   int other[] = {1,2,3};
@@ -188,7 +188,7 @@ void ED0X07 (void)
   Array <int> int_array2 (3, other);
 
   // Identificacao
-  println ("ED0X07");
+  println ("Teste07");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -228,7 +228,7 @@ void ED0X07 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X08 (void)
+void Teste08 (void)
 {
   // Identificacao de dados
   Array <int> int_array1(5,0);
@@ -236,7 +236,7 @@ void ED0X08 (void)
   Array <int> int_array3(5,0);
 
   // Identificacao
-  println ("ED0X08");
+  println ("Teste08");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -262,13 +262,13 @@ void ED0X08 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X09 (void)
+void Teste09 (void)
 {
   // Identificacao de dados
   Array <int> array(5, 0);
 
   // Identificacao
-  println ("ED0X09");
+  println ("Teste09");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -293,13 +293,13 @@ void ED0X09 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X10 (void)
+void Teste10 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix(4, 4, 0);
 
   // Identificacao
-  println ("ED0X10");
+  println ("Teste10");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -331,7 +331,7 @@ int main (void)
 
       // Identificacao
       println ("");              // Pular uma linha
-      println ("ED0X - v0.0 - 00/00/00" );
+      println ("Teste - v0.0 - 00/00/00" );
       println ("853355_AED1 - Davi Puddo");
       println ("");              // Pular uma linha
 
@@ -339,11 +339,11 @@ int main (void)
       println ("Exercicios: ");
       println ("");              // Pular uma linha
       println ("0 - sair");
-      println ("1 - ED0X01   2 - ED0X02");
-      println ("3 - ED0X03   4 - ED0X04");
-      println ("5 - ED0X05   6 - ED0X06");
-      println ("7 - ED0X07   8 - ED0X08");
-      println ("9 - ED0X09  10 - ED0X10");
+      println ("1 - Teste01   2 - Teste02");
+      println ("3 - Teste03   4 - Teste04");
+      println ("5 - Teste05   6 - Teste06");
+      println ("7 - Teste07   8 - Teste08");
+      println ("9 - Teste09  10 - Teste10");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -356,25 +356,25 @@ int main (void)
         {
           case 0:
             break;
-          case 1:  ED0X01();
+          case 1:  Teste01();
             break;
-          case 2:  ED0X02();
+          case 2:  Teste02();
             break;
-          case 3:  ED0X03();
+          case 3:  Teste03();
             break;
-          case 4:  ED0X04();
+          case 4:  Teste04();
             break;
-          case 5:  ED0X05();
+          case 5:  Teste05();
             break;
-          case 6:  ED0X06();
+          case 6:  Teste06();
             break;
-          case 7:  ED0X07();
+          case 7:  Teste07();
             break;
-          case 8:  ED0X08();
+          case 8:  Teste08();
             break;
-          case 9:  ED0X09();
+          case 9:  Teste09();
             break;
-          case 10: ED0X10();
+          case 10: Teste10();
             break;
           default: 
               println ("");                // Pular uma linha
@@ -393,6 +393,6 @@ int main (void)
 
 /*
     Versao      Data        Teste      Modificacoes
-    0.0         00/00/00    (OK)       Criacao do arquivo ED0X e seus metodos
+    0.0         00/00/00    (OK)       Criacao do arquivo Teste e seus metodos
 
 */
