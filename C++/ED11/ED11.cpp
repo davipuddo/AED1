@@ -365,37 +365,49 @@ void ED1107 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
+  // Ler tamanho do array
   Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
 
+  // Verificar se o tamanho do array e valido
   if (Farray.getlength() <= 0)
   {
     println ("(Farray) ERRO: Tamanho invalido. ");
   }
   else
   {
+    // Ler dados para o array
     Farray.write();
 
+    // Checar dados
     if (!Farray.isValid())
     {
       println ("(Farray) ERRO: Dados invalidos. ");
     }
     else
     {
+      // Escrever dados no arquivo
       Farray.fwrite("DADOS07.TXT");
 
+      // Liberar array da memoria
       Farray.free();
 
+      // Ler dados do arquivo
       array.fread("DADOS07.TXT");
 
+      // Checar dados
       if (!array.isValid())
       {
         println ("(array) ERRO: Dados invalidos. ");
       }
       else
       {
+        // Verificar se o arranjo esta em ordem crescente
         resultado = array.CheckAscending();
 
+        // Liberar array da memoria
+        array.free();
+
+        // Mostrar dados
         if (resultado == 1)
         {
           println ("O array esta em ordem crescente. ");
@@ -407,8 +419,6 @@ void ED1107 (void)
       }
     }
   }
-  // Verificar dados
-  // Mostrar dados
 
   // Fim
   println ("");                  // Pular uma linha
