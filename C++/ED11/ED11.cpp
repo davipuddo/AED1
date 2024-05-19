@@ -344,8 +344,6 @@ void ED1106 (void)
       }
     }
   }
-  // Verificar dados
-  // Mostrar dados
 
   // Fim
   println ("");                  // Pular uma linha
@@ -508,15 +506,65 @@ void ED1108 (void)
 void ED1109 (void)
 {
   // Identificacao de dados
+  Array <int> array(10, 0);
+  int constante = 0;
+  int inicio = 0;
+  int fim = 0 ;
+
   // Apresentacao
   println ("ED1109");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler tamanho do array
+  Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
+
+  // Verificar tamanho do array
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    // Ler dados para o array
+    Farray.write();
+    
+    if (!Farray.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever dados no arquivo
+      Farray.fwrite("DADOS09.TXT");
+
+      // Liberar array da memoria
+      Farray.free();
+
+      // Ler dados do arquivo
+      array.fread("DADOS09.TXT");
+
+      // Checar dados
+      if (!array.isValid())
+      {
+        println ("(array) ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Ler dados
+        inicio = ReadInt("Forneca um valor inteiro para definir a posicao inicial a ser escalada: ");
+        fim = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser escalada: ");
+        constante = ReadPositiveInt("Forneca um valor inteiro para definir o escalamento do array: ");
+
+        // Mostrar dados
+        array.PrintConstScalingInterval(constante, inicio, fim);
+
+        // Liberar array da memoria
+        array.free();       
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -527,6 +575,8 @@ void ED1109 (void)
 void ED1110 (void)
 {
   // Identificacao de dados
+  Array <int> array(10, 0);
+
   // Apresentacao
   println ("ED1110");
   println ("");                  // Pular uma linha
@@ -534,8 +584,64 @@ void ED1110 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array. "), 0);
+
+  // Verificar tamanho do array
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    // Ler valores para o array
+    Farray.write();
+
+    if (!array.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever dados no arquivo
+      Farray.fwrite("DADOS10.TXT");
+
+      // Liberar espaco da memoria
+      Farray.free();
+
+      // Ler dados do arquivo
+      array.fread("DADOS10.TXT");
+
+      // Checar dados
+      if (!array.isValid())
+      {
+        println ("(array) ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Verificar se o array esta em ordem decrescente
+        if (array.CheckDescending() == 1)
+        {
+          println ("O array ja esta em ordem decresc1ente. ");
+        }
+        else
+        {
+          // Mostrar array original
+          println ("Array original- ");
+          array.print();
+
+          // Colocar em ordem decrescente
+          array.descend();
+
+          // Mostrar array em ordem decrescente
+          println ("Array decrescente- ");
+          array.print();
+
+          // Liberar array da memoria
+          array.free();
+        }
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha

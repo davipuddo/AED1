@@ -166,7 +166,7 @@ class Array
     int i = 0;
     if (other.length == 0 || length != other.length)
     {
-      println ("ERRO: Dado invalido. ");
+      println ("ERRO: Tamanho invalido. ");
     }
     else
     {
@@ -336,18 +336,22 @@ class Array
    *  @param Intervalo inferior
    *  @param Intervalo superior
   */
-  void random (int inferior, int superior)
+  void random (int initial, int final)
   {
-    srand(time(0));
-    if (length <= 0)
+    if (initial > final)
+    {
+      IntInvertValues(&initial, &final);
+    }
+    if (initial <= 0 || final > (length-1))
     {
       println ("ERRO: Tamanho invalido. ");
     }
     else
     {
+      srand(time(0));
       for (int i = 0; i < length; i++)
       {
-        data[i] = rand() % (superior - inferior + 1) + inferior;
+        data[i] = rand() % (final - initial + 1) + initial;
       }
     }
   }
@@ -357,9 +361,9 @@ class Array
   void even ()
   {
     Array <T> tmpArray(this->length, 0);
-    if (length <= 0)
+    if (!tmpArray.isValid())
     {
-      println ("ERRO: Tamanho invalido. ");
+      println ("(even) ERRO: Falta de espaco. ");
     }
     else
     {
@@ -393,9 +397,9 @@ class Array
   void odd ()
   {
     Array <T> tmpArray(this->length, 0);
-    if (length <= 0)
+    if (!tmpArray.isValid())
     {
-      println ("ERRO: Tamanho invalido. ");
+      println ("(odd) ERRO: Falta de espaco. ");
     }
     else
     {
@@ -469,7 +473,7 @@ class Array
     {
       IntInvertValues(&inicio, &fim);
     }
-    if (inicio < 0 || fim > length)
+    if (inicio < 0 || fim > (length-1))
     {
       println ("ERRO: Intervalo invalido. ");
     }
@@ -495,7 +499,7 @@ class Array
     {
       IntInvertValues(&inicio, &fim);
     }
-    if (inicio < 0 || fim > length)
+    if (inicio < 0 || fim > (length -1))
     {
       println ("ERRO: Intervalo invalido. ");
     }
@@ -553,6 +557,60 @@ class Array
     }
     result = (i < this->length);
     return (result);
+  }
+
+  void PrintConstScalingInterval (int Const, int initial, int final)
+  {
+    if (initial > final)
+    {
+      IntInvertValues(&initial, &final);
+    }
+    if (initial < 0 || final > (length -1))
+    {
+      println ("(PrintConstScalingInterval) ERRO: Intervalo invalido. ");
+    }
+    for (int i = initial; i < final; i += Const)
+    {
+      std::cout << this->data[i] << std::endl;
+    }
+  }
+
+  void descend ()
+  {
+    int tmp = 0;
+    int y = length-1;
+    while (y > 0)
+    {
+      for (int i = 1; i < length; i++)
+      {
+        if (data[i-1] < data[i])
+        {
+          tmp = data[i];
+          data[i] = data[i-1];
+          data[i-1] = tmp;
+        }
+      }
+      y--;   
+    }
+  }
+
+  void ascend ()
+  {
+    int tmp = 0;
+    int y = length-1;
+    while (y > 0)
+    {
+      for (int i = 1; i < length; i++)
+      {
+        if (data[i-1] > data[i])
+        {
+          tmp = data[i];
+          data[i] = data[i-1];
+          data[i-1] = tmp;
+        }
+      }
+      y--;   
+    }
   }
 
 };
