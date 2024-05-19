@@ -249,17 +249,24 @@ class Array
     return (value);
   }
 
+  /***/
   int getlength ()
   {
     return (length);
   }
 
+  /** Descobrir se um array possui tamanho e dados e valido
+   * 
+  */
   bool isValid ()
   {
-    bool result = (data != nullptr && length > 0);
+    bool result = (this->data != nullptr && this->length > 0);
     return (result);
   }
 
+  /** Mostrar todos os valores de um array
+   * 
+  */
   void print ()
   {
     println ("");
@@ -270,6 +277,9 @@ class Array
     println ("");
   }
 
+  /** Fornecer dados para um array
+   * 
+  */
   void write ()
   {
     println("");
@@ -280,6 +290,9 @@ class Array
     }
   }
 
+  /** Escrever um array em um arquivo
+   *  @param Nome do arquivo
+  */
   void fwrite (std::string fileName)
   {
     std::ofstream file;
@@ -293,6 +306,9 @@ class Array
     file.close();
   }
 
+  /** Ler e substituir um array de um arquivo
+   *  @param Nome do arquivo
+  */
   void fread (std::string fileName)
   {
     int n = 0;
@@ -316,6 +332,10 @@ class Array
     file.close();
   }
 
+  /** Substituir os valores de um array por valores aleatorios dado um intervalo
+   *  @param Intervalo inferior
+   *  @param Intervalo superior
+  */
   void random (int inferior, int superior)
   {
     srand(time(0));
@@ -332,6 +352,8 @@ class Array
     }
   }
 
+  /** Ler um array e manter apenas os seus valores pares
+  */
   void even ()
   {
     Array <T> tmpArray(this->length, 0);
@@ -366,6 +388,8 @@ class Array
     }
   }
 
+  /** Ler um array e manter apenas os seus valores impares
+  */
   void odd ()
   {
     Array <T> tmpArray(this->length, 0);
@@ -400,6 +424,9 @@ class Array
     }
   }
 
+  /** Descobrir o maior valor de um array
+   *  @returns O maior valor
+  */
   T biggest ()
   {
     T resultado = this->data[0];
@@ -413,6 +440,9 @@ class Array
     return (resultado);    
   }
 
+  /** Descobrir o menor valor de um array
+   *  @returns O menor valor
+  */
   T smallest ()
   {
     T resultado = this->data[0];
@@ -426,6 +456,11 @@ class Array
     return (resultado);    
   }
 
+  /** Somar todos os valores de um array dado um certo intervalo
+   *  @param Posicao inicial da busca
+   *  @param Final inicial da busca
+   *  @returns Soma dos valores
+  */
   T addinterval (int inicio, int fim)
   {
     T result = 0;
@@ -448,6 +483,11 @@ class Array
     return (result);
   }
 
+  /** Descobrir a media dos valores em um array dado um intervalo
+   *  @param Posicao inicial da busca
+   *  @param Final inicial da busca
+   *  @returns Media dos valores
+  */
   double average(int inicio, int fim )
   {
     double result = 0.0;
@@ -467,6 +507,17 @@ class Array
     return (result);
   }
 
+  bool CheckNegative ()
+  {
+    bool result = false;
+    int i = 0;
+    while (i < this->length && this->data[i] < 0)
+    {
+      i++;
+    }
+    result = (i == this->length);
+    return (result);
+  }
 };
 
 #endif
