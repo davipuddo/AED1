@@ -518,6 +518,19 @@ class Array
     result = (i == this->length);
     return (result);
   }
+
+  bool CheckAscending ()
+  {
+    bool result = false;
+    int i = 1;
+    while (i < this->length && this->data[i-1] < this->data[i] )
+    {
+      i++;
+    }
+    result = (i == this->length);
+    return (result);
+  }
+
 };
 
 #endif

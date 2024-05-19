@@ -356,6 +356,9 @@ void ED1106 (void)
 void ED1107 (void)
 {
   // Identificacao de dados
+  Array <int> array(10, 0);
+  int resultado = 0;
+
   // Apresentacao
   println ("ED1107");
   println ("");                  // Pular uma linha
@@ -363,6 +366,47 @@ void ED1107 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
+
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    Farray.write();
+
+    if (!Farray.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      Farray.fwrite("DADOS07.TXT");
+
+      Farray.free();
+
+      array.fread("DADOS07.TXT");
+
+      if (!array.isValid())
+      {
+        println ("(array) ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        resultado = array.CheckAscending();
+
+        if (resultado == 1)
+        {
+          println ("O array esta em ordem crescente. ");
+        }
+        else
+        {
+          println ("O array esta em um tipo de ordem diferente de crescente. ");
+        }
+      }
+    }
+  }
   // Verificar dados
   // Mostrar dados
 
