@@ -286,6 +286,9 @@ void ED1105 (void)
 void ED1106 (void)
 {
   // Identificacao de dados
+  Array <int> array(10, 0);
+  int resultado = 0;
+
   // Apresentacao
   println ("ED1106");
   println ("");                  // Pular uma linha
@@ -293,6 +296,54 @@ void ED1106 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    // Ler dados do array
+    Farray.write();
+    if (!Farray.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever dados no arquivo
+      Farray.fwrite("DADOS06.TXT");
+
+      // Liberar array da memoria
+      Farray.free();
+
+      // Ler dados do arquivo
+      array.fread("DADOS06.TXT");
+
+      if (!array.isValid())
+      {
+        println ("(array) ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Procurar valores negativos
+        resultado = array.CheckNegative();
+
+        // Liberar array da memoria
+        array.free();
+
+        // Mostrar dados
+        if (resultado == 1)
+        {
+          println ("Todos os valores do array sao negativos. ");
+        }
+        else
+        {
+          println ("O array possui valores positivos. ");
+        }
+      }
+    }
+  }
   // Verificar dados
   // Mostrar dados
 
