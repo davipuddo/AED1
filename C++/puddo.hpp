@@ -543,6 +543,18 @@ class Array
     return (result);
   }
 
+  bool CheckValue (T value)
+  {
+    bool result = false;
+    int i = 0;
+    while (i < this->length && this->data[i] != value)
+    {
+      i++;
+    }
+    result = (i < this->length);
+    return (result);
+  }
+
 };
 
 #endif

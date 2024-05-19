@@ -429,15 +429,75 @@ void ED1107 (void)
 void ED1108 (void)
 {
   // Identificacao de dados
+  Array <int> array(10, 0);
+  int valor = 0;
+  bool resultado = 0;
+
   // Apresentacao
   println ("ED1108");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler tamanho do array
+  Array <int> Farray(ReadPositiveInt("Forneca o tamanho do array: "), 0);
+
+  // Verificar tamanho do array
+  if (Farray.getlength() <= 0)
+  {
+    println ("(Farray) ERRO: Tamanho invalido. ");
+  }
+  else
+  {
+    // Ler dados do array
+    Farray.write();
+
+    // Checar dados
+    if (!Farray.isValid())
+    {
+      println ("(Farray) ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever dados no arquivo
+      Farray.fwrite("DADOS08.TXT");
+
+      // Liberar array da memoria
+      Farray.free();
+
+      // Ler dados do arquivo
+      array.fread("DADOS08.TXT");
+
+      // Checar dados
+      if (!array.isValid())
+      {
+        println ("(array) ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Ler valor a ser procurado
+        valor = ReadInt("Forneca um a valor a ser procurado no array: ");
+
+        // Procurar valor a ser procurado
+        resultado = array.CheckValue(valor);
+
+        // Mostrar dados
+        if (resultado == 1)
+        {
+          std::cout << "O valor [" << valor << "] " << "esta presente no array" << std::endl; 
+        }
+        else
+        {
+          std::cout << "O valor [" << valor << "] " << "nao esta presente no array" << std::endl;
+        }
+        println ("Array- ");
+        array.print();
+
+        // Liberar array da memoria
+        array.free();
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
