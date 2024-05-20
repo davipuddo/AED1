@@ -689,7 +689,7 @@ class Matrix
       {
         for (int c = 0; c < columns; c++)
         {
-          std::cout << std::setw(3) << r << "," << c << ":" << std::setw(3);
+          std::cout << std::setw(3) << r << "," << c << ":" << "\t";
           std::cin >> data[r][c]; 
         }
       }
