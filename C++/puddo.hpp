@@ -336,13 +336,17 @@ class Array
    *  @param Intervalo inferior
    *  @param Intervalo superior
   */
-  void random (int initial, int final)
+  void random (int initial, int final, int min, int max)
   {
     if (initial > final)
     {
       IntInvertValues(&initial, &final);
     }
-    if (initial <= 0 || final > (length-1))
+    if (min > max)
+    {
+      IntInvertValues(&min, &max);
+    }
+    if (initial < 0 || final > (length-1))
     {
       println ("ERRO: Tamanho invalido. ");
     }
@@ -351,7 +355,7 @@ class Array
       srand(time(0));
       for (int i = 0; i < length; i++)
       {
-        data[i] = rand() % (final - initial + 1) + initial;
+        data[i] = rand() % (max - min + 1) + min;
       }
     }
   }
@@ -723,5 +727,106 @@ class Matrix
       data = nullptr;
     }
   }
+
+  void fwrite(const std::string fileName)
+  {
+    std::ofstream file;
+    file.open (fileName);
+    file << rows << std::endl << columns << std::endl;
+    for (int x = 0; x < rows; x++)
+    {
+      for (int y = 0; y < columns; y++)
+      {
+        file << data[x][y] << std::endl;
+      }
+    }
+    file.close ();
+  }
+
+  void fread(const std::string fileName)
+  {
+    int r = 0;
+    int c = 0;
+    std::ifstream file;
+    file.open (fileName);
+    if (!(file >> r))
+    {
+      std::cout << "O arquivo [" << fileName << "] nao pode ser aberto. ";
+    }
+    else
+    {
+      file >> c;
+      if (r <= 0 && c <= 0)
+      {
+        println ("(fread) ERRO: Dimensoes invalidas. ");
+      } 
+      else
+      {
+        rows = r;
+        columns = c;
+        for (int x = 0; x < rows; x++)
+        {
+          for (int y = 0; y < columns; y++)
+          {
+            file >> this->data[x][y];
+          }
+        }
+      }
+    }
+    file.close();
+  }
+
+  void random (int initial, int final)
+  {
+    srand(time(0));
+    for (int x = 0; x < rows; x++)
+    {
+      for (int y = 0; y < columns; y++)
+      {
+        data[x][y] = rand() % (final - initial + 1) + initial; 
+      }
+    }
+  }
+
+  void operator=  (Array <T> array)
+  {
+    int size = array.getlength();
+    int r = 2;
+    int c = 0;
+    bool odd = 0;
+    if (size % 2 == 0)
+    {
+      c = (size/2.0);
+    }
+    else
+    {
+      c = ((size/2.0)+0.5);
+      odd = 1;
+    }
+    if (r <= 0 || c <= 0)
+    {
+      println ("ERRO: Conversao invalida. ");
+    }
+    else
+    {
+      this->rows = r;
+      this->columns = c;
+      int i = 0;
+      for (int x = 0; x < rows; x++)
+      {
+        for (int y = 0; y < columns; y++)
+        {
+          this->data[x][y] = array.get(i);
+          i++;
+        }
+      }
+      if (odd)
+      {
+        this->data[(rows-1)][(columns-1)] = 0;
+      }
+    }
+  }
+
+
 };
 #endif
