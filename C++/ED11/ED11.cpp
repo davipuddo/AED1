@@ -19,7 +19,7 @@ void ED1101 (void)
   // Ler dados
   inferior = ReadInt("Forneca um valor inteiro para definir o intervalo inferior: ");
   superior = ReadInt("Forneca um valor inteiro para definir o intervalo superior: ");
-  array.random(inferior, superior);
+  array.random(inferior, superior, 1, 100);
 
   // Gravar array em um arquivo
   array.fwrite("DADOS01.TXT");
@@ -161,7 +161,7 @@ void ED1104 (void)
   else
   {
     // Dar valores aleatorios para o array
-    Farray.random(0, 30);
+    Farray.random(0, 30,0, 100);
 
     // Verificacao dos dados
     if (!Farray.isValid())
@@ -233,7 +233,7 @@ void ED1105 (void)
   else
   {
     // Dar valores aleatorios para o array
-    Farray.random(0, 30);
+    Farray.random(0, 30, 0, 100);
 
     // Verificacao dos dados
     if (!Farray.isValid())
