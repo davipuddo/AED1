@@ -26,7 +26,7 @@ ref_int_array IntAddConstArray (int_array array1, int_array array2, const int p)
     int i = 0;
     while (i < array1.length && w < array2.length)
     {
-      resultado->data[i] = array1.data[i] + array2.data[w];
+      resultado->data[i] = array1.data[i] + array2.data[i];
       i++;
       w += p;
     }
@@ -109,96 +109,6 @@ int IntCheckEqualMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
   }
   return ((int)resultado);
 }
-
-/** somar duas matrizes inteiras
- *  @param Matrix 1
- *  @param Matrix 2
- *  @returns Matrix com os valores somados
-*/
-ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2, const int p)
-{
-  ref_int_matrix resultado = null;
-  int size1 = 0;
-  int size2 = 0;
-  if (matrix1 == null || matrix1->data == null || matrix2 == null || matrix2->data == null)
-  {
-    println ("ERRO: Dados invalidos. ");
-  }
-  else
-  {
-    size1 = (matrix1->rows * matrix1->columns);
-    size2 = (matrix2->rows * matrix2->columns);
-    if (size1 > 0 && size2 > 0)
-    {
-      if (size1 != (int)((double)size2/(double)p))
-      {
-        println ("ERRO: Dimensoes incompativeis. ");
-        resultado = null;
-      }
-      else
-      {
-        matrix2->ix = p-1;
-        matrix2->iy = matrix2->ix;
-        matrix1->ix = 0;
-        matrix1->iy = 0;
-        while (matrix1->ix < matrix1->rows && matrix2->ix < matrix2->rows)
-        {
-          while (matrix1->iy < matrix1->columns && matrix2->iy < matrix2->columns)
-          {
-            resultado->data[matrix1->ix][matrix1->iy] = matrix1->data[matrix1->ix][matrix1->iy] + matrix2->data[matrix2->ix][matrix2->iy];
-            matrix1->iy++;
-            matrix2->iy += p;
-          }
-          matrix1->ix++;
-          matrix2->ix += p;
-        }
-      }
-    }
-  }
-  return (resultado);
-}
-
-/*
-ref_int_matrix IntMultiplyMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
-{
-  ref_int_matrix resultado = null;
-  if (matrix1 == null || matrix1->data == null || matrix2 == null || matrix2->data == null)
-  {
-    println ("ERRO: Dados invalidos. ");
-  }
-  else
-  {
-    // Se as dimensoes das matrizes sao validas
-    if (matrix1->rows > 0 && matrix1->columns > 0 && matrix2->rows > 0 && matrix2->columns > 0)
-    {
-      resultado = IntNewMatrix(matrix1->rows, matrix2->columns);
-      // Se as dimensoes das matrizes sao diferentes
-      if (matrix1->rows != matrix2->rows && matrix1->columns != matrix2->columns)
-      {
-        // Se as dimensoes das matrizes sao inversas
-        if (matrix1->rows == matrix2->columns && matrix1->columns == matrix2->rows)
-        {
-          // Transpor a segunda matriz
-          matrix2 = IntTransposeMatrix(matrix2);
-        }
-      }
-      // Se as dimensoes das matrizes sao iguais
-      if (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns)
-      {
-        // Calcular o produto das matrizes
-        for (matrix1->ix = 0; matrix1->ix < matrix1->rows; matrix1->ix++)
-        {
-          for (matrix1->iy = 0; matrix1->iy < matrix1->columns; matrix1->iy++)
-          {
-              
-          }
-        }
-      }
-    }
-  }
-  return (resultado);
-}
-*/
 
 void ED1001 (void)
 {
@@ -371,7 +281,7 @@ void ED1004 (void)
   array2 = ReadIntArray();
 
   // Testar compatibilidade
-  if (array1.length != (int)((double)array2.length/(double)constante))
+  if (array1.length != array2.length)
   {
     println ("O tamanho dos arranjos sao incompativeis");
   }
@@ -394,7 +304,8 @@ void ED1004 (void)
     // Somar arranjos
     if (Farray1.data && Farray2.data)
     {
-      resultado = IntAddConstArray (Farray1, Farray2, constante);
+      ref_int_array ScaledArray = IntScaleArray(Farray2, constante);
+      resultado = IntAddArray (&Farray1, ScaledArray);
 
       // Mostrar dados
       if (resultado)
@@ -460,7 +371,6 @@ void ED1005 (void)
     }
   }
 
-
   // Fim
   println ("");                  // Pular uma linha
   println ("");                  // Pular uma linha
@@ -504,7 +414,6 @@ void ED1006 (void)
       IntPrintMatrix(resultado);
     }
   }
-
 
   // Fim
   println ("");                  // Pular uma linha
@@ -552,6 +461,7 @@ void ED1007 (void)
       }
     }
   }
+
   // Fim
   println ("");                  // Pular uma linha
   println ("");                  // Pular uma linha
@@ -649,36 +559,47 @@ void ED1009 (void)
   }
   else
   {
-    // Gravar dados em 2 arquivos
-    IntWriteMatrixFile ("DADOS0901.TXT", matrix1);
-    IntWriteMatrixFile ("DADOS0902.TXT", matrix2);
-
-    // Liberar espaco
-    IntFreeMatrix(matrix1);
-    IntFreeMatrix(matrix2);
-
-    // Ler dados dos arquivos
-    Fmatrix1 = IntMatrixFile ("DADOS0901.TXT");
-    Fmatrix2 = IntMatrixFile ("DADOS0902.TXT");
-
-    // Verificar dados 
-    if (Fmatrix1 != null && Fmatrix2 != null)
+    if (matrix1->rows != matrix2->rows || matrix1->columns != matrix2->columns)
     {
-      // Calcular soma das matrizes
-      resultado = IntAddMatrix(Fmatrix1, Fmatrix2, constante);
-
-      // Mostrar dados
-      println ("Matriz 1-");
-      IntPrintMatrix(Fmatrix1);
-      println ("\nMatrix 2-");
-      IntPrintMatrix(Fmatrix2);
-      println ("\nSoma-");
-      IntPrintMatrix(resultado);
+      println ("ERRO: Tamanhos incompativeis. ");
+    }
+    else
+    {
+      // Gravar dados em 2 arquivos
+      IntWriteMatrixFile ("DADOS0901.TXT", matrix1);
+      IntWriteMatrixFile ("DADOS0902.TXT", matrix2);
 
       // Liberar espaco
       IntFreeMatrix(matrix1);
       IntFreeMatrix(matrix2);
-      IntFreeMatrix(resultado);
+
+      // Ler dados dos arquivos
+      Fmatrix1 = IntMatrixFile ("DADOS0901.TXT");
+      Fmatrix2 = IntMatrixFile ("DADOS0902.TXT");
+
+      // Verificar dados 
+      if (Fmatrix1 != null && Fmatrix2 != null)
+      {
+        ref_int_matrix ScaledMatrix = null;
+        ScaledMatrix = IntScaleMatrix(Fmatrix2, constante);
+        IntFreeMatrix(Fmatrix2);
+
+        // Calcular soma das matrizes
+        resultado = IntAddMatrix(Fmatrix1, ScaledMatrix);
+
+        // Mostrar dados
+        println ("Matriz 1-");
+        IntPrintMatrix(Fmatrix1);
+        printf ("\nMatrix 2 (x%d)- \n", constante);
+        IntPrintMatrix(ScaledMatrix);
+        println ("\nSoma-");
+        IntPrintMatrix(resultado);
+
+        // Liberar espaco
+        IntFreeMatrix(Fmatrix1);
+        IntFreeMatrix(ScaledMatrix);
+        IntFreeMatrix(resultado);
+      }
     }
   }
 
@@ -696,13 +617,16 @@ void ED1010 (void)
   ref_int_matrix Fmatrix1 = null;
   ref_int_matrix Fmatrix2 = null;
   ref_int_matrix resultado = null;
+  int constante = 0;
 
   // Apresentacao
   println ("ED1010");
   println ("");                  // Pular uma linha
   println ("Incluir uma funcao para obter o produto de duas matrizes inteiras. Para testar receber as matrizes de dois arquivos. ");
   println ("");                  // Pular uma linha
-    
+
+  // Ler dados  
+  constante = ReadInt("Forneca um valor inteiro para definir o escalamento da matrix. ");
   println ("Matrix 1: ");
   matrix1 = ReadIntMatrix();
   println ("\nMatrix 2: ");
@@ -728,23 +652,130 @@ void ED1010 (void)
     Fmatrix2 = IntMatrixFile ("DADOS1002.TXT");
 
     // Verificar dados 
-    if (Fmatrix1 != null && Fmatrix2 != null)
+    if (Fmatrix1 != null && Fmatrix1->data != null && Fmatrix2 != null && Fmatrix2->data != null)
     {
+      // Escalar matrix
+      ref_int_matrix ScaledMatrix = null;
+      ScaledMatrix = IntScaleMatrix(Fmatrix2, constante);
+
+      // Liberar espaco da memoria
+      IntFreeMatrix(Fmatrix2);
+
       // Calcular produto das matrizes
-      //resultado = IntMultiplyMatrix(Fmatrix1, Fmatrix2);
+      resultado = IntMultiplyMatrix(Fmatrix1, ScaledMatrix);
 
       // Mostrar dados
       println ("Matriz 1-");
       IntPrintMatrix(Fmatrix1);
-      println ("\nMatrix 2-");
-      IntPrintMatrix(Fmatrix2);
+      printf  ("\nMatrix 2(x%d)-\n", constante);
+      IntPrintMatrix(ScaledMatrix);
       println ("\nProduto-");
       IntPrintMatrix(resultado);
 
       // Liberar espaco
-      IntFreeMatrix(matrix1);
-      IntFreeMatrix(matrix2);
+      IntFreeMatrix(Fmatrix1);
+      IntFreeMatrix(ScaledMatrix);
       IntFreeMatrix(resultado);
+    }
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED10E1 (void)
+{
+  // Indenticacao de dados
+  int_array array;
+
+  // Apresentacao
+  println ("ED10E1");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  int_array Farray = ReadIntArray();
+  if (Farray.data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    IntWriteArrayFile("DADOSE1.TXT", Farray);
+
+    array = IntArrayFile("DADOSE1.TXT");
+    if (array.data == null)
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      ref_int_array resultado = null;
+      resultado = IntDescendArray(array);
+      if (resultado == null || resultado->data == null)
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        IntPrintArray(*resultado);
+      }
+    }
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED10E2 (void)
+{
+  // Indenticacao de dados
+  ref_int_matrix matrix1;
+  ref_int_matrix matrix2;
+
+  // Apresentacao
+  println ("ED10E2");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  ref_int_array Fmatrix1 = ReadIntMatrix();
+  ref_int_matrix F  2 = ReadIntMatrix();
+
+  if (Fmatrix1.data == null && Fmatrix2.data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    IntWriteMatrixFile("DADOSE201.TXT", Fmatrix1);
+    IntWriteMatrixFile("DADOSE202.TXT", Fmatrix2);
+
+    matrix1 = IntmatrixFile("DADOSE201.TXT");
+    matrix2 = IntmatrixFile("DADOSE202.TXT");
+    if (matrix1.data == null && matrix2.data == null)
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      ref_int_matrix produto = null;
+      produto = IntMultiplymatrix(matrix1, matrix2);
+      if (produto == null || produto->data == null)
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        int resultado = IntCheckIdentityMatrix(produto);
+        IntPrintmatrix(*resultado);
+      }
     }
   }
 
@@ -773,12 +804,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1001   2 - ED1002");
-      println ("3 - ED1003   4 - ED1004");
-      println ("5 - ED1005   6 - ED1006");
-      println ("7 - ED1007   8 - ED1008");
-      println ("9 - ED1009  10 - ED1010");
+      println ("0  - sair");
+      println ("1  - ED1001   2 - ED1002");
+      println ("3  - ED1003   4 - ED1004");
+      println ("5  - ED1005   6 - ED1006");
+      println ("7  - ED1007   8 - ED1008");
+      println ("9  - ED1009  10 - ED1010");
+      println ("11 - ED10E1  12 - ED10E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -810,6 +842,10 @@ int main (void)
           case 9:  ED1009();
             break;
           case 10: ED1010();
+            break;
+          case 11: ED10E1();
+            break;
+          case 12: ED10E2();
             break;
           default: 
               println ("");                // Pular uma linha

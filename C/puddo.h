@@ -760,7 +760,7 @@ void DoubleCopyMatrix (int rows, int columns, double copy [][columns], double ma
  *  @param Copia da matrix
  *  @param Matrix original
 */
-void IntCopyMatrix (int rows, int columns, int copy [][columns], int matrix[][columns])
+void IntCopyMatrixO (int rows, int columns, int copy [][columns], int matrix[][columns])
 {
   for (int x = 0; x < rows; x++)
   {
@@ -821,7 +821,31 @@ ref_int_array IntNewArray (int n)
   return (array);
 }
 
-/** Mostrar um array de vlores inteiros
+ref_int_array IntCopyArray (int_array array)
+{
+  ref_int_array result = 0;
+  if (array.data)
+  {
+    if (array.length > 0)
+    {
+      result = IntNewArray(array.length);
+      if (result == null)
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int i = 0; i < result->length; i++)
+        {
+          result->data[i] = array.data[i];
+        }
+      }
+    }
+  }
+  return (result);
+}
+
+/** Mostrar um array de valores inteiros
  *   @param Array de valores inteiros tipo struct
 */
 void IntPrintArray (int_array array)
@@ -1025,23 +1049,23 @@ int IntCmpArray (int_array array1, int_array array2)
  *  @param Array 2
  *  @returns Ponteiro do resultado
 */
-ref_int_array IntAddArray (int_array array1, int_array array2)
+ref_int_array IntAddArray (ref_int_array array1, ref_int_array array2)
 {
   ref_int_array resultado;
-  if (array1.length <= 0 || array2.length <= 0)
+  if (array1->length <= 0 || array2->length <= 0)
   {
     println ("ERRO: Tamanho invalido. ");
   }
-  else if (array1.length != array2.length)
+  else if (array1->length != array2->length)
   {
     println ("ERRO: Os arranjos sao de tamanhos diferentes. ");
   }
   else
   {
-    resultado = IntNewArray(array1.length);
-    for (int i = 0; i < array1.length; i++)
+    resultado = IntNewArray(array1->length);
+    for (int i = 0; i < array1->length; i++)
     {
-      resultado->data[i] = array1.data[i] + array2.data[i];
+      resultado->data[i] = array1->data[i] + array2->data[i];
     }
   }
   return (resultado);
@@ -1099,6 +1123,68 @@ int IntArrayDescending (int_array array)
   return (i);
 }
 
+ref_int_array IntScaleArray (int_array array, const int Const)
+{
+  ref_int_array result = null;
+  if (array.data)
+  {
+    if (array.length > 0)
+    {
+      result = IntNewArray(array.length);
+      if (result == null)
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int x = 0; x < result->length; x++)
+        {
+          result->data[x] = (array.data[x] * Const);
+        }
+      }
+    }
+  }
+  return (result);
+}
+
+ref_int_array IntDescendArray (int_array array)
+{
+  ref_int_array result = null;
+  if (array.data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (array.length > 0)
+    {
+      result = IntCopyArray(array);
+      if (result == null)
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        int tmp = 0;
+        int y = result->length-1;
+        while (y > 0)
+        {
+          for (int i = 1; i < result->length; i++)
+          {
+            if (result->data[i-1] < result->data[i])
+            {
+              tmp = result->data[i];
+              result->data[i] = result->data[i-1];
+              result->data[i-1] = tmp;
+            }
+          }
+          y--;
+        }
+      }
+    }
+  }
+  return (result);
+}
 
 /*                                                         arrays reais
  * --------------------------------------------------------------------
@@ -1297,6 +1383,36 @@ ref_int_matrix IntNewMatrix (int r, int c)
   return (matrix);
 }
 
+ref_int_matrix IntCopyMatrix (ref_int_matrix matrix)
+{
+  ref_int_matrix copy = null;
+  if (matrix)
+  {
+    if (matrix->data)
+    {
+      if (matrix->rows > 0 && matrix->columns > 0)
+      {
+        copy = IntNewMatrix(matrix->rows, matrix->columns);
+        if (copy == null)
+        {
+          println ("ERRO: Falta de espaco. ");
+        }
+        else
+        {
+          for (int x = 0; x < copy->rows; x++)
+          {
+            for (int y = 0; y < copy->columns; y++)
+            {
+              copy->data[x][y] = matrix->data[x][y];
+            }
+          }
+        }
+      }
+    }
+  }
+  return (copy);
+}
+
 /** Mostrar uma matrix de valores inteiros
  *  @param Matrix de valores inteiros tipo struct
 */
@@ -1486,4 +1602,140 @@ ref_int_matrix IntTransposeMatrix (ref_int_matrix matrix)
     }
   }
   return (resultado);
+}
+
+/** somar duas matrizes inteiras
+ *  @param Matrix 1
+ *  @param Matrix 2
+ *  @returns Matrix com os valores somados
+*/
+ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
+{
+  ref_int_matrix resultado = null;
+  if (matrix1 == null || matrix1->data == null || matrix2 == null || matrix2->data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (matrix1->rows > 0 && matrix1->columns > 0 && matrix2->rows > 0 && matrix2->columns > 0)
+    {
+      if (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns)
+      {
+        resultado = IntNewMatrix(matrix1->rows, matrix1->columns);
+        if (resultado != null && resultado->data != null)
+        {
+          for (int x = 0; x < matrix1->rows; x++)
+          {
+            for (int y = 0; y < matrix1->columns; y++)
+            {
+              resultado->data[x][y] = matrix1->data[x][y] + matrix2->data[x][y];
+            }
+          }
+        }
+      }
+    }
+  }
+  return (resultado);
+}
+
+ref_int_matrix IntScaleMatrix (ref_int_matrix matrix, int Const)
+{
+  ref_int_matrix resultado = null;
+  if (matrix == null || matrix->data == null)
+  {
+    println ("(IntScaleMatrix) ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (matrix->rows <= 0 || matrix->columns <= 0)
+    {
+      println ("(IntScaleMatrix) ERRO: Dimensoes invalidas. ");
+    }
+    else
+    {
+      resultado = IntNewMatrix(matrix->rows, matrix->columns);
+      if (resultado == null || resultado->data == null)
+      {
+        println ("(IntScaleMatrix) ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int x = 0; x < matrix->rows; x++)
+        {
+          for (int y = 0; y < matrix->columns; y++)
+          {
+            resultado->data[x][y] = (matrix->data[x][y] * Const);
+          }
+        }
+      }
+    }
+  }
+  return (resultado);
+}
+
+ref_int_matrix IntMultiplyMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
+{
+  ref_int_matrix result = null;
+  if (matrix1 && matrix2)
+  {
+    if (matrix1->data && matrix2->data)
+    {
+      if (matrix1->rows > 0 && matrix1->columns > 0 && matrix2->rows > 0 && matrix2->columns > 0)
+      {
+        if (matrix1->rows != matrix2->columns)
+        {
+          println ("ERRO: Dimensoes incompativeis. ");
+        }
+        else
+        {
+          result = IntNewMatrix(matrix1->rows, matrix2->columns);
+          if (result == null)
+          {
+            println ("ERRO: Falta de espaco. ");
+          }
+          else
+          {
+            for (int x = 0; x < matrix1->rows; x++)
+            {
+              for (int y = 0; y < matrix2->columns; y++)
+              {
+                result->data[x][y] = 0;
+                for (int z = 0; z < matrix2->rows; z++)
+                {
+                  result->data[x][y] += (matrix1->data[x][z] * matrix2->data[z][y]);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return (result);
+}
+
+bool IntCheckIdentityMatrix (ref_int_matrix matrix)
+{
+  bool result = false;
+  if (matrix)
+  {
+    if (matrix->data)
+    {
+      if (matrix->rows > 0 && matrix->columns > 0)
+      {
+        ref_int_matrix tmp = IntCopyMatrix(matrix);
+        int x = 0;
+        int y = 0;
+        result = true;
+        while (x < matrix->rows && y < matrix->columns && result == true)
+        {
+          result = (result && matrix->data[x][y] == 1);
+          x++;
+          y++;
+        }
+      }
+    }
+  }
+  return (result);
 }
