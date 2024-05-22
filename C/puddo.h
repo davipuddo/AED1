@@ -1568,6 +1568,10 @@ void IntFreeMatrix(ref_int_matrix matrix)
   free (matrix);
 }
 
+/** Traspor uma matrix
+ *  @param Matrix a ser transposta
+ *  @returns Matrix transposta
+*/ 
 ref_int_matrix IntTransposeMatrix (ref_int_matrix matrix)
 {
   ref_int_matrix resultado = null;
@@ -1639,6 +1643,11 @@ ref_int_matrix IntAddMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
   return (resultado);
 }
 
+/** Escalar uma matriz a partir de uma constante
+ *  @param Matrix a ser escalada
+ *  @param Constante para definir o escalamento
+ *  @returns Matrix escalada em forma de struct
+*/
 ref_int_matrix IntScaleMatrix (ref_int_matrix matrix, int Const)
 {
   ref_int_matrix resultado = null;
@@ -1674,6 +1683,11 @@ ref_int_matrix IntScaleMatrix (ref_int_matrix matrix, int Const)
   return (resultado);
 }
 
+/** Calcular o produto de duas matrizes
+ *  @param Matrix 1
+ *  @param Matrix 2
+ *  @returns Produto das matrizes em forma de struct
+*/
 ref_int_matrix IntMultiplyMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2)
 {
   ref_int_matrix result = null;
@@ -1715,6 +1729,10 @@ ref_int_matrix IntMultiplyMatrix (ref_int_matrix matrix1, ref_int_matrix matrix2
   return (result);
 }
 
+/** Checar se uma matrix e uma matrix identidade
+ *  @param Matrix a ser checada
+ *  @returns Valor booleano referente ao resultado
+*/
 bool IntCheckIdentityMatrix (ref_int_matrix matrix)
 {
   bool result = false;
@@ -1724,7 +1742,6 @@ bool IntCheckIdentityMatrix (ref_int_matrix matrix)
     {
       if (matrix->rows > 0 && matrix->columns > 0)
       {
-        ref_int_matrix tmp = IntCopyMatrix(matrix);
         int x = 0;
         int y = 0;
         result = true;

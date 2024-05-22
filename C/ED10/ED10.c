@@ -304,7 +304,10 @@ void ED1004 (void)
     // Somar arranjos
     if (Farray1.data && Farray2.data)
     {
+      // Escalar o segundo arranjo
       ref_int_array ScaledArray = IntScaleArray(Farray2, constante);
+
+      // Somar arranjos
       resultado = IntAddArray (&Farray1, ScaledArray);
 
       // Mostrar dados
@@ -312,8 +315,8 @@ void ED1004 (void)
       {
         println ("Arranjo 1 -");
         IntPrintArray (Farray1);
-        println ("\nArranjo 2 -");
-        IntPrintArray (Farray2);
+        printf ("\nArranjo 2 (x%d) -\n", constante);
+        IntPrintArray (*ScaledArray);
         println ("\nSoma -");
         IntPrintArray (*resultado);
 
@@ -588,11 +591,11 @@ void ED1009 (void)
         resultado = IntAddMatrix(Fmatrix1, ScaledMatrix);
 
         // Mostrar dados
-        println ("Matriz 1-");
+        println ("Matriz 1 -");
         IntPrintMatrix(Fmatrix1);
-        printf ("\nMatrix 2 (x%d)- \n", constante);
+        printf ("\nMatrix 2 (x%d) - \n", constante);
         IntPrintMatrix(ScaledMatrix);
-        println ("\nSoma-");
+        println ("\nSoma -");
         IntPrintMatrix(resultado);
 
         // Liberar espaco
@@ -665,11 +668,11 @@ void ED1010 (void)
       resultado = IntMultiplyMatrix(Fmatrix1, ScaledMatrix);
 
       // Mostrar dados
-      println ("Matriz 1-");
+      println ("Matriz 1 -");
       IntPrintMatrix(Fmatrix1);
-      printf  ("\nMatrix 2(x%d)-\n", constante);
+      printf  ("\nMatrix 2 (x%d) -\n", constante);
       IntPrintMatrix(ScaledMatrix);
-      println ("\nProduto-");
+      println ("\nProduto -");
       IntPrintMatrix(resultado);
 
       // Liberar espaco
@@ -693,7 +696,7 @@ void ED10E1 (void)
   // Apresentacao
   println ("ED10E1");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Colocar um arranjo em ordem decrescente, pelo metodo de troca de posicao. Para testar receber arranjo de um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -721,6 +724,7 @@ void ED10E1 (void)
       }
       else
       {
+        println ("Resultado -");
         IntPrintArray(*resultado);
       }
     }
@@ -741,40 +745,66 @@ void ED10E2 (void)
   // Apresentacao
   println ("ED10E2");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Testar se o produto de duas matrizes e igual a matriz identidade. Para testar receber as matrizes de arquivos. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
-  ref_int_array Fmatrix1 = ReadIntMatrix();
-  ref_int_matrix F  2 = ReadIntMatrix();
+  ref_int_matrix FMatrix1 = ReadIntMatrix();
+  ref_int_matrix FMatrix2 = ReadIntMatrix();
 
-  if (Fmatrix1.data == null && Fmatrix2.data == null)
+  // Verificar dados
+  if (FMatrix1->data == null && FMatrix2->data == null)
   {
     println ("ERRO: Dados invalidos. ");
   }
   else
   {
-    IntWriteMatrixFile("DADOSE201.TXT", Fmatrix1);
-    IntWriteMatrixFile("DADOSE202.TXT", Fmatrix2);
+    // Guardar dados em arquivos
+    IntWriteMatrixFile("DADOSE201.TXT", FMatrix1);
+    IntWriteMatrixFile("DADOSE202.TXT", FMatrix2);
 
-    matrix1 = IntmatrixFile("DADOSE201.TXT");
-    matrix2 = IntmatrixFile("DADOSE202.TXT");
-    if (matrix1.data == null && matrix2.data == null)
+    // Liberar matrizes da memoria
+    IntFreeMatrix(FMatrix1);
+    IntFreeMatrix(FMatrix2);
+
+    // Ler dados dos arquivos
+    matrix1 = IntMatrixFile("DADOSE201.TXT");
+    matrix2 = IntMatrixFile("DADOSE202.TXT");
+    if (matrix1->data == null && matrix2->data == null)
     {
       println ("ERRO: Dados invalidos. ");
     }
     else
     {
+      // Calcular o produto das matrizes
       ref_int_matrix produto = null;
-      produto = IntMultiplymatrix(matrix1, matrix2);
+      produto = IntMultiplyMatrix(matrix1, matrix2);
+
+      // Liberar matrizes da memoria
+      IntFreeMatrix(matrix1);
+      IntFreeMatrix(matrix2);
+
+      // Verificar dados
       if (produto == null || produto->data == null)
       {
         println ("ERRO: Dados invalidos. ");
       }
       else
       {
-        int resultado = IntCheckIdentityMatrix(produto);
-        IntPrintmatrix(*resultado);
+        // Verificar se o produto e igual a matrix identidade
+        bool resultado = IntCheckIdentityMatrix(produto);
+
+        // Mostrar dados
+        if (resultado)
+        {
+          println ("O produto das duas matrizes e igual a matrix identidade. ");
+        }
+        else
+        {
+          println ("O produto das duas matrizes nao e igual a matriz identidade. ");
+        }
+        println ("Matrix do produto -");
+        IntPrintMatrix(produto);
       }
     }
   }
