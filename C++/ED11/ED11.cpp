@@ -554,11 +554,14 @@ void ED1109 (void)
       {
         // Ler dados
         inicio = ReadInt("Forneca um valor inteiro para definir a posicao inicial a ser escalada: ");
-        fim = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser escalada: ");
+        fim    = ReadInt("Forneca um valor inteiro para definir a posicao final  a ser escalada: ");
         constante = ReadPositiveInt("Forneca um valor inteiro para definir o escalamento do array: ");
 
+        // Escalar arranjo
+        array.ScaleInterval(constante, inicio, fim);
+
         // Mostrar dados
-        array.PrintConstScalingInterval(constante, inicio, fim);
+        array.print();
 
         // Liberar array da memoria
         array.free();       
@@ -649,6 +652,111 @@ void ED1110 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
+void ED11E1 (void)
+{
+  // Identificacao de dados
+  Array <int> array1(5, 0);
+  Array <int> array2(5, 0);
+  int posicao = 0;
+  bool resultado = false;
+
+  // Apresentacao
+  println ("ED11E1");
+  println ("");                  // Pular uma linha
+  println ("Dizer se dois arranjos sao diferentes pelo menos em uma posicao. ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  println ("Forneca dados para os arranjos: ");
+  array1.write();
+  array2.write();
+  do
+  {
+    posicao = ReadInt("Forneca um valor inteiro para definir a posicao dos arranjos a ser comparada. ");
+  } while (posicao < 0);
+
+  // Verificar dados
+  if (!array1.isValid() || !array2.isValid())
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    // Verificar posicoes
+    resultado = array1.EqualInPosition(array2, posicao);
+
+    // Mostrar dados
+    println ("Arranjo 1 -");
+    array1.print();
+    println ("Arranjo 2 -");
+    array2.print();
+    if (resultado)
+    {
+      std::cout << "Os arranjos sao iguais na posicao [" << posicao << "]" << std::endl;
+    }
+    else
+    {
+      std::cout << "Os arranjos sao diferentes na posicao [" << posicao << "]" << std::endl;
+    }
+    array1.free();
+    array2.free();
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED11E2 (void)
+{
+  // Identificacao de dados
+  Array <int> array1(5, 0);
+  Array <int> array2(5, 0);
+  Array <int> resultado(5, 0);
+
+  // Apresentacao
+  println ("ED11E2");
+  println ("");                  // Pular uma linha
+  println ("Calcular a diferenca entre dois arranjos para todas as posicoes. ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  println ("Forneca dados para os arranjos: ");
+  array1.write();
+  array2.write();
+
+  // Verificar dados
+  if (!array1.isValid() || !array2.isValid())
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    // Calcular a diferenca dos arranjos
+    resultado = array1 - array2;
+
+    // Mostrar dados
+    println ("array 1 -");
+    array1.print();
+    println ("array 2 -");
+    array2.print();
+    println ("diferenca -");
+    resultado.print();
+
+    // Liberar arranjos da memoria
+    array1.free();
+    array2.free();
+    resultado.free();
+  }
+  // Mostrar dados
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
 int main (void)
 {
 
@@ -668,12 +776,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1101   2 - ED1102");
-      println ("3 - ED1103   4 - ED1104");
-      println ("5 - ED1105   6 - ED1106");
-      println ("7 - ED1107   8 - ED1108");
-      println ("9 - ED1109  10 - ED1110");
+      println ("0  - sair");
+      println ("1  - ED1101   2 - ED1102");
+      println ("3  - ED1103   4 - ED1104");
+      println ("5  - ED1105   6 - ED1106");
+      println ("7  - ED1107   8 - ED1108");
+      println ("9  - ED1109  10 - ED1110");
+      println ("11 - ED11E1  12 - ED11E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -705,6 +814,10 @@ int main (void)
           case 9:  ED1109();
             break;
           case 10: ED1110();
+            break;
+          case 11: ED11E1();
+            break;
+          case 12: ED11E2();
             break;
           default: 
               println ("");                // Pular uma linha

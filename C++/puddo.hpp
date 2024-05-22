@@ -102,7 +102,7 @@ class Array
     }
   }
 
-  Array ()
+  Array (void)
   {
     length   = 0;
     data = nullptr;
@@ -160,6 +160,13 @@ class Array
     return (*this);
   }
 
+  bool EqualInPosition (const Array <T> other, const int position)
+  {
+    bool result = false;
+    result = (this->data[position] == other.data[position]);
+    return (result);
+  }
+
   bool operator== (const Array <T> other)
   {
     bool resultado = false;
@@ -183,7 +190,7 @@ class Array
 
   Array& operator+ (const Array <T> other)
   {
-    static Array <int> resultado (other);
+    static Array <int> result (other);
     if (other.length <= 0)
     {
       println ("ERRO: Falta dados. ");
@@ -198,11 +205,35 @@ class Array
       {
         for (int i = 0; i < this->length; i++)
         {
-          resultado.data[i] += this->data[i];
+          result.data[i] += this->data[i];
         }
       }
     }
-    return (resultado);
+    return (result);
+  }
+
+  Array& operator - (const Array <T> other)
+  {
+    static Array <int> result(other);
+    if (other.length <= 0)
+    {
+      println ("ERRO: Falta dados. ");
+    }
+    else
+    {
+      if (other.length != this->length)
+      {
+        println ("ERRO: Os arrays sao incompativeis. ");
+      }
+      else
+      {
+        for (int i = 0; i < this->length; i++)
+        {
+          result.data[i] = this->data[i] - result.data[i];
+        }
+      }
+    }
+    return (result);
   }
 
   T& operator[] (const int position)
@@ -250,7 +281,7 @@ class Array
   }
 
   /***/
-  int getlength ()
+  int getlength (void)
   {
     return (length);
   }
@@ -258,7 +289,7 @@ class Array
   /** Descobrir se um array possui tamanho e dados e valido
    * 
   */
-  bool isValid ()
+  bool isValid (void)
   {
     bool result = (this->data != nullptr && this->length > 0);
     return (result);
@@ -267,7 +298,7 @@ class Array
   /** Mostrar todos os valores de um array
    * 
   */
-  void print ()
+  void print (void)
   {
     println ("");
     for (int i = 0; i < length; i++)
@@ -280,7 +311,7 @@ class Array
   /** Fornecer dados para um array
    * 
   */
-  void write ()
+  void write (void)
   {
     println("");
     for (int x = 0; x < length; x++)
@@ -362,7 +393,7 @@ class Array
 
   /** Ler um array e manter apenas os seus valores pares
   */
-  void even ()
+  void even (void)
   {
     Array <T> tmpArray(this->length, 0);
     if (!tmpArray.isValid())
@@ -398,7 +429,7 @@ class Array
 
   /** Ler um array e manter apenas os seus valores impares
   */
-  void odd ()
+  void odd (void)
   {
     Array <T> tmpArray(this->length, 0);
     if (!tmpArray.isValid())
@@ -435,7 +466,7 @@ class Array
   /** Descobrir o maior valor de um array
    *  @returns O maior valor
   */
-  T biggest ()
+  T biggest (void)
   {
     T resultado = this->data[0];
     for (int i = 0; i < this->length; i++)
@@ -451,7 +482,7 @@ class Array
   /** Descobrir o menor valor de um array
    *  @returns O menor valor
   */
-  T smallest ()
+  T smallest (void)
   {
     T resultado = this->data[0];
     for (int i = 0; i < this->length; i++)
@@ -515,7 +546,7 @@ class Array
     return (result);
   }
 
-  bool CheckNegative ()
+  bool CheckNegative (void)
   {
     bool result = false;
     int i = 0;
@@ -527,7 +558,7 @@ class Array
     return (result);
   }
 
-  bool CheckAscending ()
+  bool CheckAscending (void)
   {
     bool result = false;
     int i = 1;
@@ -539,7 +570,7 @@ class Array
     return (result);
   }
 
-  bool CheckDescending ()
+  bool CheckDescending (void)
   {
     bool result = false;
     int i = 1;
@@ -563,23 +594,23 @@ class Array
     return (result);
   }
 
-  void PrintConstScalingInterval (int Const, int initial, int final)
+  void scale (const T Const)
   {
-    if (initial > final)
+    for (int i = 0; i < length; i++)
     {
-      IntInvertValues(&initial, &final);
-    }
-    if (initial < 0 || final > (length -1))
-    {
-      println ("(PrintConstScalingInterval) ERRO: Intervalo invalido. ");
-    }
-    for (int i = initial; i < final; i += Const)
-    {
-      std::cout << this->data[i] << std::endl;
+      this->data[i] = (this->data[i] * Const);
     }
   }
 
-  void descend ()
+  void ScaleInterval (const T Const, int initial, int final)
+  {
+    for (int i = initial; i < final; i++)
+    {
+      this->data[i] = (this->data[i] * Const);
+    }
+  }
+
+  void descend (void)
   {
     int tmp = 0;
     int y = length-1;
@@ -598,7 +629,7 @@ class Array
     }
   }
 
-  void ascend ()
+  void ascend (void)
   {
     int tmp = 0;
     int y = length-1;
@@ -652,7 +683,7 @@ class Matrix
     }
   }
 
-  Matrix ()
+  Matrix (void)
   {
     rows = 0;
     columns = 0;
@@ -740,7 +771,7 @@ class Matrix
         file << data[x][y] << std::endl;
       }
     }
-    file.close ();
+    file.close();
   }
 
   void fread(const std::string fileName)
