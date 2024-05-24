@@ -666,15 +666,21 @@ class Matrix
   int rows;
   int columns;
   T **data;
+  int ix;
+  int iy;
 
   public:
   Matrix (int r, int c)
   {
+    ix = -1;
+    iy = -1;
     rows = 0;
     columns = 0;
     data = nullptr;
     if (r > 0 && c > 0)
     {
+      ix = 0;
+      iy = 0;
       rows = r;
       columns = c;
       data = new T*[rows];
@@ -687,6 +693,8 @@ class Matrix
 
   Matrix ()
   {
+    ix = -1;
+    iy = -1;
     rows = 0;
     columns = 0;
     data = nullptr;
@@ -696,6 +704,8 @@ class Matrix
   {
     if (r > 0 && c > 0)
     {
+      ix = 0;
+      iy = 0;
       rows = r;
       columns = c;
       data = new T*[rows];
@@ -704,6 +714,13 @@ class Matrix
         data[i] = new T[columns];
       }
     }
+  }
+
+  void SetSize ()
+  {
+    int r = ReadPositiveInt("Forneca a quantidade de linhas da matrix.  ");
+    int c = ReadPositiveInt("Forneca a quantidade de colunas da matrix. ");
+    this->init(r, c);
   }
 
   bool IsValid()
@@ -744,6 +761,21 @@ class Matrix
     return (this->columns);
   }
 
+  int getix()
+  {
+    return (this->ix);
+  }
+
+  int getiy()
+  {
+    return(this->iy);
+  }
+
+  int getdimensions()
+  {
+    return (this->getcolumns() * this->getrows());
+  }
+
   void write()
   {
     println ("");
@@ -753,6 +785,8 @@ class Matrix
     }
     else
     {
+      println ("Forneca os valores para a matrix: ");
+      std::cout << std::endl;
       for (int r = 0; r < rows; r++)
       {
         for (int c = 0; c < columns; c++)
@@ -761,6 +795,7 @@ class Matrix
           std::cin >> data[r][c]; 
         }
       }
+      std::cout << std::endl;
     }
   }
 
@@ -784,6 +819,7 @@ class Matrix
           std::cout << std::endl;
         } 
       }
+      std::cout << std::endl;
     }
   }
 
@@ -830,8 +866,7 @@ class Matrix
       } 
       else
       {
-        rows = r;
-        columns = c;
+        this->init(r, c);
         for (int x = 0; x < rows; x++)
         {
           for (int y = 0; y < columns; y++)
@@ -854,6 +889,46 @@ class Matrix
         data[x][y] = rand() % (final - initial + 1) + initial; 
       }
     }
+  }
+
+  void copy (Matrix <T> matrix)
+  {
+    if (matrix.IsValid())
+    {
+      this->init(matrix.rows, matrix.columns);
+      for (int x = 0; x < matrix.rows; x++)
+      {
+        for (int y = 0; y < matrix.columns; y++)
+        {
+          this->data[x][y] = matrix.data[x][y];
+        }
+      }
+    }
+  }
+
+  bool operator== (Matrix <T> matrix)
+  {
+    bool result = false;
+    if (matrix.IsValid() && this->IsValid())
+    {
+      if (matrix.rows == this->rows && matrix.columns == this->columns)
+      {
+        int x = 0;
+        int y = 0;
+        result = true;
+        while (x < this->rows && result)
+        {
+          y = 0;
+          while (y < this->columns && result)
+          {
+            result = (result && (matrix.data[x][y] == this->data[x][y]));
+            y++;
+          }
+          x++;
+        }
+      }
+    }
+    return (result);
   }
 
   void operator=  (Array <T> array)
@@ -893,6 +968,37 @@ class Matrix
         this->data[(rows-1)][(columns-1)] = 0;
       }
     }
+  }
+
+  Matrix operator+ (Matrix <T> matrix)
+  {
+    Matrix <T> result(0, 0);
+    if (matrix.IsValid())
+    {
+      if (matrix.rows != this->rows || this->columns != matrix.columns)
+      {
+        println ("ERRO: Dimensoes incompativeis. ");
+      }
+      else
+      {
+        result.init(rows, columns);
+        if (!result.IsValid())
+        {
+          println ("ERRO: Falta de espaco. ");
+        }
+        else
+        {
+          for (int x = 0; x < rows; x++)
+          {
+            for (int y = 0; y < columns; y++)
+            {
+              result.data[x][y] = (matrix.data[x][y] + this->data[x][y]);
+            }
+          }
+        }
+      }
+    }
+    return (result);
   }
 
   Matrix operator* (const int Const)
@@ -947,31 +1053,177 @@ class Matrix
     return (result);
   }
 
+  Matrix ScaleRow (int r, const int Const)
+  {
+    Matrix <T> result (0, 0);
+    if (r < 0 || r > (rows-1))
+    {
+      println ("ERRO: Posicao invalida. ");
+    }
+    else
+    {
+      result.copy(*this);
+      if (!result.IsValid())
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int y = 0; y < columns; y++)
+        {
+          result.data[r][y] = (this->data[r][y] * Const);
+        }
+      }
+    }
+    return (result);
+  }
+
+  Matrix AddRows (int row1, int row2, int Frow)
+  {
+    Matrix <T> result(0, 0);
+    int Trows = (this->rows - 1);
+    if (row1 < 0 || row1 > Trows || row2 < 0 || row2 > Trows || Frow < 0 || Frow > Trows)
+    {
+      println ("ERRO: Tamanhos invalidos. ");
+    }
+    else
+    {
+      result.copy(*this);
+      if (!result.IsValid())
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int y = 0; y < columns; y++)
+        {
+          result.data[Frow][y] = (this->data[row1][y] + this->data[row2][y]);
+        }
+      }
+    }
+    return (result);
+  }
+
+  /** Somar linhas de uma matrix com a segunda sendo escalada por uma constante
+   *  @param Linha a ser somada
+   *  @param Linha a ser somada
+   *  @param Linha do resultado da soma
+   *  @param Constante para definir o escalamento
+   *  @returns Matrix com a soma de 2 linhas com a segunda sendo escalada
+  */
+  Matrix AddScaledRows (int row1, int row2, int Frow, const int Const)
+  {
+    Matrix <T> result(0, 0);
+    int Trows = (this->rows - 1);
+    if (row1 < 0 || row1 > Trows || row2 < 0 || row2 > Trows || Frow < 0 || Frow > Trows)
+    {
+      println ("ERRO: Tamanhos invalidos. ");
+    }
+    else
+    {
+      result.copy(*this);
+      if (!result.IsValid())
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int y = 0; y < columns; y++)
+        {
+          result.data[Frow][y] = (this->data[row1][y] + (this->data[row2][y] * Const));
+        }
+      }
+    }
+    return (result);
+  }
+
+  /** Subtrair linhas de uma matrix com a segunda sendo escalada por uma constante
+   *  @param Linha a ser subtraida
+   *  @param Linha a ser subtraida
+   *  @param Linha do resultado da subtracao
+   *  @param Constante para definir o escalamento
+   *  @returns Matrix com a ssubtracao de 2 linhas com a segunda sendo escalada
+  */
+  Matrix SubtractScaledRows (int row1, int row2, int Frow, const int Const)
+  {
+    Matrix <T> result(0, 0);
+    int Trows = (this->rows - 1);
+    if (row1 < 0 || row1 > Trows || row2 < 0 || row2 > Trows || Frow < 0 || Frow > Trows)
+    {
+      println ("ERRO: Tamanhos invalidos. ");
+    }
+    else
+    {
+      result.copy(*this);
+      if (!result.IsValid())
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        for (int y = 0; y < columns; y++)
+        {
+          result.data[Frow][y] = (this->data[row1][y] - (this->data[row2][y] * Const));
+        }
+      }
+    }
+    return (result);
+  }
+
   bool CheckIdentity ()
   {
     int x = 0;
     int y = 0;
     int i = 1;
     bool result = true;
-    while (x < rows && result)
+    if (rows != columns)
     {
-      while (y < columns)
+      result = false;
+    }
+    else
+    {
+      while (x < rows && result)
       {
-        if (i == 1)
+        while (y < columns)
         {
-          result = (result && this->data[x][y] == 1);
+          if (i == 1)
+          {
+            result = (result && this->data[x][y] == 1);
+          }
+          else
+          {
+            result = (result && this->data[x][y] == 0);
+          }
+          y++;
+          i--;
         }
-        else
-        {
-          result = (result && this->data[x][y] == 0);
-        }
-        y++;
-        i--;
+        x++;
+        i = (x+1);
       }
-      x++;
-      i = (x+1);
     }
     return (result);
+  }
+
+  void find (int z)
+  {
+    int x = 0;
+    int y = 0;
+    ix = 0;
+    iy = 0;
+    while (x < rows && ix == 0)
+    {
+      y = 0;
+      while (y < columns && iy == 0)
+      {
+        if (this->data[x][y] == z)
+        {
+          ix = x;
+          iy = y;
+        }
+        y++;
+      }
+      x++;
+    }
   }
 
 };
