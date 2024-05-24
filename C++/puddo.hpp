@@ -20,6 +20,10 @@
 /** Mostrar uma cadeia de caracteres e pular uma linha
  *  @param Texto a ser mostrado
 */
+
+#define null NULL
+#define nullptr NULL
+
 void println (std::string text)
 {
     std::cout << text << std::endl;
@@ -661,13 +665,11 @@ class Matrix
   private:
   int rows;
   int columns;
-  T optional;
   T **data;
 
   public:
-  Matrix (int r, int c, T initial)
+  Matrix (int r, int c)
   {
-    optional = initial;
     rows = 0;
     columns = 0;
     data = nullptr;
@@ -683,11 +685,25 @@ class Matrix
     }
   }
 
-  Matrix (void)
+  Matrix ()
   {
     rows = 0;
     columns = 0;
     data = nullptr;
+  }
+
+  void init(int r, int c)
+  {
+    if (r > 0 && c > 0)
+    {
+      rows = r;
+      columns = c;
+      data = new T*[rows];
+      for (int i = 0; i < this->rows; i++)
+      {
+        data[i] = new T[columns];
+      }
+    }
   }
 
   bool IsValid()
@@ -710,23 +726,22 @@ class Matrix
 
   T get (int r, int c)
   {
-    T x = optional;
+    T x = 0;
     if (r >= 0 && r < rows && c >= 0 && c < columns)
     {
       x = data[r][c];
     }
+    return (x);
   }
 
   int getrows ()
   {
-    int rows = this->rows;
-    return (rows);
+    return (this->rows);
   }
 
   int getcolumns ()
   {
-    int columns = this->columns;
-    return (columns);
+    return (this->columns);
   }
 
   void write()
@@ -878,6 +893,58 @@ class Matrix
         this->data[(rows-1)][(columns-1)] = 0;
       }
     }
+  }
+
+  Matrix operator* (const int Const)
+  {
+    Matrix <T> result(0,0);
+    if (this->IsValid())
+    {
+      result.init(rows,columns);
+      if (!result.IsValid())
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      for (int x = 0; x < rows; x++)
+      {
+        for (int y = 0; y < columns; y++)
+        {
+          result.data[x][y] = (this->data[x][y] * Const);
+        }
+      }
+    }
+    return (result);
+  }
+
+  Matrix operator* (Matrix <T> matrix)
+  {
+    Matrix <T> result(0,0);
+    if (matrix.IsValid())
+    {
+      if (matrix.rows != this->columns || this->rows != matrix.columns)
+      {
+        println ("ERRO: Dimensoes incompativeis. ");
+      }
+      else
+      {
+        result.init(this->rows, matrix.columns);
+        if (result.IsValid())
+        {
+          for (int x = 0; x < this->rows; x++)
+          {
+            for (int y = 0; y < matrix.columns; y++)
+            {
+              result.data[x][y] = 0;
+              for (int z = 0; z < matrix.rows; z++)
+              {
+                result.data[x][y] += (this->data[x][z] * matrix.data[z][y]);
+              }
+            }
+          }
+        }
+      }
+    }
+    return (result);
   }
 
   bool CheckIdentity ()

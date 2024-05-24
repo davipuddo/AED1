@@ -7,7 +7,7 @@
 void ED0X01 (void)
 {
   // Identificacao de dados
-  Matrix <int> matrix(3,3,0);
+  Matrix <int> matrix(3,3);
   int n = 0;
 
   // Apresentacao
@@ -48,6 +48,11 @@ void ED0X01 (void)
 void ED0X02 (void)
 {
   // Identificacao de dados
+  int linhas  = 0;
+  int colunas = 0;
+  int constante = 0;
+  Matrix <int> resultado(2,2);
+
   // Apresentacao
   println ("ED0X02");
   println ("");                  // Pular uma linha
@@ -55,8 +60,32 @@ void ED0X02 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Operacao
-  // Mostrar dados
+  constante = ReadInt("Forneca a constante para definir o escalamento da matrix: ");
+  linhas  = ReadPositiveInt("Forneca a quantidade de linhas da matrix:  ");
+  colunas = ReadPositiveInt("Forneca a quantidade de colunas da matrix: ");
+  Matrix <int> matrix(linhas, colunas);
+
+  // Verificar dados
+  if (matrix.IsValid())
+  {
+    // Ler valores para a matrix
+    matrix.write();
+    
+    // Verificar dados
+    if (matrix.IsValid())
+    {
+      // Escalar matrix
+      resultado = matrix * constante;
+      if (resultado.IsValid())
+      {
+        // Mostrar dados
+        resultado.print();
+      }
+    }
+    // Liberar matrix da memoria
+    matrix.free();
+    resultado.free();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -80,18 +109,32 @@ void ED0X03 (void)
   // Ler dados
   linhas  = ReadPositiveInt("Forneca a quantidade de linhas da matrix: ");
   colunas = ReadPositiveInt("Forneca a quantidade de colunas da matrix: ");
+  Matrix <int> matrix(linhas, colunas);
 
-  Matrix <int> matrix(linhas, colunas, 0);
-
+  // Verificar dados
   if (matrix.getrows() > 0 && matrix.getcolumns() > 0)
   {
+    // Ler valores para a matrix
     matrix.write();
 
     if (matrix.IsValid())
     {
+      // Verificar se a matrix e a matrix identidade
       resultado = matrix.CheckIdentity();
 
-      std::cout << resultado << std::endl;
+      // Mostrar dados
+      if (resultado)
+      {
+        println ("A matrix fornecida e a matrix identidade. ");
+      }
+      else
+      {
+        println ("A matrix fornecida nao e a matrix identidade. ");
+      }
+      matrix.print();
+
+      // Liberar matrix da memoria
+      matrix.free();
     }
   }
 
