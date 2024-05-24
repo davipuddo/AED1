@@ -67,6 +67,10 @@ void ED0X02 (void)
 void ED0X03 (void)
 {
   // Identificacao de dados
+  int linhas = 0;
+  int colunas = 0;
+  bool resultado = false;
+
   // Apresentacao
   println ("ED0X03");
   println ("");                  // Pular uma linha
@@ -74,8 +78,22 @@ void ED0X03 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  linhas  = ReadPositiveInt("Forneca a quantidade de linhas da matrix: ");
+  colunas = ReadPositiveInt("Forneca a quantidade de colunas da matrix: ");
+
+  Matrix <int> matrix(linhas, colunas, 0);
+
+  if (matrix.getrows() > 0 && matrix.getcolumns() > 0)
+  {
+    matrix.write();
+
+    if (matrix.IsValid())
+    {
+      resultado = matrix.CheckIdentity();
+
+      std::cout << resultado << std::endl;
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha

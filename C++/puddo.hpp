@@ -690,6 +690,16 @@ class Matrix
     data = nullptr;
   }
 
+  bool IsValid()
+  {
+    bool result = false;
+    if (this->rows > 0 && this->columns > 0 && this->data != null)
+    {
+      result = true;
+    }
+    return (result);
+  }
+
   void set(int r, int c, int value)
   {
     if (r >= 0 && r < rows && c >= 0 && c < columns)
@@ -705,6 +715,18 @@ class Matrix
     {
       x = data[r][c];
     }
+  }
+
+  int getrows ()
+  {
+    int rows = this->rows;
+    return (rows);
+  }
+
+  int getcolumns ()
+  {
+    int columns = this->columns;
+    return (columns);
   }
 
   void write()
@@ -858,6 +880,32 @@ class Matrix
     }
   }
 
+  bool CheckIdentity ()
+  {
+    int x = 0;
+    int y = 0;
+    int i = 1;
+    bool result = true;
+    while (x < rows && result)
+    {
+      while (y < columns)
+      {
+        if (i == 1)
+        {
+          result = (result && this->data[x][y] == 1);
+        }
+        else
+        {
+          result = (result && this->data[x][y] == 0);
+        }
+        y++;
+        i--;
+      }
+      x++;
+      i = (x+1);
+    }
+    return (result);
+  }
 
 };
 #endif
