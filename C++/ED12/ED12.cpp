@@ -55,9 +55,9 @@ void ED0X01 (void)
 void ED0X02 (void)
 {
   // Identificacao de dados
-  Matrix <int> Fmatrix(0, 0);
+  Matrix <int> matrix   (0, 0);
+  Matrix <int> Fmatrix  (0, 0);
   Matrix <int> resultado(0, 0);
-  Matrix <int> matrix(0, 0);
   int constante = 0;
 
   // Apresentacao
@@ -109,8 +109,8 @@ void ED0X02 (void)
 void ED0X03 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix (0, 0);
   Matrix <int> Fmatrix(0, 0);
-  Matrix <int> matrix(0, 0);
   bool resultado = false;
 
   // Apresentacao
@@ -181,10 +181,10 @@ void ED0X03 (void)
 void ED0X04 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix1 (0, 0);
+  Matrix <int> matrix2 (0, 0);
   Matrix <int> Fmatrix1(0, 0);
   Matrix <int> Fmatrix2(0, 0);
-  Matrix <int> matrix1(0, 0);
-  Matrix <int> matrix2(0, 0);
   bool resultado = false;
 
   // Apresentacao
@@ -197,7 +197,7 @@ void ED0X04 (void)
   Fmatrix1.SetSize();
 
   // Verificar dimensoes
-  if (Fmatrix1.getdimensions() <= 0)
+  if (!Fmatrix1.IsValid())
   {
     println ("ERRO: Dimensoes invalidas. ");
   }
@@ -210,7 +210,7 @@ void ED0X04 (void)
     Fmatrix2.SetSize();
 
     // Verificar dimensoes
-    if (Fmatrix2.getdimensions() <= 0)
+    if (!Fmatrix2.IsValid())
     {
       println ("ERRO: Dimensoes invalidas. ");
     }
@@ -279,15 +279,89 @@ void ED0X04 (void)
 void ED0X05 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix1  (0, 0);
+  Matrix <int> matrix2  (0, 0);
+  Matrix <int> Fmatrix1 (0, 0);
+  Matrix <int> Fmatrix2 (0, 0);
+  Matrix <int> resultado(0, 0);
+
   // Apresentacao
   println ("ED0X05");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+   // Ler dimensoes da matrix
+  Fmatrix1.SetSize();
+
+  // Verificar dimensoes
+  if (!Fmatrix1.IsValid())
+  {
+    println ("ERRO: Dimensoes invalidas. ");
+  }
+  else
+  {
+    // Ler valores para a matrix 
+    Fmatrix1.write();
+
+    // Ler tamanho da matrix
+    Fmatrix2.SetSize();
+
+    // Verificar dimensoes
+    if (!Fmatrix2.IsValid())
+    {
+      println ("ERRO: Dimensoes invalidas. ");
+    }
+    else
+    {
+      // Ler valores para a matrix
+      Fmatrix2.write();
+
+      // Verificar dados
+      if (!Fmatrix1.IsValid() || !Fmatrix2.IsValid())
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Escrever matrizes nos arquivos
+        Fmatrix1.fwrite("DADOS0501.TXT");
+        Fmatrix2.fwrite("DADOS0502.TXT");
+
+        // Liberar matrizes da memoria
+        Fmatrix1.free();
+        Fmatrix2.free();
+
+        // Ler matrizes dos arquivos
+        matrix1.fread("DADOS0501.TXT");
+        matrix2.fread("DADOS0502.TXT");
+
+        // Verificar dados
+        if (!matrix1.IsValid() || !matrix2.IsValid())
+        {
+          println ("ERRO: Dados invalidos. ");
+        }
+        else
+        {
+          // Somar matrizes
+          resultado = (matrix1 + matrix2);
+
+          // Mostrar dados
+          println("Matrix 1 -");
+          matrix1.print();
+          println("Matrix 2 -");
+          matrix2.print();
+          println("Soma -");
+          resultado.print();
+
+          // Liberar matrizes da memoria
+          matrix1.free();
+          matrix2.free();
+          resultado.free();
+        }
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -298,15 +372,90 @@ void ED0X05 (void)
 void ED0X06 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix (0, 0);
+  Matrix <int> Fmatrix(0, 0);
+  Matrix <int> resultado (0, 0);
+
+  int linha1 = 0;       // Linha a ser somada
+  int linha2 = 0;       // Linha a ser somada
+  int Lsoma  = 0;       // Linha do resultado da soma
+  int constante = 0;
+
   // Apresentacao
   println ("ED0X06");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler dimensoes da matrix
+  Fmatrix.SetSize();
+  
+  // Verificar dimensoes
+  if (!Fmatrix.IsValid())
+  {
+    println ("ERRO: Dimensoes invalidass. ");
+  }
+  else
+  {
+    // Ler valores para a matrix
+    Fmatrix.write();
+
+    // Verificar dados
+    if (!Fmatrix.IsValid())
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever matrix no arquivo
+      Fmatrix.fwrite("DADOS06.TXT");
+
+      // Liberar matrix da memoria
+      Fmatrix.free();
+
+      // Ler matrix do arquivo
+      matrix.fread("DADOS06.TXT");
+
+      // Verificar dados
+      if (!matrix.IsValid())
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Ler dados
+        do
+        {
+          linha1 = ReadInt("Forneca a linha a ser somada: ");
+        } while (linha1 < 0);
+
+        do
+        {
+          linha2 = ReadInt("Forneca a outra linha a ser somada: ");
+        } while (linha2 < 0);
+
+        do
+        {
+          Lsoma = ReadInt("Forneca a linha a ser alterada: ");
+        } while (Lsoma < 0);
+
+        constante = ReadInt("Fornca uma constante para definir o escalamento da segunda linha da matrix: ");
+
+        // Somar linhas com a segunda sendo escalada
+        resultado = matrix.AddScaledRows (linha1, linha2, Lsoma, constante);
+
+        // Mostrar dados
+        println ("Matrix normal -");
+        matrix.print();
+        println ("Matrix com soma escalada -");
+        resultado.print();
+
+        // Liberar matrizes da memoria
+        matrix.free();
+        resultado.free();
+      } 
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -317,15 +466,90 @@ void ED0X06 (void)
 void ED0X07 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix (0, 0);
+  Matrix <int> Fmatrix(0, 0);
+  Matrix <int> resultado (0, 0);
+
+  int linha1 = 0;       // Linha a ser subtraida
+  int linha2 = 0;       // Linha a ser subtraida
+  int Lsoma  = 0;       // Linha do resultado da subtracao
+  int constante = 0;
+
   // Apresentacao
   println ("ED0X07");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler dimensoes da matrix
+  Fmatrix.SetSize();
+  
+  // Verificar dimensoes
+  if (!Fmatrix.IsValid())
+  {
+    println ("ERRO: Dimensoes invalidass. ");
+  }
+  else
+  {
+    // Ler valores para a matrix
+    Fmatrix.write();
+
+    // Verificar dados
+    if (!Fmatrix.IsValid())
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever matrix no arquivo
+      Fmatrix.fwrite("DADOS07.TXT");
+
+      // Liberar matrix da memoria
+      Fmatrix.free();
+
+      // Ler matrix do arquivo
+      matrix.fread("DADOS07.TXT");
+
+      // Verificar dados
+      if (!matrix.IsValid())
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Ler dados
+        do
+        {
+          linha1 = ReadInt("Forneca a linha a ser subtraida: ");
+        } while (linha1 < 0);
+
+        do
+        {
+          linha2 = ReadInt("Forneca a outra linha a ser subtraida: ");
+        } while (linha2 < 0);
+
+        do
+        {
+          Lsoma = ReadInt("Forneca a linha a ser alterada: ");
+        } while (Lsoma < 0);
+
+        constante = ReadInt("Fornca uma constante para definir o escalamento da segunda linha da matrix: ");
+
+        // Subtrair linhas com a segunda sendo escalada
+        resultado = matrix.SubtractScaledRows (linha1, linha2, Lsoma, constante);
+
+        // Mostrar dados
+        println ("Matrix normal -");
+        matrix.print();
+        println ("Matrix com subtracao escalada -");
+        resultado.print();
+
+        // Liberar matrizes da memoria
+        matrix.free();
+        resultado.free();
+      } 
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -336,15 +560,65 @@ void ED0X07 (void)
 void ED0X08 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix (0, 0);
+  Matrix <int> Fmatrix (0, 0);
+  int valor = 0;
+
   // Apresentacao
   println ("ED0X08");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler dimensoes da matrix
+  Fmatrix.SetSize();
+
+  // Verificar dimensoes
+  if (!Fmatrix.IsValid())
+  {
+    println ("ERRO: Dimensoes invalidas. ");
+  }
+  else
+  {
+    // Ler valores para a matrix
+    Fmatrix.write();
+
+    if (!Fmatrix.IsValid())
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever matrix no arquivo
+      Fmatrix.fwrite("DADOS08.TXT");
+
+      // Liberar matrix da memoria
+      Fmatrix.free();
+
+      // Ler matrix do arquivo
+      matrix.fread("DADOS08.TXT");
+
+      // Verificar dados
+      if (!matrix.IsValid())
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Ler dados
+        valor = ReadInt("Forneca um valor para ser procurado na matrix: ");
+
+        // Procurar valor
+        matrix.find(valor);
+
+        // Mostrar dados
+        std::cout << "linha:  " << matrix.getix() << std::endl;
+
+        // Liberar matrix da memoria
+        matrix.free();
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
