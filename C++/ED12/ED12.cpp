@@ -3,17 +3,16 @@
 #include "../io.hpp"
 #include "../puddo.hpp"
 
-
-void ED0X01 (void)
+void ED1201 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix(2, 2);
   int n = 0;
 
   // Apresentacao
-  println ("ED0X01");
+  println ("ED1201");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Ler e gerar uma quantidade [n] de valores aleatorios dentro de um intervalo e guarda-los em uma matrix. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -52,7 +51,7 @@ void ED0X01 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X02 (void)
+void ED1202 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix   (0, 0);
@@ -61,9 +60,9 @@ void ED0X02 (void)
   int constante = 0;
 
   // Apresentacao
-  println ("ED0X02");
+  println ("ED1202");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Escalar uma matrix por uma constante. Para testar receber a matrix de um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -106,7 +105,7 @@ void ED0X02 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X03 (void)
+void ED1203 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix (0, 0);
@@ -114,9 +113,9 @@ void ED0X03 (void)
   bool resultado = false;
 
   // Apresentacao
-  println ("ED0X03");
+  println ("ED1203");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Testar se uma matrix e a matrix identidade. Para testar receber a matrix de um arquivo. ");
   println ("");                  // Pular uma linha
     
   // Ler dimensoes da matrix
@@ -178,7 +177,7 @@ void ED0X03 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X04 (void)
+void ED1204 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix1 (0, 0);
@@ -188,9 +187,9 @@ void ED0X04 (void)
   bool resultado = false;
 
   // Apresentacao
-  println ("ED0X04");
+  println ("ED1204");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Fazer um operador para testar a igualdade de duas matrizes. Para testar receber matrizes de 2 arquivos. ");
   println ("");                  // Pular uma linha
     
   // Ler dimensoes da matrix
@@ -276,7 +275,7 @@ void ED0X04 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X05 (void)
+void ED1205 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix1  (0, 0);
@@ -286,9 +285,9 @@ void ED0X05 (void)
   Matrix <int> resultado(0, 0);
 
   // Apresentacao
-  println ("ED0X05");
+  println ("ED1205");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Somar duas matrizes. Para testar receber matrizes de dois arquivos. ");
   println ("");                  // Pular uma linha
     
    // Ler dimensoes da matrix
@@ -369,7 +368,7 @@ void ED0X05 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X06 (void)
+void ED1206 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix (0, 0);
@@ -382,9 +381,10 @@ void ED0X06 (void)
   int constante = 0;
 
   // Apresentacao
-  println ("ED0X06");
+  println ("ED1206");
   println ("");                  // Pular uma linha
-  println (" ");
+  std::cout << "Operar duas linhas de uma matrix, guardando no primeiro lugar, as somas de cada elemento da primeira linha com o";
+  println ("respectivo da segunda linha multiplicado por uma constante. ");
   println ("");                  // Pular uma linha
     
   // Ler dimensoes da matrix
@@ -463,7 +463,7 @@ void ED0X06 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X07 (void)
+void ED1207 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix (0, 0);
@@ -476,9 +476,10 @@ void ED0X07 (void)
   int constante = 0;
 
   // Apresentacao
-  println ("ED0X07");
+  println ("ED1207");
   println ("");                  // Pular uma linha
-  println (" ");
+  std::cout << "Operar duas linhas de uma matrix, guardando no primeiro lugar, as diferencas de cada elemento da primeira linha com o";
+  println ("respectivo da segunda linha multiplicado por uma constante. ");
   println ("");                  // Pular uma linha
     
   // Ler dimensoes da matrix
@@ -557,17 +558,18 @@ void ED0X07 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X08 (void)
+void ED1208 (void)
 {
   // Identificacao de dados
   Matrix <int> matrix (0, 0);
   Matrix <int> Fmatrix (0, 0);
   int valor = 0;
+  int linha = 0;
 
   // Apresentacao
-  println ("ED0X08");
+  println ("ED1208");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Dizer em qual linha de uma matrix se encontra um valor [x]. ");
   println ("");                  // Pular uma linha
     
   // Ler dimensoes da matrix
@@ -612,7 +614,18 @@ void ED0X08 (void)
         matrix.find(valor);
 
         // Mostrar dados
-        std::cout << "linha:  " << matrix.getix() << std::endl;
+        linha = matrix.getiy();
+        if (linha >= 0)
+        {
+          std::cout << "O valor \'" << valor << "\' foi encontrado na linha [" << matrix.getiy() << "] da matrix" << std::endl;
+        }
+        else
+        {
+          std::cout << "O valor \'" << valor << "\' nao foi encontrado na matrix. ";
+        }
+        std::cout << std::endl;
+        println("Matrix -");
+        matrix.print();
 
         // Liberar matrix da memoria
         matrix.free();
@@ -626,18 +639,80 @@ void ED0X08 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X09 (void)
+void ED1209 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix (0, 0);
+  Matrix <int> Fmatrix (0, 0);
+  int valor = 0;
+  int coluna = 0;
+
   // Apresentacao
-  println ("ED0X09");
+  println ("ED1208");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Dizer em qual coluna de uma matrix se encontra um valor [x]. ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler dimensoes da matrix
+  Fmatrix.SetSize();
+
+  // Verificar dimensoes
+  if (!Fmatrix.IsValid())
+  {
+    println ("ERRO: Dimensoes invalidas. ");
+  }
+  else
+  {
+    // Ler valores para a matrix
+    Fmatrix.write();
+
+    if (!Fmatrix.IsValid())
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever matrix no arquivo
+      Fmatrix.fwrite("DADOS09.TXT");
+
+      // Liberar matrix da memoria
+      Fmatrix.free();
+
+      // Ler matrix do arquivo
+      matrix.fread("DADOS09.TXT");
+
+      // Verificar dados
+      if (!matrix.IsValid())
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Ler dados
+        valor = ReadInt("Forneca um valor para ser procurado na matrix: ");
+
+        // Procurar valor
+        matrix.find(valor);
+
+        // Mostrar dados
+        coluna = matrix.getiy();
+        if (coluna >= 0)
+        {
+          std::cout << "O valor \'" << valor << "\' foi encontrado na coluna [" << matrix.getiy() << "] da matrix" << std::endl;
+        }
+        else
+        {
+          std::cout << "O valor \'" << valor << "\' nao foi encontrado na matrix. ";
+        }
+        std::cout << std::endl;
+        println("Matrix -");
+        matrix.print();
+
+        // Liberar matrix da memoria
+        matrix.free();
+      }
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -645,18 +720,178 @@ void ED0X09 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X10 (void)
+void ED1210 (void)
 {
   // Identificacao de dados
+  Matrix <int> matrix   (0, 0);
+  Matrix <int> Fmatrix  (0, 0);
+  Matrix <int> resultado(0, 0);
+
   // Apresentacao
-  println ("ED0X10");
+  println ("ED1210");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Transpor uma matrix. ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  // Verificar dados
-  // Mostrar dados
+  // Ler dimensoes da matrix
+  Fmatrix.SetSize();
+
+  // Verificar dimensoes
+  if (!Fmatrix.IsValid())
+  {
+    println ("ERRO: Dimensoes invalidas. ");
+  }
+  else
+  {
+    // Ler valores para a matrix
+    Fmatrix.write();
+
+    if (!Fmatrix.IsValid())
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      // Escrever matrix no arquivo
+      Fmatrix.fwrite("DADOS10.TXT");
+
+      // Liberar matrix da memoria
+      Fmatrix.free();
+
+      // Ler matrix do arquivo
+      matrix.fread("DADOS10.TXT");
+
+      // Verificar dados
+      if (!matrix.IsValid())
+      {
+        println ("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        // Transpor matrix
+        resultado = matrix.transpose();
+
+        // Mostrar dados
+        println ("Matrix normal -");
+        matrix.print();
+        println ("Matrix transposta -");
+        resultado.print();
+
+        // Liberar matrizes da memoria
+        matrix.free();
+        resultado.free();
+      }
+    }
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED12E1 (void)
+{
+  // Identificacao de dados
+  Matrix <int> matrix(0, 0);
+  Matrix <int> referencia(0, 0);
+  bool resultado = false;
+
+  // Apresentacao
+  println ("ED12E1");
+  println ("");                  // Pular uma linha
+  println ("Dizer se uma matrix apresenta a caracteristica mostrada no estudo dirigido. ");
+  println ("");                  // Pular uma linha
+  
+  // Ler dimensoes da matrix
+  matrix.SetSize();
+
+  // Verificar dimensoes
+  if (matrix.IsValid())
+  {
+    // Inicializar matrix de referencia
+    referencia.init(matrix.getrows(), matrix.getcolumns());
+
+    // Verificar dados
+    if (!referencia.IsValid())
+    {
+      println ("ERRO: Falta de espaco. ");
+    }
+    else
+    {
+      // Escrever valores para a matrix
+      matrix.write();
+      referencia.WriteAscending(1);
+
+      // Verificar dados
+      if (matrix.IsValid() && referencia.IsValid())
+      {
+        // Transpor matrix
+        referencia = referencia.transpose();
+        
+        // Verificar igualdade
+        resultado = (referencia == matrix);
+
+        // Mostrar dados
+        if (resultado)
+        {
+          println ("A matrix apresenta a caracteristica mostrada. ");
+        }
+        else
+        {
+          println ("A matrix nao apresenta a caracteristica mostrada. ");
+        }
+        println ("Matrix -");
+        matrix.print();
+        println ("Matrix referencia -");
+        referencia.print();
+
+        // Liberar matrizes da memoria
+        matrix.free();
+        referencia.free();
+      }
+    }
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED12E2 (void)
+{
+  // Identificacao de dados
+  Matrix <int> matrix(0, 0);
+
+  // Apresentacao
+  println ("ED12E2");
+  println ("");                  // Pular uma linha
+  println ("Montar matrix com a caracteristica mostrada no estudo dirigido. ");
+  println ("");                  // Pular uma linha
+  
+  // Ler dimensoes da matrix
+  matrix.SetSize();
+
+  // Verificar dimensoes
+  if (matrix.IsValid())
+  {
+    // Escrever valores para a matrix
+    matrix.WriteDescending(1);
+
+    // Verificar dados
+    if (matrix.IsValid())
+    {
+      // Transpor matrix
+      matrix = matrix.transpose();
+
+      // Mostrar dados
+      matrix.print();
+
+      // Liberar matrix da memoria
+      matrix.free();
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -676,19 +911,20 @@ int main (void)
 
       // Identificacao
       println ("");              // Pular uma linha
-      println ("ED0X - v0.0 - 00/00/00" );
+      println ("ED12 - v0.0 - 00/00/00" );
       println ("853355_AED1 - Davi Puddo");
       println ("");              // Pular uma linha
 
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED0X01   2 - ED0X02");
-      println ("3 - ED0X03   4 - ED0X04");
-      println ("5 - ED0X05   6 - ED0X06");
-      println ("7 - ED0X07   8 - ED0X08");
-      println ("9 - ED0X09  10 - ED0X10");
+      println ("0  - sair");
+      println ("1  - ED1201   2 - ED1202");
+      println ("3  - ED1203   4 - ED1204");
+      println ("5  - ED1205   6 - ED1206");
+      println ("7  - ED1207   8 - ED1208");
+      println ("9  - ED1209  10 - ED1210");
+      println ("11 - ED12E1  12 - ED12E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -701,25 +937,29 @@ int main (void)
         {
           case 0:
             break;
-          case 1:  ED0X01();
+          case 1:  ED1201();
             break;
-          case 2:  ED0X02();
+          case 2:  ED1202();
             break;
-          case 3:  ED0X03();
+          case 3:  ED1203();
             break;
-          case 4:  ED0X04();
+          case 4:  ED1204();
             break;
-          case 5:  ED0X05();
+          case 5:  ED1205();
             break;
-          case 6:  ED0X06();
+          case 6:  ED1206();
             break;
-          case 7:  ED0X07();
+          case 7:  ED1207();
             break;
-          case 8:  ED0X08();
+          case 8:  ED1208();
             break;
-          case 9:  ED0X09();
+          case 9:  ED1209();
             break;
-          case 10: ED0X10();
+          case 10: ED1210();
+            break;
+          case 11: ED12E1();
+            break;
+          case 12: ED12E2();
             break;
           default: 
               println ("");                // Pular uma linha
@@ -738,6 +978,6 @@ int main (void)
 
 /*
     Versao      Data        Teste      Modificacoes
-    0.0         00/00/00    (OK)       Criacao do arquivo ED0X e seus metodos
+    0.0         00/00/00    (OK)       Criacao do arquivo ED12 e seus metodos
 
 */

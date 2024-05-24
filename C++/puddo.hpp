@@ -1208,12 +1208,12 @@ class Matrix
   {
     int x = 0;
     int y = 0;
-    ix = 0;
-    iy = 0;
-    while (x < rows && ix == 0)
+    ix = -1;
+    iy = -1;
+    while (x < rows && ix == -1)
     {
       y = 0;
-      while (y < columns && iy == 0)
+      while (y < columns && iy == -1)
       {
         if (this->data[x][y] == z)
         {
@@ -1224,6 +1224,56 @@ class Matrix
       }
       x++;
     }
+  }
+
+  void WriteAscending (const int Const)
+  {
+    int i = 1;
+    for (int x = 0; x < rows; x++)
+    {
+      for (int y = 0; y < columns; y++)
+      {
+        this->data[x][y] = (i*Const);
+        i++;
+      }
+    }
+  }
+  
+  void WriteDescending (const int Const)
+  {
+    int i = (rows*columns);
+    for (int x = 0; x < rows; x++)
+    {
+      for (int y = 0; y < columns; y++)
+      {
+        this->data[x][y] = (i*Const);
+        i--;
+      }
+    }
+  }
+
+  Matrix transpose ()
+  {
+    Matrix <T> result(0, 0);
+    if (this->IsValid())
+    {
+      result.init(columns, rows);
+      if (!result.IsValid())
+      {
+        println("ERRO: Dados invalidos. ");
+      }
+      else
+      {
+        for (int x = 0; x < result.rows; x++)
+        {
+          for (int y = 0; y < result.columns; y++)
+          {
+            result.data[x][y] = this->data[y][x];
+          }
+        }
+      }
+    }
+    return (result);
   }
 
 };
