@@ -1,10 +1,10 @@
+
 class Contato
 {
     private:
     std::string name;
-    std::string phone1;
-    std::string phone2;
-
+    Array <int> phone;
+    
     public:
 
     ~Contato()
@@ -13,88 +13,36 @@ class Contato
     Contato ()
     {
         name   = "";
-        phone1 = "";
-        phone2 = "";
+        phone.init(2);
     }
 
-    std::string GetPhone(int x)
+    int GetPhone(int n)
     {
-        std::string tmp = "";
-        if (x == 1)
+        int tmp = 0;
+        if (this->CheckPhone(n))
         {
-            tmp = phone1;
+            tmp = phone.get(n);
         }
-        else if (x == 2)
-        {
-            tmp = phone2;
-        }
-        else
+        return (tmp);
+    }
+
+    void SetPhone(int data, int n)
+    {
+        phone.set(n, data);
+        if (!this->CheckPhone(n))
         {
             println ("ERRO: Telefone invalido. ");
-        }
-        return(tmp);
-    }
-
-    void SetPhone1(std::string data, int x)
-    {
-        std::string tmp = "";
-        if (x == 1)
-        {
-            phone1 = data;
-        }
-        else if (x == 2)
-        {
-            phone2 = data;
-        }
-        else
-        {
-            println ("ERRO: Telefone invalido. ");
+            phone.set(n, 999999999);
         }
     }
 
-    bool CheckPhone(int x)
+    bool CheckPhone(int n)
     {
         bool result = false;
-        int i = 0;
-        if(x == 1)
+        int tmp = phone.get(n);
+        if (tmp >= 100000000 && tmp <= 999999999)
         {
-            int size = phone1.length();
-            if (size > 8 && size < 11)
-            {
-                result = true;
-                while (i < size && result)
-                {   
-                    if (i == 5)
-                    {
-                        result = (phone1[i] == '-');
-                    }
-                    else
-                    {
-                        result = (result && phone1[i] >= '0' && phone1[i] <= '9');
-                    }
-                    i++;
-                }
-            }
-        }
-        else if (x == 2)
-        {
-            int size = phone2.length();
-            if (size > 8 && size < 11)
-            {
-                result = true;
-                while (i < size && result)
-                {   
-                    if (i == 5)
-                    {
-                        result = (phone2[i] == '-');
-                    }
-                    else
-                    {
-                        result = (result && phone2[i] >= '0' && phone2[i] <= '9');
-                    }
-                    i++;
-                }
-            }
+            result = true;
         }
         return (result);
     }
@@ -125,8 +73,10 @@ class Contato
     void print()
     {
         std::cout << "Name: " << name << std::endl;
-        std::cout << "Phone1: " << phone1 << std::endl;
-        std::cout << "Phone2: " << phone2 << std::endl;
+        for (int i = 0; i < 2; i++)
+        {
+            std::cout << "Telefone " << (i+1) << ": " << phone[i] << std::endl; 
+        }
     }
 
     void fwrite(std::string fileName)
@@ -142,21 +92,16 @@ class Contato
             std::cout << name << std::endl;
             file << name << std::endl;
         }
-        if (!this->CheckPhone(1))
+        for (int i = 0; i < 2; i++)
         {
-            println ("ERRO: Telefone invalido. ");
-        }
-        else
-        {
-            file << phone1 << std::endl;
-        }
-        if (!this->CheckPhone(2))
-        {
-            println ("ERRO: Telefone invalido. ");
-        }
-        else
-        {
-            file << phone2 << std::endl;
+            if (!this->CheckPhone(i))
+            {
+                println ("ERRO: Telefone invalido. ");
+            }
+            else
+            {
+                file << phone[i] << std::endl;
+            }
         }
         file.close();
     }
@@ -171,17 +116,14 @@ class Contato
             println ("ERRO: Nome invalido. ");
             name = "";
         }
-        file >> phone1;
-        if (!this->CheckPhone(1))
+        for (int i = 0; i < 2; i++)
         {
-            println ("ERRO: Telefone invalido. ");
-            phone1 = "";
-        }
-        file >> phone2;
-        if (!this->CheckPhone(2))
-        {
-            println ("ERRO: Telefone invalido. ");
-            phone2 = "";
+            file >> phone[i];
+            if (!this->CheckPhone(1))
+            {
+                println ("ERRO: Telefone invalido. ");
+                phone[i] = 999999999;
+            }
         }
         file.close();
     }

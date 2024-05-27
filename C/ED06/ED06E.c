@@ -141,10 +141,7 @@ int Par_Fibonacci (int n)
       z = x + y;
       y = x;
       x = z;
-      if (z % 2 != 0)                 // Se [z] for um numero par
-        {
-          n++;                        // Pular para a proxima sequencia
-        }
+      printf("%d\n", z);
     }
   return (z);                         // Resultado da funcao
 }

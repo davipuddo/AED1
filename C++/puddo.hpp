@@ -138,6 +138,15 @@ class Array
     length   = 0;
     data = nullptr;
   }
+  
+  void init (int n)
+  {
+    if (n > 0)
+    {
+      length = n;
+      data = new T[length];
+    }
+  }
 
   Array (int length, int other[])
   {
@@ -172,6 +181,7 @@ class Array
       }
     }
   }
+
 
   Array& operator= (const Array <T> other)
   {
@@ -1305,3 +1315,4 @@ class Matrix
 
 };
 #endif
+
