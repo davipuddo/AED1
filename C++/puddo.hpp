@@ -67,6 +67,33 @@ int ReadPositiveInt (std::string text)
   return (x);
 }
 
+double ReadDouble (std::string text)
+{
+  double x = 0.0;
+  println (text);
+  std::cin >> x;
+  getchar();
+  return(x);
+}
+
+char ReadChar (std::string text)
+{
+  char x = '0';
+  println (text);
+  std::cin >> x;
+  getchar();
+  return(x);
+}
+
+std::string ReadString (std::string text)
+{
+  std::string x = "";
+  println (text);
+  std::cin >> x;
+  getchar();
+  return(x);
+}
+
 int IntRandom (int x, int y)
 {
   int resultado = rand() % x + y;
