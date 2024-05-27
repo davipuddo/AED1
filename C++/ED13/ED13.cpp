@@ -188,6 +188,7 @@ void ED0X06 (void)
   telefone1 = ReadString("Forneca o telefone do contato: ");
   telefone2 = ReadString("Forneca um outro telefone do contato: ");
 
+  // Guardar dados do contato
   pessoa1.SetName(nome);
   pessoa1.SetPhone(telefone1, 0);
   pessoa1.SetPhone(telefone2, 1);
@@ -208,6 +209,10 @@ void ED0X06 (void)
 void ED0X07 (void)
 {
   // Identificacao de dados
+  Contato pessoa1;
+  Contato pessoa2;
+  Contato pessoa3;
+
   // Apresentacao
   println ("ED0X07");
   println ("");                  // Pular uma linha
@@ -215,8 +220,13 @@ void ED0X07 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  pessoa1.AddPhone(1);
+  pessoa3.AddPhone(3);
+
   // Mostrar dados
+  std::cout << "A pessoa 1 possui [" << pessoa1.GetPhones() << "] telefones" << std::endl;
+  std::cout << "A pessoa 2 possui [" << pessoa2.GetPhones() << "] telefones" << std::endl;
+  std::cout << "A pessoa 3 possui [" << pessoa3.GetPhones() << "] telefones" << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -227,6 +237,9 @@ void ED0X07 (void)
 void ED0X08 (void)
 {
   // Identificacao de dados
+  Contato pessoa1;
+  std::string telefone = "";
+
   // Apresentacao
   println ("ED0X08");
   println ("");                  // Pular uma linha
@@ -234,8 +247,17 @@ void ED0X08 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  telefone = ReadString("Forneca o segundo numero de telefone do contato: ");
+
+  // Guardar dados
+  pessoa1.SetPhone(telefone, 1);
+
   // Verificar dados
-  // Mostrar dados
+  if (pessoa1.IsValid())
+  {
+    // Mostrar dados
+    pessoa1.print();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -246,6 +268,9 @@ void ED0X08 (void)
 void ED0X09 (void)
 {
   // Identificacao de dados
+  Contato pessoa1;
+  std::string telefone = "";
+
   // Apresentacao
   println ("ED0X09");
   println ("");                  // Pular uma linha
@@ -253,8 +278,17 @@ void ED0X09 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  telefone = ReadString("Forneca o segundo numero de telefone do contato: ");
+
+  // Guardar dados
+  pessoa1.SetPhone(telefone, 1);
+
   // Verificar dados
-  // Mostrar dados
+  if (pessoa1.IsValid())
+  {
+    // Mostrar dados
+    pessoa1.print();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -265,6 +299,10 @@ void ED0X09 (void)
 void ED0X10 (void)
 {
   // Identificacao de dados
+  Contato pessoa1;
+  std::string telefone1 = "";
+  std::string telefone2 = "";
+
   // Apresentacao
   println ("ED0X10");
   println ("");                  // Pular uma linha
@@ -272,8 +310,22 @@ void ED0X10 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  telefone1 = ReadString("Forneca o numero de telefone do contato: ");
+  telefone2 = ReadString("Forneca um outro numero de telefone do contato: ");
+
+  // Armazenar dados
+  pessoa1.SetPhone(telefone1, 0);
+  pessoa1.AddPhone(1);
+  pessoa1.SetPhone(telefone2, 1);
+
   // Mostrar dados
+  pessoa1.print();
+
+  // Alterar dados
+  pessoa1.SetPhone("", 1);
+
+  // Mostrar dados
+  pessoa1.print();
 
   // Fim
   println ("");                  // Pular uma linha

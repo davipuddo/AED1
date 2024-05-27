@@ -4,6 +4,7 @@ class Contato
     private:
     std::string name;
     Matrix <std::string> phone;
+    int phones;
     
     public:
 
@@ -13,11 +14,40 @@ class Contato
     Contato ()
     {
         name   = "";
-        phone.init(2,1);
+        phones = 1;
+        phone.init(phones, 1);
         for (int i = 0; i < phone.getrows(); i++)
         {
             phone.set(i, 0, "99999-9999");
         }
+    }
+
+    void AddPhone (int x)
+    {
+        Matrix <std::string> tmp(0, 0);
+        tmp.copy(phone);
+
+        phones += x;
+        phone.init(phones, 1);
+
+        // Copiar dados antigos
+        int r = tmp.getrows();
+        for (int x = 0; x < r; x++)
+        {
+            phone.set(x, 0, tmp.get(x, 0));
+        }
+        tmp.free();
+
+        // Inicializar dados novos
+        for (int x = r; x < phones; x++)
+        {
+            phone.set(x, 0, "99999-9999");
+        }
+    }
+
+    int GetPhones()
+    {
+        return (phones);
     }
 
     std::string GetPhone(int n)
@@ -64,11 +94,40 @@ class Contato
 
     void SetPhone(std::string data, int n)
     {
-        phone.set(n, 0, data);
-        if (!this->CheckPhone(n))
+        if (n > (phones-1))
         {
-            println ("ERRO: Telefone invalido. ");
-            phone.set(n, 0, "99999-9999");
+            char x = '0';
+            std::cout << "AVISO: Numero de telefones do contato e insuficiente, deseja adiciona-los? " << std::endl;
+            do
+            {
+                x = ReadChar("S / N");
+            } while (x != 'S' && x != 's' && x != 'N' && x != 'n');
+
+            if (x == 'S')
+            {
+                std::cout << "Serao adicionados [" << n << "] numeros de telefone ao contato. ";
+                this->AddPhone(n);
+
+                phone.set(n, 0, data);
+                if (!this->CheckPhone(n))
+                {
+                    println ("\nERRO: Telefone invalido. ");
+                    phone.set(n, 0, "99999-9999");
+                }
+            }
+            else if (x == 'N')
+            {
+                println ("O procedimento sera interrompido. ");
+            }
+        }
+        else
+        {
+            phone.set(n, 0, data);
+            if (!this->CheckPhone(n))
+            {
+                println ("\nERRO: Telefone invalido. ");
+                phone.set(n, 0, "99999-9999");
+            }
         }
     }
 
@@ -118,7 +177,7 @@ class Contato
     void print()
     {
         std::cout << std::endl << "Nome: " << name << std::endl;
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < phones; i++)
         {
             std::string tmp = phone.get(i, 0);
             std::cout << "Telefone " << (i+1) << ": " << tmp << std::endl; 
@@ -138,7 +197,7 @@ class Contato
             std::cout << name << std::endl;
             file << name << std::endl;
         }
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < phones; i++)
         {
             if (!this->CheckPhone(i))
             {
@@ -162,12 +221,12 @@ class Contato
             println ("ERRO: Nome invalido. ");
             name = "";
         }
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < phones; i++)
         {
             std::string tmp = "";
             file >> tmp;
             phone.set(i, 0, tmp);
-            if (!this->CheckPhone(1))
+            if (!this->CheckPhone(i))
             {
                 println ("ERRO: Telefone invalido. ");
                 phone.set(i, 0, "99999-9999");

@@ -3,11 +3,14 @@
 
 int main (void)
 {
-    Matrix <std::string> matrix(2, 1);
-    matrix.write();
-    std::string tmp = "";
-    matrix.set(0, 0, "123456789");
-    tmp = matrix.get(0, 0);
-    std::cout << tmp << std::endl;
+    char x = '0';
+    do
+    {
+        x = ReadChar("S/N");
+    } while (x != 'S' || x != 'N');
+    if (x == 'S')
+    {
+        println("Feliz");
+    }
     return(0);
 }
