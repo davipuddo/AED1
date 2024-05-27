@@ -42,7 +42,7 @@ void ED0X02 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
-  int telefone = 0; 
+  std::string telefone = ""; 
 
   // Apresentacao
   println ("ED0X02");
@@ -51,20 +51,13 @@ void ED0X02 (void)
   println ("");                  // Pular uma linha
   
   // Ler dados
-  telefone = ReadInt("Forneca o telefone do contato: ");
+  telefone = ReadString("Forneca o telefone do contato: ");
 
   // Operacao
   pessoa1.SetPhone(telefone, 0);
 
   // Mostrar dados
-  if (pessoa1.GetPhone(0) == 0)
-  {
-    println ("Telefone invalido. ");
-  }
-  else
-  {
-    std::cout << "Telefone: " << pessoa1.GetPhone(0) << std::endl;
-  }
+  std::cout << "Telefone: " << pessoa1.GetPhone(0) << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -76,7 +69,7 @@ void ED0X03 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
-  int telefone
+  std::string telefone = "";
 
   // Apresentacao
   println ("ED0X03");
@@ -91,13 +84,9 @@ void ED0X03 (void)
   pessoa1.SetPhone(telefone, 0);
 
   // Mostrar dados
-  if (!pessoa1.CheckPhone(0))
+  if (pessoa1.CheckPhone(0))
   {
-    println ("Telefone invalido. ");
-  }
-  else
-  {
-    std::cout << pessoa1.GetPhone() << std::endl;
+    std::cout << "Telefone: " << pessoa1.GetPhone(0) << std::endl;
   }
 
   // Fim
@@ -112,7 +101,7 @@ void ED0X04 (void)
   Contato dados;
   Contato pessoa1;
   std::string nome = "";
-  Array <int> telefone(2, 0);
+  std::string telefone = "";
 
   // Apresentacao
   println ("ED0X04");
@@ -122,11 +111,11 @@ void ED0X04 (void)
       
   // Ler dados
   nome     = ReadString ("Forneca o nome do contato: ");
-  telefone.write();
+  telefone = ReadString ("Forneca o telefone do contato: ");
 
   // definir dados na classe
   dados.SetName(nome);
-  dados.SetPhone(telefone[0], 1);
+  dados.SetPhone(telefone, 0);
 
   // Escrever dados em um arquivo
   dados.fwrite("DADOS04.TXT");
@@ -163,7 +152,7 @@ void ED0X05 (void)
 
   // definir dados na classe
   dados.SetName(nome);
-  dados.SetPhone(telefone);
+  dados.SetPhone(telefone, 0);
 
   // Escrever dados em um arquivo
   dados.fwrite("DADOS05.TXT");
@@ -183,6 +172,11 @@ void ED0X05 (void)
 void ED0X06 (void)
 {
   // Identificacao de dados
+  Contato pessoa1;
+  std::string nome = "";
+  std::string telefone1 = "";
+  std::string telefone2 = "";
+
   // Apresentacao
   println ("ED0X06");
   println ("");                  // Pular uma linha
@@ -190,8 +184,20 @@ void ED0X06 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  nome = ReadString("Forneca o nome do contato: ");
+  telefone1 = ReadString("Forneca o telefone do contato: ");
+  telefone2 = ReadString("Forneca um outro telefone do contato: ");
+
+  pessoa1.SetName(nome);
+  pessoa1.SetPhone(telefone1, 0);
+  pessoa1.SetPhone(telefone2, 1);
+
   // Verificar dados
-  // Mostrar dados
+  if (pessoa1.IsValid())
+  {
+    // Mostrar dados
+    pessoa1.print();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -316,12 +322,12 @@ int main (void)
             break;
           case 2:  ED0X02();
             break;
-          // case 3:  ED0X03();
-          //   break;
-          // case 4:  ED0X04();
-          //   break;
-          // case 5:  ED0X05();
-          //   break;
+          case 3:  ED0X03();
+            break;
+          case 4:  ED0X04();
+            break;
+          case 5:  ED0X05();
+            break;
           case 6:  ED0X06();
             break;
           case 7:  ED0X07();

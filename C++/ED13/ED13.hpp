@@ -3,7 +3,7 @@ class Contato
 {
     private:
     std::string name;
-    Array <int> phone;
+    Matrix <std::string> phone;
     
     public:
 
@@ -13,48 +13,68 @@ class Contato
     Contato ()
     {
         name   = "";
-        phone.init(2);
+        phone.init(2,1);
+        for (int i = 0; i < phone.getrows(); i++)
+        {
+            phone.set(i, 0, "99999-9999");
+        }
     }
 
-    int GetPhone(int n)
+    std::string GetPhone(int n)
     {
-        int tmp = 0;
-        if (this->CheckPhone(n))
+        std::string tmp = "";
+        if (!this->CheckPhone(n))
         {
-            tmp = phone.get(n);
+            println ("ERRO: Telefone invalido. ");
+        }
+        else
+        {
+            tmp = phone.get(n, 0);
         }
         return (tmp);
     }
 
-    void SetPhone(int data, int n)
+    bool CheckPhone(int n)
     {
-        phone.set(n, data);
+        bool result = true;
+        std::string tmp = phone.get(n, 0);
+        int size = tmp.length();
+        int i = 0;
+        if (size < 9 || size > 11)
+        {
+            result = false;
+        }
+        else
+        {
+            while (i < size && result)
+            {
+                if (i == 5)
+                {
+                    result = (tmp[i] == '-');
+                }  
+                else
+                {
+                    result = (result && (tmp[i] >= '0' && tmp[i] <= '9'));
+                }
+                i++;
+            }
+        }
+        return (result);
+    }
+
+    void SetPhone(std::string data, int n)
+    {
+        phone.set(n, 0, data);
         if (!this->CheckPhone(n))
         {
             println ("ERRO: Telefone invalido. ");
-            phone.set(n, 999999999);
+            phone.set(n, 0, "99999-9999");
         }
-    }
-
-    bool CheckPhone(int n)
-    {
-        bool result = false;
-        int tmp = phone.get(n);
-        if (tmp >= 100000000 && tmp <= 999999999)
-        {
-            result = true;
-        }
-        return (result);
     }
 
     std::string GetName()
     {
         return(name);
-    }
-
-    void SetName(std::string x)
-    {
-        name = x;
     }
 
     bool CheckName()
@@ -70,12 +90,38 @@ class Contato
         return (result);
     }
 
+    void SetName(std::string x)
+    {
+        name = x;
+        if (!this->CheckName())
+        {
+            println ("ERRO: Nome invalido. ");
+        }
+    }
+
+    bool IsValid ()
+    {
+        bool result = false;
+
+        result = CheckName();
+
+        int i = 0;
+        while (i < phone.getrows() && result)
+        {
+            result = this->CheckPhone(i);
+            i++;
+        }
+        return (result);
+    }
+
+
     void print()
     {
-        std::cout << "Name: " << name << std::endl;
+        std::cout << std::endl << "Nome: " << name << std::endl;
         for (int i = 0; i < 2; i++)
         {
-            std::cout << "Telefone " << (i+1) << ": " << phone[i] << std::endl; 
+            std::string tmp = phone.get(i, 0);
+            std::cout << "Telefone " << (i+1) << ": " << tmp << std::endl; 
         }
     }
 
@@ -100,7 +146,7 @@ class Contato
             }
             else
             {
-                file << phone[i] << std::endl;
+                file << phone.get(i, 0) << std::endl;
             }
         }
         file.close();
@@ -118,11 +164,13 @@ class Contato
         }
         for (int i = 0; i < 2; i++)
         {
-            file >> phone[i];
+            std::string tmp = "";
+            file >> tmp;
+            phone.set(i, 0, tmp);
             if (!this->CheckPhone(1))
             {
                 println ("ERRO: Telefone invalido. ");
-                phone[i] = 999999999;
+                phone.set(i, 0, "99999-9999");
             }
         }
         file.close();

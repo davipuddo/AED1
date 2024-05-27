@@ -770,7 +770,7 @@ class Matrix
     return (result);
   }
 
-  void set(int r, int c, int value)
+  void set(int r, int c, T value)
   {
     if (r >= 0 && r < rows && c >= 0 && c < columns)
     {
@@ -780,7 +780,7 @@ class Matrix
 
   T get (int r, int c)
   {
-    T x = 0;
+    T x;
     if (r >= 0 && r < rows && c >= 0 && c < columns)
     {
       x = data[r][c];
