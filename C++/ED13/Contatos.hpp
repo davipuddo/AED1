@@ -76,9 +76,10 @@ class Contato
         }
         else
         {
+            int h = size - 5;
             while (i < size && result)
             {
-                if (i == 5)
+                if (i == h)
                 {
                     result = (tmp[i] == '-');
                 }  
@@ -96,38 +97,15 @@ class Contato
     {
         if (n > (phones-1))
         {
-            char x = '0';
-            std::cout << "AVISO: Numero de telefones do contato e insuficiente, deseja adiciona-los? " << std::endl;
-            do
-            {
-                x = ReadChar("S / N");
-            } while (x != 'S' && x != 's' && x != 'N' && x != 'n');
-
-            if (x == 'S')
-            {
-                std::cout << "Serao adicionados [" << n << "] numeros de telefone ao contato. ";
-                this->AddPhone(n);
-
-                phone.set(n, 0, data);
-                if (!this->CheckPhone(n))
-                {
-                    println ("\nERRO: Telefone invalido. ");
-                    phone.set(n, 0, "99999-9999");
-                }
-            }
-            else if (x == 'N')
-            {
-                println ("O procedimento sera interrompido. ");
-            }
+            std::cout << std::endl << "AVISO: O numero de telefones do contato e insuficiente." << std::endl;
+            std::cout << "Serao adicionados [" << n << "] numeros de telefone ao contato. " << std::endl;
+            this->AddPhone(n);
         }
-        else
+        phone.set(n, 0, data);
+        if (!this->CheckPhone(n))
         {
-            phone.set(n, 0, data);
-            if (!this->CheckPhone(n))
-            {
-                println ("\nERRO: Telefone invalido. ");
-                phone.set(n, 0, "99999-9999");
-            }
+            println ("\nERRO: Telefone invalido. ");
+            phone.set(n, 0, "99999-9999");
         }
     }
 

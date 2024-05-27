@@ -2,16 +2,16 @@
 
 #include "../io.hpp"
 #include "../puddo.hpp"
-#include "ED13.hpp"
+#include "Contatos.hpp"
 
-void ED0X01 (void)
+void ED1301 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
   std::string nome = "";
 
   // Apresentacao
-  println ("ED0X01");
+  println ("ED1301");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -38,14 +38,14 @@ void ED0X01 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X02 (void)
+void ED1302 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
   std::string telefone = ""; 
 
   // Apresentacao
-  println ("ED0X02");
+  println ("ED1302");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -65,14 +65,14 @@ void ED0X02 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X03 (void)
+void ED1303 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
   std::string telefone = "";
 
   // Apresentacao
-  println ("ED0X03");
+  println ("ED1303");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -95,7 +95,7 @@ void ED0X03 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X04 (void)
+void ED1304 (void)
 {
   // Identificacao de dados
   Contato dados;
@@ -104,7 +104,7 @@ void ED0X04 (void)
   std::string telefone = "";
 
   // Apresentacao
-  println ("ED0X04");
+  println ("ED1304");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha4
@@ -132,7 +132,7 @@ void ED0X04 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X05 (void)
+void ED1305 (void)
 {
   // Identificacao de dados
   Contato dados;
@@ -141,7 +141,7 @@ void ED0X05 (void)
   std::string telefone = "";
 
   // Apresentacao
-  println ("ED0X05");
+  println ("ED1305");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha4
@@ -169,7 +169,7 @@ void ED0X05 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X06 (void)
+void ED1306 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
@@ -178,7 +178,7 @@ void ED0X06 (void)
   std::string telefone2 = "";
 
   // Apresentacao
-  println ("ED0X06");
+  println ("ED1306");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -206,7 +206,7 @@ void ED0X06 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X07 (void)
+void ED1307 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
@@ -214,7 +214,7 @@ void ED0X07 (void)
   Contato pessoa3;
 
   // Apresentacao
-  println ("ED0X07");
+  println ("ED1307");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -234,14 +234,14 @@ void ED0X07 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X08 (void)
+void ED1308 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
   std::string telefone = "";
 
   // Apresentacao
-  println ("ED0X08");
+  println ("ED1308");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -265,14 +265,14 @@ void ED0X08 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X09 (void)
+void ED1309 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
   std::string telefone = "";
 
   // Apresentacao
-  println ("ED0X09");
+  println ("ED1309");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -296,7 +296,7 @@ void ED0X09 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED0X10 (void)
+void ED1310 (void)
 {
   // Identificacao de dados
   Contato pessoa1;
@@ -304,7 +304,7 @@ void ED0X10 (void)
   std::string telefone2 = "";
 
   // Apresentacao
-  println ("ED0X10");
+  println ("ED1310");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
@@ -345,7 +345,7 @@ int main (void)
 
       // Identificacao
       println ("");              // Pular uma linha
-      println ("ED0X - v0.0 - 00/00/00" );
+      println ("ED13 - v0.0 - 00/00/00" );
       println ("853355_AED1 - Davi Puddo");
       println ("");              // Pular uma linha
 
@@ -353,11 +353,11 @@ int main (void)
       println ("Exercicios: ");
       println ("");              // Pular uma linha
       println ("0 - sair");
-      println ("1 - ED0X01   2 - ED0X02");
-      println ("3 - ED0X03   4 - ED0X04");
-      println ("5 - ED0X05   6 - ED0X06");
-      println ("7 - ED0X07   8 - ED0X08");
-      println ("9 - ED0X09  10 - ED0X10");
+      println ("1 - ED1301   2 - ED1302");
+      println ("3 - ED1303   4 - ED1304");
+      println ("5 - ED1305   6 - ED1306");
+      println ("7 - ED1307   8 - ED1308");
+      println ("9 - ED1309  10 - ED1310");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -370,25 +370,25 @@ int main (void)
         {
           case 0:
             break;
-          case 1:  ED0X01();
+          case 1:  ED1301();
             break;
-          case 2:  ED0X02();
+          case 2:  ED1302();
             break;
-          case 3:  ED0X03();
+          case 3:  ED1303();
             break;
-          case 4:  ED0X04();
+          case 4:  ED1304();
             break;
-          case 5:  ED0X05();
+          case 5:  ED1305();
             break;
-          case 6:  ED0X06();
+          case 6:  ED1306();
             break;
-          case 7:  ED0X07();
+          case 7:  ED1307();
             break;
-          case 8:  ED0X08();
+          case 8:  ED1308();
             break;
-          case 9:  ED0X09();
+          case 9:  ED1309();
             break;
-          case 10: ED0X10();
+          case 10: ED1310();
             break;
           default: 
               println ("");                // Pular uma linha
@@ -407,6 +407,6 @@ int main (void)
 
 /*
     Versao      Data        Teste      Modificacoes
-    0.0         00/00/00    (OK)       Criacao do arquivo ED0X e seus metodos
+    0.0         00/00/00    (OK)       Criacao do arquivo ED13 e seus metodos
 
 */
