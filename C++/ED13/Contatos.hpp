@@ -133,6 +133,7 @@ class Contato
         if (!this->CheckName())
         {
             println ("ERRO: Nome invalido. ");
+            name = "";
         }
     }
 
@@ -151,7 +152,6 @@ class Contato
         return (result);
     }
 
-
     void print()
     {
         std::cout << std::endl << "Nome: " << name << std::endl;
@@ -166,22 +166,18 @@ class Contato
     {
         std::ofstream file;
         file.open(fileName);
-        if (!this->CheckName())
+        if (!this->IsValid())
         {
-            println ("ERRO: Nome invalido. ");
+            println ("ERRO: Dados invalidos. ");
         }
         else
         {
+            // Nome
             std::cout << name << std::endl;
             file << name << std::endl;
-        }
-        for (int i = 0; i < phones; i++)
-        {
-            if (!this->CheckPhone(i))
-            {
-                println ("ERRO: Telefone invalido. ");
-            }
-            else
+
+            // Telefone
+            for (int i = 0; i < phones; i++)
             {
                 file << phone.get(i, 0) << std::endl;
             }
