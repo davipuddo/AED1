@@ -3,13 +3,13 @@ class Contato
 {
     private:
     std::string name;
-    Array <std::string> phone;
     int phones;
     Matrix <std::string> adress;
     int adressX;
     int adressY;
     
     public:
+    Array <std::string> phone;
 
     ~Contato()
     {}
@@ -32,7 +32,7 @@ class Contato
         {
             for (int y = 0; y < adressY; y++)
             {
-                adress.set(x, y, "");
+                adress.set(x, y, "N/A");
             }
         }
     }
@@ -146,7 +146,9 @@ class Contato
         int size = name.length();
         while (x < size && result)
         {
-            result = ( (name[x] >= 'a' && name[x] <= 'z') || (name[x] >= 'A' && name[x] <= 'Z'));
+            result = ( result && ((name[x] >= 'a' && name[x] <= 'z') ||  
+                                  (name[x] >= 'A' && name[x] <= 'Z') ||
+                                   name[x] == ' '));
             x++;
         }
         return (result);
@@ -315,20 +317,20 @@ class Contato
 
     void fread(std::string fileName)
     {
-        std::ifstream file;
+        std::fstream file;
         int Nnum = 0;
         int Pnum = 0;
         int AXnum = 0;
         int AYnum = 0;
         
-        file.open(fileName);
-        
+        file.open(fileName, std::ios::in);
+
         file >> Nnum;
         file >> Pnum;
         file >> AXnum;
         file >> AYnum;
 
-        this->phone.init(Pnum);
+        this->phone.init (Pnum);
         this->adress.init(AXnum, AYnum);
 
         file >> name;
@@ -337,10 +339,12 @@ class Contato
             println ("ERRO: Nome invalido. ");
             name = "";
         }
+
+        phones = Pnum;
         for (int i = 0; i < Pnum; i++)
         {
             std::string tmp = "";
-            file >> tmp;
+            std::getline(file, tmp);
             phone.set(i, tmp);
             if (!this->CheckPhone(i))
             {
@@ -348,6 +352,9 @@ class Contato
                 phone.set(i, "99999-9999");
             }
         }
+
+        adressX = AXnum;
+        adressY = AYnum;
         for (int x = 0; x < AXnum; x++)
         {
             for (int y = 0; y < AYnum; y++)

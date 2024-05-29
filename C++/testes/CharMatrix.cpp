@@ -58,11 +58,13 @@ class Contatos
 
 int main (void)
 {
-    Contatos pessoa1;
-    pessoa1.SetTel(0, "12345");
-    pessoa1.AddTel(2);
-    pessoa1.SetTel(1, "54321");
-    pessoa1.print();
+    std::string str = "";
+    std::getline(std::cin, str);
+    std::cout << str << std::endl;
+    for (int i = 0; i < ((int)str.length()); i++)
+    {
+        std::cout << "[" << str[i] << ']' << std::endl;
+    }
     pause("Aperte <ENTER>");
     return(0);
 }

@@ -410,22 +410,24 @@ void ED13E2 (void)
   endereco2 = ReadString("Forneca o endereco profissional do contato: ");
 
   // Guardar dados
-  pessoa1.SetName(nome);
-  pessoa1.SetPhone(0, telefone1);
-  pessoa1.SetPhone(1, telefone2);
-  pessoa1.SetAdress(0, 0, endereco1);
-  pessoa1.SetAdress(1, 0, endereco2);
-  pessoa1.SetAdress(1, 1, "nada");
+  dados.SetName(nome);
+  dados.SetPhone(0, telefone1);
+  dados.SetPhone(1, telefone2);
+  dados.SetAdress(0, 0, endereco1);
+  dados.SetAdress(1, 0, endereco2);
+  dados.SetAdress(1, 1, "nada");
 
-  pessoa1.fwrite("DADOSE2.TXT");
+  // Gravar dados no arquivo
+  dados.fwrite("DADOSE2.TXT");
 
-  dados.fread("DADOSE2.TXT");
+  // Ler dados do arquivo
+  pessoa1.fread("DADOSE2.TXT");
 
   // Verificar dados
-  if (dados.IsValid())
+  if (pessoa1.IsValid())
   {
     // Mostrar dados
-    dados.print();
+    pessoa1.print();
   }
 
   // Fim

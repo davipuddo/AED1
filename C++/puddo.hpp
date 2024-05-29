@@ -89,8 +89,7 @@ std::string ReadString (std::string text)
 {
   std::string x = "";
   println (text);
-  std::cin >> x;
-  getchar();
+  std::getline(std::cin, x);
   return(x);
 }
 
