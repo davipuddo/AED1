@@ -13,7 +13,7 @@ void ED1301 (void)
   // Apresentacao
   println ("ED1301");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Ler do teclado um valor e atribui-lo ao nome (Atributo de um objeto). ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -47,17 +47,24 @@ void ED1302 (void)
   // Apresentacao
   println ("ED1302");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Ler do teclado e atribuir um valor ao telefone (Atributo de um objeto)");
   println ("");                  // Pular uma linha
   
   // Ler dados
   telefone = ReadString("Forneca o telefone do contato: ");
 
   // Operacao
-  pessoa1.SetPhone(telefone, 0);
+  pessoa1.SetPhone(0, telefone);
 
   // Mostrar dados
-  std::cout << "Telefone: " << pessoa1.GetPhone(0) << std::endl;
+  if (pessoa1.GetPhone(0) == "")
+  {
+    println ("Telefone invalido. ");
+  }
+  else
+  {
+    std::cout << "Telefone: " << pessoa1.GetPhone(0) << std::endl;
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -74,17 +81,17 @@ void ED1303 (void)
   // Apresentacao
   println ("ED1303");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Testar se um telefone e valido, ou nao. ");
   println ("");                  // Pular uma linha
       
   // Ler dados
   telefone = ReadString("Forneca o telefone do contato: ");
 
   // Operacao
-  pessoa1.SetPhone(telefone, 0);
+  pessoa1.SetPhone(0, telefone);
 
   // Mostrar dados
-  if (pessoa1.CheckPhone(0))
+  if (pessoa1.CheckPhone(0) && pessoa1.GetPhone(0) != "99999-9999")
   {
     std::cout << "Telefone: " << pessoa1.GetPhone(0) << std::endl;
   }
@@ -106,8 +113,8 @@ void ED1304 (void)
   // Apresentacao
   println ("ED1304");
   println ("");                  // Pular uma linha
-  println (" ");
-  println ("");                  // Pular uma linha4
+  println ("Ler dados de um arquivo e armazena-los em um objeto dessa classe. ");
+  println ("");                  // Pular uma linha
       
   // Ler dados
   nome     = ReadString ("Forneca o nome do contato: ");
@@ -115,7 +122,7 @@ void ED1304 (void)
 
   // definir dados na classe
   dados.SetName(nome);
-  dados.SetPhone(telefone, 0);
+  dados.SetPhone(0, telefone);
 
   // Escrever dados em um arquivo
   dados.fwrite("DADOS04.TXT");
@@ -143,25 +150,25 @@ void ED1305 (void)
   // Apresentacao
   println ("ED1305");
   println ("");                  // Pular uma linha
-  println (" ");
-  println ("");                  // Pular uma linha4
+  println ("Gravar dados de uma pessoa em um arquivo. ");
+  println ("");                  // Pular uma linha
       
   // Ler dados
   nome     = ReadString ("Forneca o nome do contato: ");
   telefone = ReadString ("Forneca o telefone do contato: ");
 
   // definir dados na classe
-  dados.SetName(nome);
-  dados.SetPhone(telefone, 0);
+  pessoa1.SetName(nome);
+  pessoa1.SetPhone(0, telefone);
 
   // Escrever dados em um arquivo
-  dados.fwrite("DADOS05.TXT");
+  pessoa1.fwrite("DADOS05.TXT");
 
   // Ler dados do arquivo
-  pessoa1.fread("DADOS05.TXT");
+  dados.fread("DADOS05.TXT");
 
   // Mostrar dados
-  pessoa1.print();
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -176,22 +183,30 @@ void ED1306 (void)
   std::string nome = "";
   std::string telefone1 = "";
   std::string telefone2 = "";
+  std::string endereco1 = "";
+  std::string endereco2 = "";
 
   // Apresentacao
   println ("ED1306");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar um segundo telefone ao contato. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
   nome = ReadString("Forneca o nome do contato: ");
   telefone1 = ReadString("Forneca o telefone do contato: ");
   telefone2 = ReadString("Forneca um outro telefone do contato: ");
+  endereco1 = ReadString("Forneca o endereco do contato: ");
+  endereco2 = ReadString("Forneca o endereco do contato: ");
+
 
   // Guardar dados do contato
   pessoa1.SetName(nome);
-  pessoa1.SetPhone(telefone1, 0);
-  pessoa1.SetPhone(telefone2, 1);
+  pessoa1.SetPhone(0, telefone1);
+  pessoa1.SetPhone(1, telefone2);
+  pessoa1.SetAdress(0, 0, endereco1);
+  pessoa1.SetAdress(1, 0, endereco2);
+  pessoa1.SetAdress(1, 1, "nada");
 
   // Verificar dados
   if (pessoa1.IsValid())
@@ -216,7 +231,7 @@ void ED1307 (void)
   // Apresentacao
   println ("ED1307");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Indicar quantos telefones estao associados a cada objeto. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -243,14 +258,14 @@ void ED1308 (void)
   // Apresentacao
   println ("ED1308");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Atribuir um valor ao segundo telefone. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
   telefone = ReadString("Forneca o segundo numero de telefone do contato: ");
 
   // Guardar dados
-  pessoa1.SetPhone(telefone, 1);
+  pessoa1.SetPhone(1, telefone);
 
   // Verificar dados
   if (pessoa1.IsValid())
@@ -274,14 +289,14 @@ void ED1309 (void)
   // Apresentacao
   println ("ED1309");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Atribuir um valor apenas ao segundo telefone");
   println ("");                  // Pular uma linha
     
   // Ler dados
   telefone = ReadString("Forneca o segundo numero de telefone do contato: ");
 
   // Guardar dados
-  pessoa1.SetPhone(telefone, 1);
+  pessoa1.SetPhone(1, telefone);
 
   // Verificar dados
   if (pessoa1.IsValid())
@@ -306,7 +321,7 @@ void ED1310 (void)
   // Apresentacao
   println ("ED1310");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover apenas o valor do segundo telefone. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -314,18 +329,104 @@ void ED1310 (void)
   telefone2 = ReadString("Forneca um outro numero de telefone do contato: ");
 
   // Armazenar dados
-  pessoa1.SetPhone(telefone1, 0);
+  pessoa1.SetPhone(0, telefone1);
   pessoa1.AddPhone(1);
-  pessoa1.SetPhone(telefone2, 1);
+  pessoa1.SetPhone(1, telefone2);
 
   // Mostrar dados
   pessoa1.print();
 
   // Alterar dados
-  pessoa1.SetPhone("", 1);
+  pessoa1.SetPhone(1, "");
 
   // Mostrar dados
   pessoa1.print();
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED13E1 (void)
+{
+  // Identificacao de dados
+  Contato pessoa1;
+  std::string telefone = "";
+  int telefones = 0;
+
+  // Apresentacao
+  println ("ED13E1");
+  println ("");                  // Pular uma linha
+  println ("Atribuir um valor apenas ao segundo telefone");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  telefones = ReadInt ("Forneca a quantidade de telefones a serem adicionados: ");
+  pessoa1.AddPhone(telefones);
+
+  // Guardar dados
+  int TN = (telefones+1);
+  for (int i = 0; i < TN; i++)
+  {
+    pessoa1.SetPhone(i, ReadString("Forneca um numero de telefone do contato: "));
+  }
+
+  // Verificar dados
+  if (pessoa1.IsValid())
+  {
+    // Mostrar dados
+    pessoa1.print();
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED13E2 (void)
+{
+  // Identificacao de dados
+  Contato pessoa1;
+  Contato dados;
+  std::string nome = "";
+  std::string telefone1 = "";
+  std::string telefone2 = "";
+  std::string endereco1 = "";
+  std::string endereco2 = "";
+
+  // Apresentacao
+  println ("ED1309");
+  println ("");                  // Pular uma linha
+  println ("Atribuir um valor apenas ao segundo telefone");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  nome = ReadString("Forneca o nome do contato: ");
+  telefone1 = ReadString("Forneca o telefone do contato: ");
+  telefone2 = ReadString("Forneca um outro telefone do contato: ");
+  endereco1 = ReadString("Forneca o endereco residencial do contato: ");
+  endereco2 = ReadString("Forneca o endereco profissional do contato: ");
+
+  // Guardar dados
+  pessoa1.SetName(nome);
+  pessoa1.SetPhone(0, telefone1);
+  pessoa1.SetPhone(1, telefone2);
+  pessoa1.SetAdress(0, 0, endereco1);
+  pessoa1.SetAdress(1, 0, endereco2);
+  pessoa1.SetAdress(1, 1, "nada");
+
+  pessoa1.fwrite("DADOSE2.TXT");
+
+  dados.fread("DADOSE2.TXT");
+
+  // Verificar dados
+  if (dados.IsValid())
+  {
+    // Mostrar dados
+    dados.print();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -352,12 +453,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1301   2 - ED1302");
-      println ("3 - ED1303   4 - ED1304");
-      println ("5 - ED1305   6 - ED1306");
-      println ("7 - ED1307   8 - ED1308");
-      println ("9 - ED1309  10 - ED1310");
+      println ("0  - sair");
+      println ("1  - ED1301   2 - ED1302");
+      println ("3  - ED1303   4 - ED1304");
+      println ("5  - ED1305   6 - ED1306");
+      println ("7  - ED1307   8 - ED1308");
+      println ("9  - ED1309  10 - ED1310");
+      println ("11 - ED13E1  12 - ED13E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -389,6 +491,10 @@ int main (void)
           case 9:  ED1309();
             break;
           case 10: ED1310();
+            break;
+          case 11: ED13E1();
+            break;
+          case 12: ED13E2();
             break;
           default: 
               println ("");                // Pular uma linha
