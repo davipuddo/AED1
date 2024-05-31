@@ -59,12 +59,31 @@ class Contatos
 int main (void)
 {
     std::string str = "";
+    std::string result = "";
+    std::string t = "12";
+    std::string t2 = "12";
     std::getline(std::cin, str);
-    std::cout << str << std::endl;
-    for (int i = 0; i < ((int)str.length()); i++)
-    {
-        std::cout << "[" << str[i] << ']' << std::endl;
-    }
+
+    std::ofstream file;
+    file.open("TESTE.TXT");
+    file << "1234" << std::endl;
+    file << str << std::endl;
+    file << "4321" << std::endl;
+
+    file.close();
+
+    std::ifstream file2;
+    file2.open ("TESTE.TXT");
+
+    file2 >> result;
+    std::getline(file2, t);
+    std::getline(file2, t);
+    file2 >> t2;
+    std::cout << "r: " << result << std::endl;
+    std::cout << "t: [" << t << "]" << std::endl;
+    std::cout << "t2: [" << t2 << "]" << std::endl;
+    file2.close();
+
     pause("Aperte <ENTER>");
     return(0);
 }

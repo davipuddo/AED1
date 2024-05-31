@@ -130,7 +130,6 @@ class Contato
         if (!this->CheckPhone(n))
         {
             println ("\nERRO: Telefone invalido. ");
-            phone.set(n, "99999-9999");
         }
     }
 
@@ -141,15 +140,19 @@ class Contato
 
     bool CheckName()
     {
-        bool result = true;
-        int x = 0;
-        int size = name.length();
-        while (x < size && result)
+        bool result = false;
+        if (name != "" && name != " ")
         {
-            result = ( result && ((name[x] >= 'a' && name[x] <= 'z') ||  
-                                  (name[x] >= 'A' && name[x] <= 'Z') ||
-                                   name[x] == ' '));
-            x++;
+            result = true;
+            int i = 0;
+            int size = name.length();
+            while (i < size)
+            {
+                result = ( result && ((name[i] >= 'a' && name[i] <= 'z') ||  
+                                      (name[i] >= 'A' && name[i] <= 'Z') ||
+                                       name[i] == ' '));
+                i++;
+            }
         }
         return (result);
     }
@@ -160,7 +163,6 @@ class Contato
         if (!this->CheckName())
         {
             println ("ERRO: Nome invalido. ");
-            name = "";
         }
     }
 
@@ -173,6 +175,10 @@ class Contato
     {
         bool result = true;
         result = (result && adress.get(x, y) != "");
+        if (!result)
+        {
+            println ("ERRO: Endereco invalido. ");
+        }
         return (result);
     }
 
@@ -333,7 +339,8 @@ class Contato
         this->phone.init (Pnum);
         this->adress.init(AXnum, AYnum);
 
-        file >> name;
+        std::getline(file, name);
+        std::getline(file, name);
         if (!this->CheckName())
         {
             println ("ERRO: Nome invalido. ");
@@ -341,9 +348,9 @@ class Contato
         }
 
         phones = Pnum;
+        std::string tmp = "";
         for (int i = 0; i < Pnum; i++)
         {
-            std::string tmp = "";
             std::getline(file, tmp);
             phone.set(i, tmp);
             if (!this->CheckPhone(i))
@@ -352,15 +359,14 @@ class Contato
                 phone.set(i, "99999-9999");
             }
         }
-
         adressX = AXnum;
         adressY = AYnum;
+        tmp = "";
         for (int x = 0; x < AXnum; x++)
         {
             for (int y = 0; y < AYnum; y++)
             {
-                std::string tmp = "";
-                file >> tmp;
+                std::getline(file, tmp);
                 adress.set(x, y, tmp);
                 if (!this->CheckAdress(x, y))
                 {

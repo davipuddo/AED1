@@ -106,32 +106,33 @@ void ED1304 (void)
 {
   // Identificacao de dados
   Contato dados;
-  Contato pessoa1;
   std::string nome = "";
   std::string telefone = "";
 
   // Apresentacao
   println ("ED1304");
   println ("");                  // Pular uma linha
-  println ("Ler dados de um arquivo e armazena-los em um objeto dessa classe. ");
+  println ("Gravar dados de um contato em um arquivo. ");
   println ("");                  // Pular uma linha
       
   // Ler dados
-  nome     = ReadString ("Forneca o nome do contato: ");
-  telefone = ReadString ("Forneca o telefone do contato: ");
+  nome       = ReadString ("Forneca o nome do contato: ");
+  telefone  = ReadString ("Forneca o telefone  do contato: ");
 
-  // definir dados na classe
+  // Definir dados na classe
   dados.SetName(nome);
   dados.SetPhone(0, telefone);
 
-  // Escrever dados em um arquivo
-  dados.fwrite("DADOS04.TXT");
-
-  // Ler dados do arquivo
-  pessoa1.fread("DADOS04.TXT");
-
-  // Mostrar dados
-  pessoa1.print();
+  // Verificar dados
+  if (!dados.IsValid())
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    // Escrever dados em um arquivo
+    dados.fwrite("DADOS04-05.TXT");
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -142,33 +143,26 @@ void ED1304 (void)
 void ED1305 (void)
 {
   // Identificacao de dados
-  Contato dados;
   Contato pessoa1;
-  std::string nome = "";
-  std::string telefone = "";
 
   // Apresentacao
   println ("ED1305");
   println ("");                  // Pular uma linha
-  println ("Gravar dados de uma pessoa em um arquivo. ");
+  println ("Ler dados de um contato gravados em um arquivo. ");
   println ("");                  // Pular uma linha
-      
-  // Ler dados
-  nome     = ReadString ("Forneca o nome do contato: ");
-  telefone = ReadString ("Forneca o telefone do contato: ");
-
-  // definir dados na classe
-  pessoa1.SetName(nome);
-  pessoa1.SetPhone(0, telefone);
-
-  // Escrever dados em um arquivo
-  pessoa1.fwrite("DADOS05.TXT");
 
   // Ler dados do arquivo
-  dados.fread("DADOS05.TXT");
+  pessoa1.fread("DADOS04-05.TXT");
 
   // Mostrar dados
-  dados.print();
+  if (!pessoa1.IsValid())
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    pessoa1.print();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -388,46 +382,98 @@ void ED13E1 (void)
 void ED13E2 (void)
 {
   // Identificacao de dados
-  Contato pessoa1;
   Contato dados;
+  Contato pessoa1;
   std::string nome = "";
   std::string telefone1 = "";
   std::string telefone2 = "";
-  std::string endereco1 = "";
-  std::string endereco2 = "";
+  std::string enderecoR1 = "";
+  std::string enderecoR2 = "";
+  std::string enderecoP1 = "";
+  std::string enderecoP2 = "";
 
   // Apresentacao
-  println ("ED1309");
+  println ("ED13E2");
   println ("");                  // Pular uma linha
-  println ("Atribuir um valor apenas ao segundo telefone");
+  println ("Adicionar enderecos a classe. ");
   println ("");                  // Pular uma linha
-    
-  // Ler dados
-  nome = ReadString("Forneca o nome do contato: ");
-  telefone1 = ReadString("Forneca o telefone do contato: ");
-  telefone2 = ReadString("Forneca um outro telefone do contato: ");
-  endereco1 = ReadString("Forneca o endereco residencial do contato: ");
-  endereco2 = ReadString("Forneca o endereco profissional do contato: ");
-
-  // Guardar dados
+      
+  // Ler dados e guarda-los no objeto
+    /* Nome */
+  nome       = ReadString ("Forneca o nome do contato: ");
   dados.SetName(nome);
-  dados.SetPhone(0, telefone1);
-  dados.SetPhone(1, telefone2);
-  dados.SetAdress(0, 0, endereco1);
-  dados.SetAdress(1, 0, endereco2);
-  dados.SetAdress(1, 1, "nada");
 
-  // Gravar dados no arquivo
-  dados.fwrite("DADOSE2.TXT");
+    /* Telefones */
 
-  // Ler dados do arquivo
-  pessoa1.fread("DADOSE2.TXT");
-
-  // Verificar dados
-  if (pessoa1.IsValid())
+      // Verificar nome
+  if (dados.CheckName())
   {
-    // Mostrar dados
-    pessoa1.print();
+    telefone1  = ReadString ("Forneca o telefone 1 do contato: ");
+    dados.SetPhone(0, telefone1);
+
+    // Verificar telefone 1
+    if (dados.CheckPhone(0))
+    {
+      telefone2  = ReadString ("Forneca o telefone 2 do contato: ");
+      dados.SetPhone(1, telefone2);
+
+         /* Enderecos */
+
+      // Verificar telefone 2
+      if (dados.CheckPhone(1))
+      {
+        enderecoR1 = ReadString ("Forneca o endereco Residencial 1 do contato: ");
+        dados.SetAdress(0, 0, enderecoR1);
+        
+        // Verificar endereco residencial 1
+        if (dados.CheckAdress(0, 0))
+        {
+          enderecoR2 = ReadString ("Forneca o endereco Residencial 2 do contato: ");
+          dados.SetAdress(0, 1, enderecoR2);
+
+          // Verificar endereco residencial 2
+          if (dados.CheckAdress(0, 1))
+          {
+            enderecoP1 = ReadString ("Forneca o endereco Profissional 1 do contato: ");
+            dados.SetAdress(1, 0, enderecoP1);
+
+            // Verificar endereco profissional 1
+            if (dados.CheckAdress(1, 0))
+            {
+              enderecoP2 = ReadString ("Forneca o endereco Profissional 2 do contato: ");
+              dados.SetAdress(1, 1, enderecoP2);
+              
+              // Verificar todos os dados
+              if (!dados.IsValid())
+              {
+                println ("ERRO: Dados invalidos. ");
+              }
+              else
+              {
+                // Escrever dados em um arquivo
+                dados.fwrite("DADOSE2.TXT");
+
+                // Ler dados do arquivo
+                pessoa1.fread("DADOSE2.TXT");
+
+                // Verificar dados
+                if (!pessoa1.IsValid())
+                {
+                  println ("ERRO: Dados invalidos. ");
+                }
+                else
+                {
+                  // Mostrar dados
+                  pessoa1.print();
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+
   }
 
   // Fim
@@ -448,7 +494,7 @@ int main (void)
 
       // Identificacao
       println ("");              // Pular uma linha
-      println ("ED13 - v0.0 - 00/00/00" );
+      println ("ED13 - v1.0 - 31/05/24" );
       println ("853355_AED1 - Davi Puddo");
       println ("");              // Pular uma linha
 
