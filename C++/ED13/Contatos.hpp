@@ -2,18 +2,24 @@
 class Contato
 {
     private:
-    std::string name;
-    int phones;
-    Matrix <std::string> adress;
-    int adressX;
-    int adressY;
+    std::string name;               // Nome
+    Array <std::string> phone;      // Telefones
+    int phones;                     // Quantidade de telefones
+    Matrix <std::string> adress;    // Enderecos
+    int adressX;                    // Quantidade de tipos de endereco
+    int adressY;                    // Quantidade de enderecos para cada tipo
     
     public:
-    Array <std::string> phone;
 
+    /**
+     * Destrutor
+    */
     ~Contato()
     {}
 
+    /**
+     * Construtor
+    */
     Contato ()
     {
         name   = "";
@@ -37,21 +43,33 @@ class Contato
         }
     }
 
+    /** 
+     * @returns Quantidade de tipos de endereco
+    */
     int GetAdressX (void)
     {
         return (adressX);
     }
 
+    /**
+     * @returns Quantidade de enderecos do contato para cada tipo 
+    */
     int GetAdressY (void)
     {
         return (adressY);
     }
 
+    /** @returns Quantidade de telefones do contato
+     * 
+    */
     int GetPhones(void)
     {
         return (phones);
     }
 
+    /** Adiciona [n] telefones ao contato
+     *  @param Numero de telefones a serem adicionados
+    */
     void AddPhone (int x)
     {
         Array <std::string> tmp(phone);
@@ -65,7 +83,8 @@ class Contato
         {
             phone.set(x, tmp.get(x));
         }
-        //tmp.free();
+
+        //tmp.free();  <--- Nao funciona
 
         // Inicializar dados novos
         for (int x = r; x < phones; x++)
@@ -73,26 +92,16 @@ class Contato
             phone.set(x, "99999-9999");
         }
     }
-
-    std::string GetPhone(int n)
-    {
-        std::string tmp = "";
-        if (!this->CheckPhone(n))
-        {
-            println ("ERRO: Telefone invalido. ");
-        }
-        else
-        {
-            tmp = phone.get(n);
-        }
-        return (tmp);
-    }
-
+    
+    /** Verifica se um telefone e valido
+     *  @param Posicao do telefone no array
+     *  @returns Valor booleano referente a verificacao
+    */
     bool CheckPhone(int n)
     {
         bool result = true;
         std::string tmp = phone.get(n);
-        int size = tmp.length();
+        int size = phones;
         int i = 0;
         if (size < 9 || size > 11)
         {
@@ -117,6 +126,29 @@ class Contato
         return (result);
     }
 
+    /** Retornar telefone
+     *  @param Posicao do telefone no array
+     *  @example [Telefone1.GetPhone(0) || Telefone2.GetPhone(1)] 
+     *  @returns Numero de telefone do objeto
+    */
+    std::string GetPhone(int n)
+    {
+        std::string tmp = "";
+        if (!this->CheckPhone(n))
+        {
+            println ("ERRO: Telefone invalido. ");
+        }
+        else
+        {
+            tmp = phone.get(n);
+        }
+        return (tmp);
+    }
+
+    /** Guardar um numero de telefone no objeto
+     *  @param Posicao do telefone no array
+     *  @param Dados do telefone
+    */
     void SetPhone(int n, std::string data)
     {
         if (n > (phones-1))
@@ -133,11 +165,17 @@ class Contato
         }
     }
 
+    /** 
+     * @returns Nome do objeto
+    */
     std::string GetName()
     {
         return(name);
     }
 
+    /** Verificar se o nome do objeto e valido
+     *  @returns Valor booleano referente a verificacao
+    */
     bool CheckName()
     {
         bool result = false;
@@ -157,20 +195,33 @@ class Contato
         return (result);
     }
 
-    void SetName(std::string x)
+    /** Definir o nome do objeto
+     *  @param Nome
+    */
+    void SetName(std::string data)
     {
-        name = x;
+        name = data;
         if (!this->CheckName())
         {
             println ("ERRO: Nome invalido. ");
         }
     }
 
+    /**  
+     * @param Tipo de endereco
+     * @param Posicao do endereco
+     * @returns Endereco do objeto na posicao fornecida
+    */
     std::string GetAdress(int n, int x)
     {
         return (adress.get(n, x));
     }
 
+    /** Verificar se um endereco e valido
+     *  @param Tipo de endereco
+     *  @param Posicao do endereco
+     *  @returns Valor booleano referente a verificacao
+    */
     bool CheckAdress(int x, int y)
     {
         bool result = true;
@@ -182,6 +233,10 @@ class Contato
         return (result);
     }
 
+    /** Adicionar [n] enderecos ao objeto
+     *  @param Quantidade de enderecos a serem adicionados
+     *  @note Essa quantidade sera adicionada para todos os tipos de endereco
+    */
     void AddAdress(int n)
     {
         Matrix <std::string> tmp(0, 0);
@@ -209,6 +264,11 @@ class Contato
         }
     }
 
+    /** Definir dados de um endereco
+     *  @param Tipo de endereco
+     *  @param Posicao do endereco
+     *  @param Dados do endereco
+    */
     void SetAdress(int x, int y, std::string value)
     {
         if (x > 2)
@@ -232,7 +292,10 @@ class Contato
             }
         }
     }
-
+ 
+    /** Verificar se todos os elementos do objeto sao validos
+     *  @returns Valor booleano referente a verificacao
+    */
     bool IsValid ()
     {
         bool result = false;
@@ -260,6 +323,9 @@ class Contato
         return (result);
     }
 
+    /** Mostrar todos os elementos do objeto
+     * 
+    */
     void print()
     {
         std::cout << std::endl << "Nome: " << name << std::endl;
@@ -285,6 +351,9 @@ class Contato
         }
     }
 
+    /** Gravar dados do objeto em um arquivo
+     *  @param Nome do arquivo
+    */
     void fwrite(std::string fileName)
     {
         std::ofstream file;
@@ -321,6 +390,9 @@ class Contato
         file.close();
     }
 
+    /** Ler dados de um objeto de um arquivo
+     *  @param Nome do arquivo
+    */
     void fread(std::string fileName)
     {
         std::fstream file;
@@ -338,10 +410,11 @@ class Contato
 
         this->phone.init (Pnum);
         this->adress.init(AXnum, AYnum);
-
-        std::getline(file, name);
-        std::getline(file, name);
-        if (!this->CheckName())
+                                        
+                                        // Aparentemente existe algum tipo de problema ao usar [getline]
+        std::getline(file, name);       // apos o uso de [>>] em um arquivo. A solucao atual e o uso de
+        std::getline(file, name);       // duas leituras com [getline] 
+        if (!this->CheckName())         
         {
             println ("ERRO: Nome invalido. ");
             name = "";

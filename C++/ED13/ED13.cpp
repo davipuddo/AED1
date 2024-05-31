@@ -352,7 +352,7 @@ void ED13E1 (void)
   // Apresentacao
   println ("ED13E1");
   println ("");                  // Pular uma linha
-  println ("Atribuir um valor apenas ao segundo telefone");
+  println ("Modificar a classe para lidar com [n] telefones. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -399,6 +399,7 @@ void ED13E2 (void)
   println ("");                  // Pular uma linha
       
   // Ler dados e guarda-los no objeto
+  
     /* Nome */
   nome       = ReadString ("Forneca o nome do contato: ");
   dados.SetName(nome);
