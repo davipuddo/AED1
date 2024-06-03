@@ -48,6 +48,10 @@ void pause (std::string text)
 */
 int ReadInt (std::string text)
 {
+  if (text == "")
+  {
+    text = "Forneca um valor inteiro. ";
+  }
   int x = 0;
   println (text);
   std::cin >> x;
@@ -57,6 +61,10 @@ int ReadInt (std::string text)
 
 int ReadPositiveInt (std::string text)
 {
+  if (text == "")
+  {
+    text = "Forneca um valor inteiro maior do que zero. ";
+  }
   int x = 0;
   do
   { 
@@ -69,6 +77,10 @@ int ReadPositiveInt (std::string text)
 
 double ReadDouble (std::string text)
 {
+  if (text == "")
+  {
+    text = "Forneca um valor real. ";
+  }
   double x = 0.0;
   println (text);
   std::cin >> x;
@@ -78,6 +90,10 @@ double ReadDouble (std::string text)
 
 char ReadChar (std::string text)
 {
+  if (text == "")
+  {
+    text = "Forneca um caractere. ";
+  }
   char x = '0';
   println (text);
   std::cin >> x;
@@ -87,6 +103,10 @@ char ReadChar (std::string text)
 
 std::string ReadString (std::string text)
 {
+  if (text == "")
+  {
+    text = "Forneca uma cadeia de caracteres. ";
+  }
   std::string x = "";
   println (text);
   std::getline(std::cin, x);
@@ -104,6 +124,34 @@ void IntInvertValues(int *x, int *y)
   int tmp = *x;
   *x = *y;
   *y = tmp;
+}
+
+
+
+std::string toUpper(std::string data)
+{
+  int size = data.length();
+  for (int i = 0; i < size; i++)
+  {
+    if (data[i] >= 'a' && data[i] <= 'z')
+    {
+      data[i] -= 32;
+    }
+  }
+  return (data);
+}
+
+std::string toLower(std::string data)
+{
+  int size = data.length();
+  for (int i = 0; i < size; i++)
+  {
+    if (data[i] >= 'A' && data[i] <= 'Z')
+    {
+      data[i] += 32;
+    }
+  }
+  return (data);
 }
 
 #ifndef _MYARRAY_HPP
