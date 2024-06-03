@@ -2,20 +2,18 @@
 
 #include "../io.hpp"
 #include "../puddo.hpp"
+#include "Teste.hpp"
 
 
 void ED1401 (void)
 {
   // Identificacao de dados
+
   // Apresentacao
   println ("ED1401");
-  println ("");                  // Pular uma linha
-  println (" ");
-  println ("");                  // Pular uma linha
     
   // Ler dados
-  // Operacao
-  // Mostrar dados
+  std::cout << (sizeof(y)) << std::endl; 
 
   // Fim
   println ("");                  // Pular uma linha

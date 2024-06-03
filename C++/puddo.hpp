@@ -126,8 +126,6 @@ void IntInvertValues(int *x, int *y)
   *y = tmp;
 }
 
-
-
 std::string toUpper(std::string data)
 {
   int size = data.length();
