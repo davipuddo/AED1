@@ -1565,6 +1565,22 @@ class PString
     return (result);
   }
 
+  std::string replace(const char Old, const char New)
+  {
+    std::string result = this->data;
+    if (length > 0)
+    {
+      for (int i = 0; i < length; i++)
+      {
+        if (result[i] == Old)
+        {
+          result[i] = New;
+        }
+      }
+    }
+    return (result);
+  }
+
   std::string toUpper()
   {
     std::string tmp = this->get();

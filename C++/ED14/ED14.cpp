@@ -186,6 +186,11 @@ void ED1406 (void)
 void ED1407 (void)
 {
   // Identificacao de dados
+  PString dados("");
+  std::string str = "";
+  char antigo = '0';
+  char novo = '0';
+
   // Apresentacao
   println ("ED1407");
   println ("");                  // Pular uma linha
@@ -193,8 +198,18 @@ void ED1407 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  dados.write("");
+  antigo = ReadChar("Forneca o caractere a ser substituido: ");
+  novo = ReadChar("Forneca o caractere que ira o substituir: ");
+
+  // Substituir valores
+  str = dados.replace(antigo, novo);
+
   // Mostrar dados
+  if (str != "")
+  {
+    std::cout << "Cadeia com caracteres substituidos: " << std::endl << str << std::endl;
+  }
 
   // Fim
   println ("");                  // Pular uma linha
