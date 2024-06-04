@@ -17,7 +17,7 @@ void ED1401 (void)
   println ("");
 
   // Ler dados
-  dados.read("");
+  dados.write("");
 
   // Converter para inteiro
   resultado = dados.getInt();
@@ -44,7 +44,7 @@ void ED1402 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  dados.read("");
+  dados.write("");
 
   // Converter para real
   resultado = dados.getDouble();
@@ -61,6 +61,9 @@ void ED1402 (void)
 void ED1403 (void)
 {
   // Identificacao de dados
+  PString dados("");
+  bool resultado = false;
+
   // Apresentacao
   println ("ED1403");
   println ("");                  // Pular uma linha
@@ -68,8 +71,13 @@ void ED1403 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  dados.write("");
+
+  // Converter dados
+  resultado = dados.getBool();
+
   // Mostrar dados
+  std::cout << "Valor convertido para bool: " << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -80,6 +88,10 @@ void ED1403 (void)
 void ED1404 (void)
 {
   // Identificacao de dados
+  PString dados("");
+  std::string str = "";
+  bool resultado = false;
+
   // Apresentacao
   println ("ED1404");
   println ("");                  // Pular uma linha
@@ -87,8 +99,21 @@ void ED1404 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  dados.write("");
+  str = ReadString("Forneca uma cadeia de caracteres a ser procurada: ");
+
+  // Procurar valor
+  resultado = dados.find(str);
+
   // Mostrar dados
+  if (resultado)
+  {
+    println ("A cadeia de caracteres foi encontrada dentro do objeto. ");
+  }
+  else
+  {
+    println ("A cadeia de caracteres nao foi encontrada dentro do objeto. ");
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -99,7 +124,8 @@ void ED1404 (void)
 void ED1405 (void)
 {
   // Identificacao de dados
-  std::string palavra = "";
+  PString dados("");
+  std::string str = "";
 
   // Apresentacao
   println ("ED1405");
@@ -108,14 +134,16 @@ void ED1405 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  palavra = ReadString("");
+  dados.write("");
+
+  // Converter dados
+  str = dados.toUpper();
 
   // Verificar dados
-  if (palavra != "")
+  if (str != "")
   {
     // Mostrar dados
-    //palavra = toUpper(palavra);
-    std::cout << "Cadeia com as letras minusculas convertidas. " << std::endl << palavra << std::endl;
+    std::cout << "Cadeia com as letras minusculas convertidas: " << std::endl << str << std::endl;
   }
 
   // Fim
@@ -127,7 +155,8 @@ void ED1405 (void)
 void ED1406 (void)
 {
   // Identificacao de dados
-  std::string palavra = "";
+  PString dados("");
+  std::string str = "";
 
   // Apresentacao
   println ("ED1406");
@@ -136,14 +165,16 @@ void ED1406 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  palavra = ReadString("");
+  dados.write("");
+
+  // Converter dados
+  str = dados.toLower();
 
   // Verificar dados
-  if (palavra != "")
+  if (str != "")
   {
     // Mostrar dados
-    //palavra = toLower(palavra);
-    std::cout << "Cadeia com as letras maiusculas convertidas. " << std::endl << palavra << std::endl;
+    std::cout << "Cadeia com as letras maiusculas convertidas. " << std::endl << str << std::endl;
   }
 
   // Fim

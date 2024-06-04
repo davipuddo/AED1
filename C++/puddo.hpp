@@ -1340,17 +1340,15 @@ class Matrix
 class PString
 {
   private:
-  std::string data;
   int length;
 
   public:
+  std::string data;
+
   PString (std::string other)
   {
     length = other.length();
-    for (int i = 0; i < length; i++)
-    {
-      this->data[i] = other[i];
-    }
+    data = other;
   }
 
   ~PString (void)
@@ -1359,11 +1357,20 @@ class PString
     data = "N/A";
   }
 
+  void resize (int n)
+  {
+    if (n > 0)
+    {
+      data.resize(n);
+      this->length = n;
+    }
+  }
+
   void copy (const PString& other)
   {
     if (other.length > 0)
     {
-      this->length = other.length;
+      this->resize(other.length);
       for (int i = 0; i < length; i++)
       {
         this->data[i] = other.data[i];
@@ -1384,7 +1391,7 @@ class PString
     }
   }
 
-  void read (const std::string text)
+  void write (const std::string text)
   {
     PString result("");
     std::string str = ReadString(text);
@@ -1413,6 +1420,11 @@ class PString
       }
       std::cout << std::endl;
     }
+  }
+
+  std::string get()
+  {
+    return (data);
   }
 
   int getLength ()
@@ -1515,7 +1527,19 @@ class PString
     bool result = false;
     if (length > 0)
     {
-      result = (data == "true" || data == "TRUE" || data == "1" || data == "T" || data == "t");
+      if (length == 1)
+      {
+        result = (data[0] == '1' || data[0] == 'T');
+      }
+      else if (length == 4)
+      {
+        int i = 0;
+        while (i < length)
+        {
+          result = (data[0] == 't' && data[1] == 'r' && data[2] == 'u' && data[3] =='e');
+          i++;
+        }
+      }
     }
     return (result);
   }
@@ -1543,15 +1567,15 @@ class PString
 
   std::string toUpper()
   {
-    int size = data.length();
-    for (int i = 0; i < size; i++)
+    std::string tmp = this->get();
+    for (int i = 0; i < length; i++)
     {
       if (data[i] >= 'a' && data[i] <= 'z')
       {
-        data[i] -= 32;
+        tmp[i] = data[i] - 32;
       }
     }
-    return (data);
+    return (tmp);
   }
 
   std::string toLower()
