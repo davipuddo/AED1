@@ -1384,6 +1384,21 @@ class PString
     }
   }
 
+  void read (const std::string text)
+  {
+    PString result("");
+    std::string str = ReadString(text);
+    result = str;
+    if (result.length <= 0)
+    {
+      println ("ERRO: Dados invalidos. ");
+    }
+    else
+    {
+      this->copy(result);
+    }
+  }
+
   void print ()
   {
     if (this->length <= 0)
@@ -1444,16 +1459,55 @@ class PString
 
   double getDouble()
   {
-    double result = -1;
-    bool negative = false;
+    double result = 0.0;
+
     if (length > 0)
     {
+      bool negative = false;
+      int dot = -1;
+      int i = 0;
+      int y = 0;
+
       if (data[0] == '-')
       {
         negative = true;
+        i++;
+        y++;
       }
-      
+
+      while (i < length)
+      {
+        if (data[i] == ',' || data[i] == '.')
+        {
+          dot = i;
+        }
+        else if (data[i] >= '0' && data[i] <= '9')
+        {
+          y++;
+          result += (double)(data[i]-48)*(double)(pow(10, length-y));
+        }
+        else
+        {
+          result = -1;
+          i = length;
+        }
+        i++;
+      }
+
+      if (dot > 0)
+      {
+        for (int i = dot; i < length; i++)
+        {
+          result /= 10;
+        }
+      }
+
+      if (negative)
+      {
+        result *= -1.0;
+      }
     }
+    return (result); 
   }
 
   bool getBool()

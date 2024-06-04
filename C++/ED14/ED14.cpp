@@ -8,8 +8,7 @@ void ED1401 (void)
 {
   // Identificacao de dados
   PString dados("");
-  std::string str = "";
-  int result = 0;
+  int resultado = 0;
 
   // Apresentacao
   println ("ED1401");
@@ -18,14 +17,13 @@ void ED1401 (void)
   println ("");
 
   // Ler dados
-  str = ReadString("Forneca um numero para ser convertido para inteiro: ");
-  dados = str;
+  dados.read("");
 
   // Converter para inteiro
-  result = dados.getInt();
+  resultado = dados.getInt();
 
   // Mostrar dados
-  std::cout << "Valor convertido para inteiro: " << result << std::endl;
+  std::cout << "Valor convertido para inteiro: " << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -36,7 +34,7 @@ void ED1401 (void)
 void ED1402 (void)
 {
   // Identificacao de dados
-  int x = 0;
+  PString dados("");
   double resultado = 0.0;
 
   // Apresentacao
@@ -46,16 +44,13 @@ void ED1402 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  x = ReadInt("");
+  dados.read("");
 
   // Converter para real
-  //resultado = getDouble(x);
-
-  // Somar
-  resultado += 0.1;
+  resultado = dados.getDouble();
 
   // Mostrar dados
-  std::cout << "Valor convertido + 0.1 : " << resultado << std::endl;
+  std::cout << "Valor convertido para real: " << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
