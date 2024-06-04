@@ -126,32 +126,6 @@ void IntInvertValues(int *x, int *y)
   *y = tmp;
 }
 
-std::string toUpper(std::string data)
-{
-  int size = data.length();
-  for (int i = 0; i < size; i++)
-  {
-    if (data[i] >= 'a' && data[i] <= 'z')
-    {
-      data[i] -= 32;
-    }
-  }
-  return (data);
-}
-
-std::string toLower(std::string data)
-{
-  int size = data.length();
-  for (int i = 0; i < size; i++)
-  {
-    if (data[i] >= 'A' && data[i] <= 'Z')
-    {
-      data[i] += 32;
-    }
-  }
-  return (data);
-}
-
 #ifndef _MYARRAY_HPP
 #define _MYARRAY_HPP
 
@@ -178,7 +152,7 @@ class Array
     }
   }
 
-  Array (void)
+  ~Array (void)
   {
     length   = 0;
     data = nullptr;
@@ -218,8 +192,7 @@ class Array
     }
     else
     {
-      length = other.length;
-      data = new T[other.length];
+      this->init(other.length);
       for (int i = 0; i < other.length; i++)
       {
         data[i] = other.data[i];
@@ -1361,3 +1334,140 @@ class Matrix
 };
 #endif
 
+#ifndef _MYSTRING_HPP
+#define _MYSTRING_HPP
+
+class PString
+{
+  private:
+
+  std::string data;
+  int length;
+
+  public:
+  PString (std::string other)
+  {
+    length = other.length();
+    for (int i = 0; i < length; i++)
+    {
+      this->data[i] = other[i];
+    }
+  }
+
+  ~PString (void)
+  {
+    length = 0;
+    data = "N/A";
+  }
+
+  void copy (const PString& other)
+  {
+    if (other.length > 0)
+    {
+      this->length = other.length;
+      for (int i = 0; i < length; i++)
+      {
+        this->data[i] = other.data[i];
+      }
+    }
+  }
+
+  PString& operator= (std::string str)
+  {
+    PString result("str");
+    if (result.length <= 0)
+    {
+      println ("ERRO: Dados invalidos. ");
+      result.length = 0;
+      result.data = "";
+    }
+    return (result);
+  }
+
+  void print ()
+  {
+    if (this->length <= 0)
+    {
+      println ("ERRO: Objeto invalido. ");
+    }
+    else
+    {
+      for (int i = 0; i < length; i++)
+      {
+        std::cout << this->data[i];
+      }
+      std::cout << std::endl;
+    }
+  }
+
+  int getInt()
+  {
+    if (length > 0)
+    {
+      for (int i = 0; i < length; i++)
+      {
+        data[i] = (int)data[i];
+      }
+    }
+    return(1);
+  }
+
+  bool getBool()
+  {
+    bool result = false;
+    if (length > 0)
+    {
+      result = (data == "true" || data == "TRUE" || data == "1" || data == "T" || data == "t");
+    }
+    return (result);
+  }
+
+  bool find (std::string other)
+  {
+    bool result = false;
+    if (length > 0 && other.length() > 0)
+    {
+      for (int i = 0; i < length; i++)
+      {
+        if (this->data[i] == other[0])
+        {
+          result = true;
+          for (int y = 0; y < other.length(); y++)
+          {
+            result = (result && (this->data[i+y] == other[y]));
+          }
+        }
+      }
+    }
+    return (result);
+  }
+
+  std::string toUpper()
+  {
+    int size = data.length();
+    for (int i = 0; i < size; i++)
+    {
+      if (data[i] >= 'a' && data[i] <= 'z')
+      {
+        data[i] -= 32;
+      }
+    }
+    return (data);
+  }
+
+  std::string toLower()
+  {
+    int size = data.length();
+    for (int i = 0; i < size; i++)
+    {
+      if (data[i] >= 'A' && data[i] <= 'Z')
+      {
+        data[i] += 32;
+      }
+    }
+    return (data);
+  }
+
+};
+
+#endif

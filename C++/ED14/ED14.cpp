@@ -2,18 +2,26 @@
 
 #include "../io.hpp"
 #include "../puddo.hpp"
-#include "Teste.hpp"
 
 
 void ED1401 (void)
 {
   // Identificacao de dados
+  PString dados("123");
 
   // Apresentacao
   println ("ED1401");
-    
+  println ("");
+  println (" ");
+  println ("");
+
   // Ler dados
-  std::cout << (sizeof(y)) << std::endl; 
+
+  // Converter para inteiro
+  dados.print();
+
+  // Mostrar dados
+  //std::cout << "Valor convertido: " << result << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -24,6 +32,9 @@ void ED1401 (void)
 void ED1402 (void)
 {
   // Identificacao de dados
+  int x = 0;
+  double resultado = 0.0;
+
   // Apresentacao
   println ("ED1402");
   println ("");                  // Pular uma linha
@@ -31,8 +42,16 @@ void ED1402 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Operacao
+  x = ReadInt("");
+
+  // Converter para real
+  //resultado = getDouble(x);
+
+  // Somar
+  resultado += 0.1;
+
   // Mostrar dados
+  std::cout << "Valor convertido + 0.1 : " << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -96,7 +115,7 @@ void ED1405 (void)
   if (palavra != "")
   {
     // Mostrar dados
-    palavra = toUpper(palavra);
+    //palavra = toUpper(palavra);
     std::cout << "Cadeia com as letras minusculas convertidas. " << std::endl << palavra << std::endl;
   }
 
@@ -124,7 +143,7 @@ void ED1406 (void)
   if (palavra != "")
   {
     // Mostrar dados
-    palavra = toLower(palavra);
+    //palavra = toLower(palavra);
     std::cout << "Cadeia com as letras maiusculas convertidas. " << std::endl << palavra << std::endl;
   }
 
