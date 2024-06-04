@@ -7,7 +7,9 @@
 void ED1401 (void)
 {
   // Identificacao de dados
-  PString dados("123");
+  PString dados("");
+  std::string str = "";
+  int result = 0;
 
   // Apresentacao
   println ("ED1401");
@@ -16,12 +18,14 @@ void ED1401 (void)
   println ("");
 
   // Ler dados
+  str = ReadString("Forneca um numero para ser convertido para inteiro: ");
+  dados = str;
 
   // Converter para inteiro
-  dados.print();
+  result = dados.getInt();
 
   // Mostrar dados
-  //std::cout << "Valor convertido: " << result << std::endl;
+  std::cout << "Valor convertido para inteiro: " << result << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha

@@ -1340,7 +1340,6 @@ class Matrix
 class PString
 {
   private:
-
   std::string data;
   int length;
 
@@ -1372,16 +1371,17 @@ class PString
     }
   }
 
-  PString& operator= (std::string str)
+  void operator= (std::string str)
   {
-    PString result("str");
+    PString result(str);
     if (result.length <= 0)
     {
       println ("ERRO: Dados invalidos. ");
-      result.length = 0;
-      result.data = "";
     }
-    return (result);
+    else
+    {
+      this->copy(result);
+    }
   }
 
   void print ()
@@ -1400,16 +1400,60 @@ class PString
     }
   }
 
+  int getLength ()
+  {
+    return (this->length);
+  }
+
   int getInt()
   {
+    int result = -1;
     if (length > 0)
     {
-      for (int i = 0; i < length; i++)
+      bool negative = false;
+      int i = 0;
+
+      if (data[0] == '-')
       {
-        data[i] = (int)data[i];
+        negative = true;
+        i++;
       }
+
+      result = 0;
+      while (i < length)
+      {
+        if ((data[i] >= '0' && data[i] <= '9' ))
+        {
+          result += (int)((data[i]-48))*(int)(pow(10, length-1-i));
+        }
+        else
+        {
+          i = length;
+          result = -1;
+        }
+        i++;
+      }
+      if (negative)
+      {
+        result *= -1;
+      }
+
     }
-    return(1);
+    return(result);
+  }
+
+  double getDouble()
+  {
+    double result = -1;
+    bool negative = false;
+    if (length > 0)
+    {
+      if (data[0] == '-')
+      {
+        negative = true;
+      }
+      
+    }
   }
 
   bool getBool()
@@ -1425,14 +1469,15 @@ class PString
   bool find (std::string other)
   {
     bool result = false;
-    if (length > 0 && other.length() > 0)
+    int size = other.length();
+    if (length > 0 && size > 0)
     {
       for (int i = 0; i < length; i++)
       {
         if (this->data[i] == other[0])
         {
           result = true;
-          for (int y = 0; y < other.length(); y++)
+          for (int y = 0; y < size; y++)
           {
             result = (result && (this->data[i+y] == other[y]));
           }
