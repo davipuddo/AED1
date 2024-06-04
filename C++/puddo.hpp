@@ -1348,6 +1348,7 @@ class PString
   PString (std::string other)
   {
     length = other.length();
+    data.resize(length);
     data = other;
   }
 
@@ -1420,6 +1421,33 @@ class PString
       }
       std::cout << std::endl;
     }
+  }
+
+  void fwrite (const std::string text)
+  {
+    if (length > 0)
+    {
+      std::fstream file;
+      file.open(text, std::ios::out);
+      file << length << std::endl << data << std::endl;
+      file.close();
+    }
+  }
+
+  void fread (const std::string text)
+  {
+    int Flen = 0;
+    std::string Fdata = "";
+
+    std::fstream file;
+    file.open(text, std::ios::in);
+
+    file >> Flen;
+    std::getline(file, Fdata);
+    std::getline(file, Fdata);
+
+    PString tmp (Fdata);
+    this->copy(tmp);
   }
 
   std::string get()
@@ -1609,17 +1637,34 @@ class PString
     return (result);
   }
 
-  std::string encrypt (int n)
+  std::string encrypt (int key)
   {
     std::string result = this->toUpper();
     for (int i = 0; i < length; i++)
     {
       if (result[i] >= 'A' && result[i] <= 'Z')
       {
-        result[i] = result[i] + n;
+        result[i] = result[i] + key;
         if (result[i] > 90)
         {
           result[i] = (result[i] - 90) + 64;
+        }
+      }
+    }
+    return (result);
+  }
+
+  std::string decrypt (int key)
+  {
+    std::string result = this->get();
+    for (int i = 0; i < length; i++)
+    {
+      if (result[i] >= 'A' && result[i] <= 'Z')
+      {
+        result[i] = result[i] - key;
+        if (result[i] < 65)
+        {
+          result[i] = 90 - (result[i] - 64);
         }
       }
     }

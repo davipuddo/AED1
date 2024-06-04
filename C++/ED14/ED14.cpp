@@ -221,8 +221,8 @@ void ED1408 (void)
 {
   // Identificacao de dados
   PString dados("");
-  int n = 0;
-  std::string str = "";
+  int chave = 0;
+  std::string resultado = "";
 
   // Apresentacao
   println ("ED1408");
@@ -232,17 +232,23 @@ void ED1408 (void)
     
   // Ler dados
   dados.write("");
-  n = ReadInt("Forneca um valor inteiro para definir a quantidade de casas a serem puladas pela cifra: ");
+  chave = ReadInt("Forneca um valor inteiro para definir a quantidade de casas a serem puladas pela cifra: ");
 
   // Criptografar dados
-  str = dados.encrypt(n);
+  resultado = dados.encrypt(chave);
 
   // Verificar dados
-  if (str != "")
+  if (resultado != "")
   {
     // Mostrar dados
-    std::cout << "Dado criptografado: " << str << std::endl;
+    std::cout << "Dado criptografado: " << resultado << std::endl;
   }
+
+  // Gravar dados em um arquivo
+  std::fstream file;
+  file.open("DADOS08.TXT", std::ios::out);
+  file << resultado;
+  file.close();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -253,15 +259,46 @@ void ED1408 (void)
 void ED1409 (void)
 {
   // Identificacao de dados
+  PString dados("");
+  std::string tmp = "";
+  std::string resultado = "";
+  int chave = 0;
+
   // Apresentacao
   println ("ED1409");
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
     
+  // ED1408
+  println ("Redirecionando para ED1408 - ");
+  ED1408();
+  println ("De volta ao ED1409 - ");
+
+  // Ler dados do arquivo
+  std::fstream file;
+  file.open("DADOS08.TXT", std::ios::in);
+  file >> tmp;
+  file.close();
+
+  // Guardar dados no objeto
+  dados = tmp;
+
   // Ler dados
+  chave = ReadInt ("Forneca a quantidade de casas a serem puladas para descriptografar a mensagem: ");
+  
   // Verificar dados
-  // Mostrar dados
+  if (dados.getLength() > 0)
+  {
+    resultado = dados.decrypt(chave);
+
+    // Verificar dados
+    if (resultado != "")
+    {
+       // Mostrar dados
+      std::cout << "Dado descriptografado: " << resultado << std::endl;
+    }
+  }
 
   // Fim
   println ("");                  // Pular uma linha
