@@ -220,6 +220,10 @@ void ED1407 (void)
 void ED1408 (void)
 {
   // Identificacao de dados
+  PString dados("");
+  int n = 0;
+  std::string str = "";
+
   // Apresentacao
   println ("ED1408");
   println ("");                  // Pular uma linha
@@ -227,8 +231,18 @@ void ED1408 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  dados.write("");
+  n = ReadInt("Forneca um valor inteiro para definir a quantidade de casas a serem puladas pela cifra: ");
+
+  // Criptografar dados
+  str = dados.encrypt(n);
+
   // Verificar dados
-  // Mostrar dados
+  if (str != "")
+  {
+    // Mostrar dados
+    std::cout << "Dado criptografado: " << str << std::endl;
+  }
 
   // Fim
   println ("");                  // Pular uma linha

@@ -1583,28 +1583,47 @@ class PString
 
   std::string toUpper()
   {
-    std::string tmp = this->get();
+    std::string result = this->get();
     for (int i = 0; i < length; i++)
     {
       if (data[i] >= 'a' && data[i] <= 'z')
       {
-        tmp[i] = data[i] - 32;
+        result[i] = data[i] - 32;
       }
     }
-    return (tmp);
+    
+    return (result);
   }
 
   std::string toLower()
   {
-    int size = data.length();
-    for (int i = 0; i < size; i++)
+    std::string result = this->get();
+    for (int i = 0; i < length; i++)
     {
       if (data[i] >= 'A' && data[i] <= 'Z')
       {
-        data[i] += 32;
+        result[i] = data[i] + 32;
       }
     }
-    return (data);
+    
+    return (result);
+  }
+
+  std::string encrypt (int n)
+  {
+    std::string result = this->toUpper();
+    for (int i = 0; i < length; i++)
+    {
+      if (result[i] >= 'A' && result[i] <= 'Z')
+      {
+        result[i] = result[i] + n;
+        if (result[i] > 90)
+        {
+          result[i] = (result[i] - 90) + 64;
+        }
+      }
+    }
+    return (result);
   }
 
 };
