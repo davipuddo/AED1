@@ -879,7 +879,10 @@ void ED0910 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
-void ED09E1 (void)
+// Funcoes da bilbioteca foram alteradas
+// Para visualizar os arquivos originais abra o .zip
+
+/* void ED09E1 (void)
 {
   // Identificacao de dados
   int linha = 0; 
@@ -964,7 +967,7 @@ void ED09E2 (void)
   println ("");                  // Pular uma linha
   pause   ("Aperte <ENTER> para continuar. ");
 }
-
+ */
 int main (void)
 {
 
@@ -1023,10 +1026,10 @@ int main (void)
             break;
           case 10: ED0910();
             break;
-          case 11: ED09E1();
+          /* case 11: ED09E1();
             break;
           case 12: ED09E2();
-            break;
+            break; */
           default: 
               println ("");                // Pular uma linha
               println ("A opcao escolhida e invalida. ");
