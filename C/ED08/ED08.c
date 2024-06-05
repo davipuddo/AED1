@@ -48,7 +48,7 @@ bool IntOrderedArray (int *array, int tamanho)
   int z = 0;
   for (int i = 0; i < tamanho; i++)
   {
-    if (i != 0)
+    if (i > 0)
     { 
       if (array[i] < array[i-1])
       {
@@ -107,10 +107,10 @@ void ED0801 (void)
   do
   {
     tamanho = ReadInt ("Forneca um tamanho para o arranjo: ");
-  } while (tamanho < 0);
+  } while (tamanho < 1);
 
   arranjo = IntWriteArray(tamanho);
-  int *resultado = IntMultipleArray(arranjo, &tamanho, 2); 
+  int *resultado = IntMultipleArray(arranjo, &tamanho, 2);
 
   IntPrintArray(resultado, tamanho);
 
