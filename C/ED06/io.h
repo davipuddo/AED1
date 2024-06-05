@@ -127,7 +127,7 @@ void IO_flush ( )
 {
 //  fflush ( stdin );   // para Windows - OBS: NAO RECOMENDADO !
                         // para Linux   - OBS: NAO FUNCIONA    !
-    int  x = 0;         // compatível com o retorno de getchar()
+    int  x = 0;         // compatï¿½vel com o retorno de getchar()
     do { x = getchar( ); } while ( x != EOF && x != '\n' );
     clearerr ( stdin ); // reiniciar o estado de EOF
 } // end IO_flush ( )
@@ -497,25 +497,6 @@ char IO_charAt ( char* text, unsigned int index )
     return ( x );
 } // fim IO_charAt ( )
 
-/**
-    Funcao para copiar parte de uma cadeia de caracteres.
-    @return parte de cadeia de caracteres ou
-            NULL, caso houver parametros invalidos
-    @param  text  - cadeia de caracteres
-    @param  start - onde comecar
-    @param  size  - quantos caracteres copiar
- */
-char* IO_substring ( char *text, int start, unsigned int size )
-{
-    chars buffer = NULL;
-    if ( start >= 0 && (start+size) < (int) strlen(text) )
-    {
-       buffer = IO_new_chars ( size+1 );
-       memcpy ( buffer, text+start, size );
-       buffer [size] = '\0';
-    }
-    return ( buffer );
-} // fim IO_substring ( )
 
 /**
     Funcao para copiar parte de uma cadeia de caracteres.
