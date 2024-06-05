@@ -168,7 +168,7 @@ char *StrReadFileMaiorIgual5 (char *fileName)
 */
 
 // Somar [x] a [n] valores de [File1] e salvar em [File2]
-void DoubleSomaFile (char *File1, char *File2, int n, int x)
+void DoubleSomaFile (char *File1, char *File2, int n, double x)
 {
   FILE  *dados = fopen (File1, "rt");
   FILE  *resultado = fopen (File2, "wt");
@@ -235,7 +235,8 @@ void ED0701 (void)
   getchar   ();
   
   // Gravar dados no arquivo
-  for (int i = 1; i <= n; i++)
+  n++;
+  for (int i = 1; i < n; i++)
   {
     fprintf (arquivo, "%d\n", (4*i) );
   }
@@ -272,11 +273,7 @@ void ED0702 (void)
   int w = n;                        // Salvar valor [n] 
   while (w > 0) 
   {
-    int i = ( 2*(w-1) ) + 5;
-    if ( i % 2 != 0)
-    {
-      fprintf (arquivo, "%d\n", (5*i));
-    }
+    fprintf (arquivo, "%d\n", (5 * ( (2*(w-1) ) + 5)));
     w--;  
   }
 
@@ -346,7 +343,7 @@ void ED0704 (void)
     getchar   ();
   }
   
-  for (int i = n-1; i >= 0; i--)
+  for (int i = n; i > 0; i--)
   {
     fprintf (arquivo, "%lf\n", ( 1.0/pow(5,i) ) );
   }
