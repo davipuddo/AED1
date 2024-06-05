@@ -308,7 +308,11 @@ void ED1409 (void)
 
 void ED1410 (void)
 {
-  // Identificacao de dados
+  /* // Identificacao de dados
+  PString dados("");
+  //Array <std::string> palavras(1, 0);
+  int contador = 0;
+
   // Apresentacao
   println ("ED1410");
   println ("");                  // Pular uma linha
@@ -316,8 +320,15 @@ void ED1410 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  dados.write("");
+
+  //contador = dados.split(palavras);
+
+  std::cout << "Contador: " << contador << std::endl << "Dados: " << std::endl;
+  //palavras.print();
+
   // Verificar dados
-  // Mostrar dados
+  // Mostrar dados */
 
   // Fim
   println ("");                  // Pular uma linha

@@ -152,7 +152,7 @@ class Array
     }
   }
 
-  ~Array (void)
+  Array ()
   {
     length   = 0;
     data = nullptr;
@@ -1670,6 +1670,30 @@ class PString
     }
     return (result);
   }
+
+ /*  int split (Array <std::string> sequence)
+  {
+    int y = 0;
+    if (length > 0)
+    {
+      std::string tmp = "";
+      sequence.init(length);
+      for (int i = 0; i < length; i++)
+      {
+        if (data[i] != ' ')
+        {
+          tmp[i] = data[i];
+        }
+        else
+        {
+          sequence.set(y, tmp);
+          tmp = "";
+          y++;
+        }
+      }
+    }
+    return (y);
+  } */
 
 };
 

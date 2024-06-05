@@ -12,12 +12,6 @@ class Contato
     public:
 
     /**
-     * Destrutor
-    */
-    ~Contato()
-    {}
-
-    /**
      * Construtor
     */
     Contato ()
@@ -101,7 +95,7 @@ class Contato
     {
         bool result = true;
         std::string tmp = phone.get(n);
-        int size = phones;
+        int size = tmp.length();
         int i = 0;
         if (size < 9 || size > 11)
         {
