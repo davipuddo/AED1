@@ -23,7 +23,7 @@ class Contato
     Contato ()
     {
         name   = "";
-
+        
         phones = 1;
         phone.init(phones);
         for (int i = 0; i < phones; i++)

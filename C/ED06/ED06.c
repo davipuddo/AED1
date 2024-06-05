@@ -27,15 +27,17 @@ void Multiplos_6D (int n, int x)
 // Receber um valor inteiro [n] e mostrar [n] inversos dos multiplos de 6 em orderm crescente, comecando em 1
 void In_Multiplos_6_C1 (int n, int x)
 {
+  double y = 0.0;
   if (n > 0)                          // Repetir a recursao [n] vezes
     {
       if (x == 0)
         {
           n--;                        // Reduzir [n] por 1, para a adicao de um caso especial
-          IO_println ("1/1");         // Mostar caso especial
+          IO_println ("1/1 - 1.0");         // Mostar caso especial
         }
       x = x + 6;
-      IO_printf    ("1/%d\n", x);     // Mostar o resultado
+      y = x;
+      IO_printf    ("1/%d - %lf\n", x, 1.0/y);     // Mostar o resultado
       In_Multiplos_6_C1 (n-1, x);     // Recursao
     }
 }
@@ -43,15 +45,17 @@ void In_Multiplos_6_C1 (int n, int x)
 // Receber um valor inteiro [n] e mostrar [n] inversos dos multiplos de 6 em orderm decrescente, terminando em 1
 void In_Multiplos_6_T1 (int n, int x)
 {
+  double y = 0.0;
   if (n > 0)                          // Repetir a recursao [n] vezes
     {
       x = n * 6;
-      IO_printf    ("1/%d\n", x);     // Mostar o resultado
+      y = x;
+      IO_printf    ("1/%d - %lf\n", x, 1/y);     // Mostar o resultado
       In_Multiplos_6_T1 (n-1, x);     // Recursao
     }
   else
     {
-      IO_println ("1/1");             // Mostar caso especial
+      IO_println ("1/1 - 1.0");             // Mostar caso especial
     }
 }
 
@@ -60,8 +64,8 @@ int Soma_Pares_6 (int n, int i, int x, int total)
 {
   if (i < n)                                    // Repetir a recursao [n] vezes
     {
-      x = x + (i*2);                            // Calcular pares positivos
-      total = total + x;                        // Somar tudo
+      x += (i*2);                               // Calcular pares positivos
+      total += x;                               // Somar tudo
       return Soma_Pares_6 (n, i+1, x, total);   // Recursao
     }
   else
@@ -77,7 +81,7 @@ double In_Soma_Pares_6 (int n,int i, double x, double total)
     {
       x = x + 6;
       total = total + (1/x);
-      IO_printf    ("%lf\n", x);            // Mostar o resultado
+      IO_printf    ("1/%d - %lf\n", (int)x, 1/x);            // Mostar o resultado
       return In_Soma_Pares_6 (n, i+1, x, total);     // Recursao
     }
   else
@@ -89,8 +93,8 @@ double In_Soma_Pares_6 (int n,int i, double x, double total)
 // Ler uma cadeia de caracteres e mostrar cada simbolo separadamente, um por linha
 void Simbolo_Cadeia (const char *cadeia, int i)
 {
-  int TamCad = strlen(cadeia);                  // Tamanho da cadeia de caracteres
-  if (i <= TamCad)                              // Repetir Recursao para todos os caracteres
+  int TamCad = (strlen(cadeia)+1);                  // Tamanho da cadeia de caracteres
+  if (i < TamCad)                              // Repetir Recursao para todos os caracteres
     {
       IO_printf ("%c\n", cadeia[i]);            // Mostar caractere
       Simbolo_Cadeia(cadeia, i+1);              // Recursao
@@ -100,13 +104,13 @@ void Simbolo_Cadeia (const char *cadeia, int i)
 // Retornar digitos pares a partir de uma cadeia de caracteres
 char *Digitos_Pares_Cadeia (const char *cadeia, int i, int y, char *resultado)
 {
-  int TamCad = strlen(cadeia);                                  // Tamanho da cadeia de caracteres
+  int TamCad = strlen(cadeia) + 1;                                  // Tamanho da cadeia de caracteres
   if (i == 0)
     {
-      resultado = (char*)malloc(TamCad+2);                      // Alocar [resultado] na memoria
+      resultado = (char*)malloc(TamCad);                      // Alocar [resultado] na memoria
     }
 
-  if (i <= TamCad)                                              // Ler cada caractere individualmente
+  if (i < TamCad)                                              // Ler cada caractere individualmente
     {
       if (cadeia[i] >= '0' && cadeia[i] <= '9')                 // Testar se o caractere e um digito
         {
@@ -128,10 +132,10 @@ char *Digitos_Pares_Cadeia (const char *cadeia, int i, int y, char *resultado)
 // Retornar letras maiusculas menores do que 'L' a partir de uma cadeia de caracteres
 char *Letras_Maiusculas_Menor_L (const char *cadeia, int i, int y, char *resultado)
 {
-  int TamCad = strlen(cadeia);                      // Tamanho da cadeia de caracteres
+  int TamCad = strlen(cadeia)+1;                      // Tamanho da cadeia de caracteres
   if (i == 0)
     {
-      resultado = (char*)malloc(TamCad+1);          // Alocar [resultado] na memoria
+      resultado = (char*)malloc(TamCad);          // Alocar [resultado] na memoria
     }
 
   if (i < TamCad)
