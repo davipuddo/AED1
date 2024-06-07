@@ -321,14 +321,13 @@ void ED1410 (void)
     
   // Ler dados
   dados.write("");
-  //dados.print();
 
+  // Separar palavras da cadeia
   contador = dados.split(palavras);
 
-  std::cout << "Contador: " << contador << std::endl << "Dados: " << std::endl;
-  palavras.print();
-  // Verificar dados
   // Mostrar dados
+  std::cout << "Contador: " << contador << std::endl << "Palavras: " << std::endl;
+  palavras.print();
 
   // Fim
   println ("");                  // Pular uma linha

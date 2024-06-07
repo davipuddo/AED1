@@ -1678,7 +1678,7 @@ class PString
     {
       std::string tmp = "";
       tmp.resize(length);
-      words.init(5);
+      words.init((length+1)/2.0);
       for (int i = 0; i < length; i++)
       {
         if (data[i] != ' ')
@@ -1693,9 +1693,18 @@ class PString
           y++;
         }
       }
-      std::cout << "y: " << y << std::endl;
-
       words.set(y, tmp);
+
+      // Reduzir tamanho do array
+      while (words.get((words.getlength() - 1)) == "")
+      {
+        Array <std::string> TMP(words);
+        words.init((words.getlength() - 1));
+        for (int i = 0; i < words.getlength(); i++)
+        {
+          words.set(i, TMP.get(i));
+        }
+      }
     }
     return (y+1);
   } 
