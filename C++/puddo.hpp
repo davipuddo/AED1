@@ -1341,9 +1341,9 @@ class PString
 {
   private:
   int length;
+  std::string data;
 
   public:
-  std::string data;
 
   PString (std::string other)
   {
@@ -1671,13 +1671,14 @@ class PString
     return (result);
   }
 
- /*  int split (Array <std::string> sequence)
+  int split (Array <std::string>& words)
   {
     int y = 0;
     if (length > 0)
     {
       std::string tmp = "";
-      sequence.init(length);
+      tmp.resize(length);
+      words.init(5);
       for (int i = 0; i < length; i++)
       {
         if (data[i] != ' ')
@@ -1686,14 +1687,18 @@ class PString
         }
         else
         {
-          sequence.set(y, tmp);
+          words.set(y, tmp);
           tmp = "";
+          tmp.resize(length);
           y++;
         }
       }
+      std::cout << "y: " << y << std::endl;
+
+      words.set(y, tmp);
     }
-    return (y);
-  } */
+    return (y+1);
+  } 
 
 };
 
