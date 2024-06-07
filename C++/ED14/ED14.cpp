@@ -323,11 +323,72 @@ void ED1410 (void)
   dados.write("");
 
   // Separar palavras da cadeia
-  contador = dados.split(palavras);
+  contador = dados.split(palavras, ' ');
 
   // Mostrar dados
-  std::cout << "Contador: " << contador << std::endl << "Palavras: " << std::endl;
+  std::cout << "Quantidade de palavras: " << contador << std::endl << "Palavras: " << std::endl;
   palavras.print();
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED14E1 (void)
+{
+  // Identificacao de dados
+  PString dados("");
+  Array <std::string> palavras(0, 0);
+  int contador = 0;
+  char delimitador = '0';
+
+  // Apresentacao
+  println ("ED14E1");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  dados.write("");
+  println ("");
+  delimitador = ReadChar("Forneca um caractere para definir um delimitador para a fragmentacao cadeia fornecida: ");
+
+  // Separar palavras da cadeia
+  contador = dados.split(palavras, delimitador);
+
+  // Mostrar dados
+  std::cout << "Quantidade de palavras: " << contador << std::endl << "Palavras: " << std::endl;
+  palavras.print();
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED14E2 (void)
+{
+  // Identificacao de dados
+  PString dados("");
+  std::string resultado = "";
+
+  // Apresentacao
+  println ("ED14E1");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  dados.write("");
+
+  // Separar palavras da cadeia
+  resultado = dados.invert();
+
+  // Mostrar dados
+  std::cout << "Cadeia original - " << std::endl;
+  dados.print();
+  std::cout << std::endl << "Cadeia invertida - " << std::endl << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -354,12 +415,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1401   2 - ED1402");
-      println ("3 - ED1403   4 - ED1404");
-      println ("5 - ED1405   6 - ED1406");
-      println ("7 - ED1407   8 - ED1408");
-      println ("9 - ED1409  10 - ED1410");
+      println ("0  - sair");
+      println ("1  - ED1401   2 - ED1402");
+      println ("3  - ED1403   4 - ED1404");
+      println ("5  - ED1405   6 - ED1406");
+      println ("7  - ED1407   8 - ED1408");
+      println ("9  - ED1409  10 - ED1410");
+      println ("11 - ED14E1  12 - ED14E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -391,6 +453,10 @@ int main (void)
           case 9:  ED1409();
             break;
           case 10: ED1410();
+            break;
+          case 11: ED14E1();
+            break;
+          case 12: ED14E2();
             break;
           default: 
               println ("");                // Pular uma linha

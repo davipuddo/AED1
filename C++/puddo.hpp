@@ -1405,6 +1405,7 @@ class PString
     {
       this->copy(result);
     }
+    println("");
   }
 
   void print ()
@@ -1671,7 +1672,7 @@ class PString
     return (result);
   }
 
-  int split (Array <std::string>& words)
+  int split (Array <std::string>& words, char delimiter)
   {
     int y = 0;
     if (length > 0)
@@ -1681,7 +1682,7 @@ class PString
       words.init((length+1)/2.0);
       for (int i = 0; i < length; i++)
       {
-        if (data[i] != ' ')
+        if (data[i] != delimiter)
         {
           tmp[i] = data[i];
         }
@@ -1707,7 +1708,21 @@ class PString
       }
     }
     return (y+1);
-  } 
+  }
+
+  std::string invert ()
+  {
+    int i = 0;
+    int y = length-1;
+    std::string result = data;
+    while (i < length)
+    {
+      result[i] = data[y];
+      i++;
+      y--;
+    }
+    return (result);
+  }
 
 };
 
