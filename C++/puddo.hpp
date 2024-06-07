@@ -1408,7 +1408,7 @@ class PString
     println("");
   }
 
-  void print ()
+  void print (void)
   {
     if (this->length <= 0)
     {
@@ -1451,17 +1451,17 @@ class PString
     this->copy(tmp);
   }
 
-  std::string get()
+  std::string get (void)
   {
     return (data);
   }
 
-  int getLength ()
+  int getLength (void)
   {
     return (this->length);
   }
 
-  int getInt()
+  int getInt (void)
   {
     int result = -1;
     if (length > 0)
@@ -1498,7 +1498,7 @@ class PString
     return(result);
   }
 
-  double getDouble()
+  double getDouble (void)
   {
     double result = 0.0;
 
@@ -1551,7 +1551,7 @@ class PString
     return (result); 
   }
 
-  bool getBool()
+  bool getBool (void)
   {
     bool result = false;
     if (length > 0)
@@ -1594,7 +1594,7 @@ class PString
     return (result);
   }
 
-  std::string replace(const char Old, const char New)
+  std::string replace (const char Old, const char New)
   {
     std::string result = this->data;
     if (length > 0)
@@ -1610,7 +1610,7 @@ class PString
     return (result);
   }
 
-  std::string toUpper()
+  std::string toUpper (void)
   {
     std::string result = this->get();
     for (int i = 0; i < length; i++)
@@ -1624,7 +1624,7 @@ class PString
     return (result);
   }
 
-  std::string toLower()
+  std::string toLower (void)
   {
     std::string result = this->get();
     for (int i = 0; i < length; i++)
@@ -1710,7 +1710,7 @@ class PString
     return (y+1);
   }
 
-  std::string invert ()
+  std::string invert (void)
   {
     int i = 0;
     int y = length-1;

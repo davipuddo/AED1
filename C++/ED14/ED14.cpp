@@ -13,7 +13,7 @@ void ED1401 (void)
   // Apresentacao
   println ("ED1401");
   println ("");
-  println (" ");
+  println ("Converter conteudo para valor inteiro. ");
   println ("");
 
   // Ler dados
@@ -40,7 +40,7 @@ void ED1402 (void)
   // Apresentacao
   println ("ED1402");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Converter conteudo para valor real. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -67,7 +67,7 @@ void ED1403 (void)
   // Apresentacao
   println ("ED1403");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Converter conteudo para valor logico. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -95,7 +95,7 @@ void ED1404 (void)
   // Apresentacao
   println ("ED1404");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Verificar se o parametro esta contido no conteudo em qualquer posicao da cadeia. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -130,7 +130,7 @@ void ED1405 (void)
   // Apresentacao
   println ("ED1405");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Converter letras minusculas para maiusculas. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -194,7 +194,7 @@ void ED1407 (void)
   // Apresentacao
   println ("ED1407");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Substituir caracteres de uma cadeia por outro. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -227,7 +227,7 @@ void ED1408 (void)
   // Apresentacao
   println ("ED1408");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Codificar conteudo usando a cifra de Cesar. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -267,7 +267,7 @@ void ED1409 (void)
   // Apresentacao
   println ("ED1409");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Descodificar conteudo usando a cifra de Cesar. ");
   println ("");                  // Pular uma linha
     
   // ED1408
@@ -316,7 +316,7 @@ void ED1410 (void)
   // Apresentacao
   println ("ED1410");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Separar todas as sequencias de caracteres separadas por espacos em branco. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -346,7 +346,7 @@ void ED14E1 (void)
   // Apresentacao
   println ("ED14E1");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Fragmentar uma cadeia de caracteres usando um delimitador a escolha. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -376,7 +376,7 @@ void ED14E2 (void)
   // Apresentacao
   println ("ED14E1");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Inverter a ordem dos simbolos de uma cadeia de caracteres. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
