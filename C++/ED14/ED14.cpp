@@ -13,7 +13,7 @@ void ED1401 (void)
   // Apresentacao
   println ("ED1401");
   println ("");
-  println (" ");
+  println ("Converter conteudo para valor inteiro. ");
   println ("");
 
   // Ler dados
@@ -40,7 +40,7 @@ void ED1402 (void)
   // Apresentacao
   println ("ED1402");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Converter conteudo para valor real. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -67,7 +67,7 @@ void ED1403 (void)
   // Apresentacao
   println ("ED1403");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Converter conteudo para valor logico. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -95,7 +95,7 @@ void ED1404 (void)
   // Apresentacao
   println ("ED1404");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Verificar se o parametro esta contido no conteudo em qualquer posicao da cadeia. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -130,7 +130,7 @@ void ED1405 (void)
   // Apresentacao
   println ("ED1405");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Converter letras minusculas para maiusculas. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -194,7 +194,7 @@ void ED1407 (void)
   // Apresentacao
   println ("ED1407");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Substituir caracteres de uma cadeia por outro. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -227,7 +227,7 @@ void ED1408 (void)
   // Apresentacao
   println ("ED1408");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Codificar conteudo usando a cifra de Cesar. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -267,7 +267,7 @@ void ED1409 (void)
   // Apresentacao
   println ("ED1409");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Descodificar conteudo usando a cifra de Cesar. ");
   println ("");                  // Pular uma linha
     
   // ED1408
@@ -316,19 +316,79 @@ void ED1410 (void)
   // Apresentacao
   println ("ED1410");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Separar todas as sequencias de caracteres separadas por espacos em branco. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
   dados.write("");
-  //dados.print();
 
-  contador = dados.split(palavras);
+  // Separar palavras da cadeia
+  contador = dados.split(palavras, ' ');
 
-  std::cout << "Contador: " << contador << std::endl << "Dados: " << std::endl;
-  palavras.print();
-  // Verificar dados
   // Mostrar dados
+  std::cout << "Quantidade de palavras: " << contador << std::endl << "Palavras: " << std::endl;
+  palavras.print();
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED14E1 (void)
+{
+  // Identificacao de dados
+  PString dados("");
+  Array <std::string> palavras(0, 0);
+  int contador = 0;
+  char delimitador = '0';
+
+  // Apresentacao
+  println ("ED14E1");
+  println ("");                  // Pular uma linha
+  println ("Fragmentar uma cadeia de caracteres usando um delimitador a escolha. ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  dados.write("");
+  println ("");
+  delimitador = ReadChar("Forneca um caractere para definir um delimitador para a fragmentacao cadeia fornecida: ");
+
+  // Separar palavras da cadeia
+  contador = dados.split(palavras, delimitador);
+
+  // Mostrar dados
+  std::cout << "Quantidade de palavras: " << contador << std::endl << "Palavras: " << std::endl;
+  palavras.print();
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED14E2 (void)
+{
+  // Identificacao de dados
+  PString dados("");
+  std::string resultado = "";
+
+  // Apresentacao
+  println ("ED14E1");
+  println ("");                  // Pular uma linha
+  println ("Inverter a ordem dos simbolos de uma cadeia de caracteres. ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  dados.write("");
+
+  // Separar palavras da cadeia
+  resultado = dados.invert();
+
+  // Mostrar dados
+  std::cout << "Cadeia original - " << std::endl;
+  dados.print();
+  std::cout << std::endl << "Cadeia invertida - " << std::endl << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
@@ -355,12 +415,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1401   2 - ED1402");
-      println ("3 - ED1403   4 - ED1404");
-      println ("5 - ED1405   6 - ED1406");
-      println ("7 - ED1407   8 - ED1408");
-      println ("9 - ED1409  10 - ED1410");
+      println ("0  - sair");
+      println ("1  - ED1401   2 - ED1402");
+      println ("3  - ED1403   4 - ED1404");
+      println ("5  - ED1405   6 - ED1406");
+      println ("7  - ED1407   8 - ED1408");
+      println ("9  - ED1409  10 - ED1410");
+      println ("11 - ED14E1  12 - ED14E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -392,6 +453,10 @@ int main (void)
           case 9:  ED1409();
             break;
           case 10: ED1410();
+            break;
+          case 11: ED14E1();
+            break;
+          case 12: ED14E2();
             break;
           default: 
               println ("");                // Pular uma linha

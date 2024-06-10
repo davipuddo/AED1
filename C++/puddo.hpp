@@ -1442,9 +1442,10 @@ class PString
     {
       this->copy(result);
     }
+    println("");
   }
 
-  void print ()
+  void print (void)
   {
     if (this->length <= 0)
     {
@@ -1487,17 +1488,17 @@ class PString
     this->copy(tmp);
   }
 
-  std::string get()
+  std::string get (void)
   {
     return (data);
   }
 
-  int getLength ()
+  int getLength (void)
   {
     return (this->length);
   }
 
-  int getInt()
+  int getInt (void)
   {
     int result = -1;
     if (length > 0)
@@ -1534,7 +1535,7 @@ class PString
     return(result);
   }
 
-  double getDouble()
+  double getDouble (void)
   {
     double result = 0.0;
 
@@ -1587,7 +1588,7 @@ class PString
     return (result); 
   }
 
-  bool getBool()
+  bool getBool (void)
   {
     bool result = false;
     if (length > 0)
@@ -1630,7 +1631,7 @@ class PString
     return (result);
   }
 
-  std::string replace(const char Old, const char New)
+  std::string replace (const char Old, const char New)
   {
     std::string result = this->data;
     if (length > 0)
@@ -1646,7 +1647,7 @@ class PString
     return (result);
   }
 
-  std::string toUpper()
+  std::string toUpper (void)
   {
     std::string result = this->get();
     for (int i = 0; i < length; i++)
@@ -1660,7 +1661,7 @@ class PString
     return (result);
   }
 
-  std::string toLower()
+  std::string toLower (void)
   {
     std::string result = this->get();
     for (int i = 0; i < length; i++)
@@ -1708,17 +1709,17 @@ class PString
     return (result);
   }
 
-  int split (Array <std::string>& words)
+  int split (Array <std::string>& words, char delimiter)
   {
     int y = 0;
     if (length > 0)
     {
       std::string tmp = "";
       tmp.resize(length);
-      words.init(5);
+      words.init((length+1)/2.0);
       for (int i = 0; i < length; i++)
       {
-        if (data[i] != ' ')
+        if (data[i] != delimiter)
         {
           tmp[i] = data[i];
         }
@@ -1730,12 +1731,35 @@ class PString
           y++;
         }
       }
-      std::cout << "y: " << y << std::endl;
-
       words.set(y, tmp);
+
+      // Reduzir tamanho do array
+      while (words.get((words.getlength() - 1)) == "")
+      {
+        Array <std::string> TMP(words);
+        words.init((words.getlength() - 1));
+        for (int i = 0; i < words.getlength(); i++)
+        {
+          words.set(i, TMP.get(i));
+        }
+      }
     }
     return (y+1);
-  } 
+  }
+
+  std::string invert (void)
+  {
+    int i = 0;
+    int y = length-1;
+    std::string result = data;
+    while (i < length)
+    {
+      result[i] = data[y];
+      i++;
+      y--;
+    }
+    return (result);
+  }
 
 };
 
