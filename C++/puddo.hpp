@@ -119,11 +119,48 @@ int IntRandom (int x, int y)
   return (resultado);
 }
 
-void IntInvertValues(int *x, int *y)
+template <typename T>
+void InvertValues (T *x, T *y)
 {
-  int tmp = *x;
+  T tmp = *x;
   *x = *y;
   *y = tmp;
+}
+
+template <typename T>
+T* WriteArray (int size)
+{
+  T* data = null;
+  T x;
+  
+  if (typeid(T) == typeid(char))
+  {
+    data = (char*)calloc(size+1, sizeof(char));
+  }
+  else
+  {
+    data = new T[size];
+  }
+
+  for (int i = 0; i < size; i++)
+  {
+    std::cout << "Forneca [" << i << "] elementos para o arranjo: ";
+    std::cin >> x; getchar();
+    data[i] = x;
+  }
+  return (data);
+}
+
+template <typename T>
+void PrintArray (T* data)
+{
+  int size = strlen(data);
+  std::cout << std::endl;
+  for (int i = 0; i < size; i++)
+  {
+    std::cout << i << ": " << data[i] << std::endl;
+  }
+  std::cout << std::endl;
 }
 
 #ifndef _MYARRAY_HPP
