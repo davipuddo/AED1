@@ -467,11 +467,11 @@ class Array
   {
     if (initial > final)
     {
-      IntInvertValues(&initial, &final);
+      InvertValues<int>(&initial, &final);
     }
     if (min > max)
     {
-      IntInvertValues(&min, &max);
+      InvertValues<int>(&min, &max);
     }
     if (initial < 0 || final > (length-1))
     {
@@ -602,7 +602,7 @@ class Array
 
     if (inicio > fim)
     {
-      IntInvertValues(&inicio, &fim);
+      InvertValues<int>(&inicio, &fim);
     }
     if (inicio < 0 || fim > (length-1))
     {
@@ -628,7 +628,7 @@ class Array
     double result = 0.0;
     if (inicio > fim) 
     {
-      IntInvertValues(&inicio, &fim);
+      InvertValues<int>(&inicio, &fim);
     }
     if (inicio < 0 || fim > (length -1))
     {

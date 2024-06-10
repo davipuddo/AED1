@@ -4,7 +4,7 @@
 #include "../puddo.hpp"
 
 
-char* PushBack(char* str, char x)
+char* PushBack (char* str, char x)
 {
   char* result = null;
   if (str != null)
@@ -22,11 +22,48 @@ char* PushBack(char* str, char x)
   return (result);
 }
 
+char* PopBack (char* str)
+{
+  char* result = null;
+  if (str != null)
+  {
+    int size = strlen(str)-1;
+    result = (char*)calloc(size, sizeof(char));
+
+    for (int i = 0; i < size; i++)
+    {
+      result[i] = str[i];
+    }
+  }
+  return (result);
+}
+
+char* PushFront (char* str, char x)
+{
+  char* result = null;
+  if (str != null)
+  {
+    int size = strlen(str);
+    result = (char*)calloc((size+2), sizeof(char));
+
+    int y = 0;
+    int tmpS = size+1;
+
+    result[0] = x;
+    for (int i = 1; i < tmpS; i++)
+    {
+      result[i] = str[y];
+      y++;
+    }
+  }
+  return (result);
+}
+
 void ED1501 (void)
 {
   // Identificacao de dados
   char* str;
-  char* result = null;
+  char* resultado = null;
   char x = '0';
 
   // Apresentacao
@@ -37,20 +74,20 @@ void ED1501 (void)
     
   // Ler dados
   str = WriteArray<char>(4);
-  x = ReadChar("Forneca um caractere para ser adicionado a cadeia: ");
+  x = ReadChar("Forneca um caractere para ser adicionado ao final da cadeia: ");
 
-  // Adicionar caractere a cadeia
-  result = PushBack(str, x);
+  // Adicionar caractere no final da cadeia
+  resultado = PushBack(str, x);
 
   // Verificar dados
-  if (result != null)
+  if (resultado != null)
   {
     // Mostrar dados
     println ("Original - ");
     PrintArray(str);
 
     println ("Alterado - ");
-    PrintArray(result);
+    PrintArray(resultado);
   }
 
   // Fim
@@ -62,6 +99,9 @@ void ED1501 (void)
 void ED1502 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+
   // Apresentacao
   println ("ED1502");
   println ("");                  // Pular uma linha
@@ -69,8 +109,20 @@ void ED1502 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Operacao
+  str = WriteArray<char>(5);
+  
+  // Remover ultimo caractere da cadeia
+  resultado = PopBack(str);
+
   // Mostrar dados
+  if (resultado != null)
+  {
+    println ("Original -");
+    PrintArray(str);
+
+    println ("Alterado -");
+    PrintArray(resultado);
+  }
 
   // Fim
   println ("");                  // Pular uma linha
@@ -81,6 +133,10 @@ void ED1502 (void)
 void ED1503 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  char x = '0';
+
   // Apresentacao
   println ("ED1503");
   println ("");                  // Pular uma linha
@@ -88,8 +144,22 @@ void ED1503 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  str = WriteArray<char>(5);
+  x = ReadChar ("Forneca um caractere para ser adicionado na frente da cadeia: ");
+
+  // Adicionar caractere na frente
+  resultado = PushFront(str, x);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado != null)
+  {
+    // Mostrar dados
+    println ("Original -");
+    PrintArray(str);
+
+    println ("Alterado -");
+    PrintArray(resultado); 
+  }
 
   // Fim
   println ("");                  // Pular uma linha
