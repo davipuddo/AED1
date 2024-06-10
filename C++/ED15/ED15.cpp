@@ -7,15 +7,17 @@
 char* PushBack(char* str, char x)
 {
   char* result = null;
-  int size = strlen(str);
-
-  result = (char*)calloc((size+2), sizeof(char));
-
-  for (int i = 0; i < size; i++)
+  if (str != null)
   {
-    result[i] = str[i];
+    int size = strlen(str);
+    result = (char*)calloc((size+2), sizeof(char));
+
+    for (int i = 0; i < size; i++)
+    {
+      result[i] = str[i];
+    }
+    result[size] = x;
   }
-  result[size] = x;
 
   return (result);
 }
@@ -25,7 +27,7 @@ void ED1501 (void)
   // Identificacao de dados
   char* str;
   char* result = null;
-  char x = '5';
+  char x = '0';
 
   // Apresentacao
   println ("ED1501");
@@ -34,16 +36,22 @@ void ED1501 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-
   str = WriteArray<char>(4);
+  x = ReadChar("Forneca um caractere para ser adicionado a cadeia: ");
 
-  println ("Original - ");
-  PrintArray(str);
-
+  // Adicionar caractere a cadeia
   result = PushBack(str, x);
 
-  println ("Alterado - ");
-  PrintArray(result);
+  // Verificar dados
+  if (result != null)
+  {
+    // Mostrar dados
+    println ("Original - ");
+    PrintArray(str);
+
+    println ("Alterado - ");
+    PrintArray(result);
+  }
 
   // Fim
   println ("");                  // Pular uma linha
