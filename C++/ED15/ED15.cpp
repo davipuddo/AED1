@@ -59,6 +59,24 @@ char* PushFront (char* str, char x)
   return (result);
 }
 
+char* PopFront (char* str)
+{
+  char* result = null;
+  if (str != null)
+  {
+    int size = strlen(str)-1;
+    int y = 1;
+    result = (char*)calloc(size, sizeof(char));
+
+    for (int i = 0; i < size; i++)
+    {
+      result[i] = str[y];
+      y++;
+    }
+  }
+  return (result);
+}
+
 void ED1501 (void)
 {
   // Identificacao de dados
@@ -170,6 +188,9 @@ void ED1503 (void)
 void ED1504 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+
   // Apresentacao
   println ("ED1504");
   println ("");                  // Pular uma linha
@@ -177,8 +198,21 @@ void ED1504 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  str = WriteArray<char>(5);
+
+  // Remover primeiro caractere da cadeia
+  resultado = PopFront(str);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado != null)
+  {
+    // Mostrar dados
+    println ("Original -");
+    PrintArray(str);
+
+    println ("Alterado -");
+    PrintArray(resultado); 
+  }
 
   // Fim
   println ("");                  // Pular uma linha
