@@ -47,10 +47,10 @@ char* PushFront (char* str, char x)
     result = (char*)calloc((size+2), sizeof(char));
 
     int y = 0;
-    int tmpS = size+1;
+    int NSize = size+1;
 
     result[0] = x;
-    for (int i = 1; i < tmpS; i++)
+    for (int i = 1; i < NSize; i++)
     {
       result[i] = str[y];
       y++;
@@ -77,12 +77,46 @@ char* PopFront (char* str)
   return (result);
 }
 
+char* PushMid (char* str, char x)
+{
+  char* result = null;
+  if (str != null)
+  {
+    int size = strlen(str);
+    if (size <= 1)
+    {
+      println ("ERRO: Tamanho invalido. ");
+    }
+    else
+    {
+      int mid = 0;
+      int y = 0;
+      result = (char*)calloc((size+2), sizeof(char));
+
+      mid = ((double)size/2.0);
+
+      for (int i = 0; i < size; i++)
+      {
+        if (i == mid)
+        {
+          y++;
+        }
+        result[y] = str[i];
+        y++;
+      }
+      result[mid] = x;
+    }
+  }
+  return (result);
+}
+
 void ED1501 (void)
 {
   // Identificacao de dados
   char* str;
   char* resultado = null;
   char x = '0';
+  int tamanho = 0;
 
   // Apresentacao
   println ("ED1501");
@@ -91,7 +125,8 @@ void ED1501 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  str = WriteArray<char>(4);
+  tamanho = ReadInt ("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
   x = ReadChar("Forneca um caractere para ser adicionado ao final da cadeia: ");
 
   // Adicionar caractere no final da cadeia
@@ -104,7 +139,7 @@ void ED1501 (void)
     println ("Original - ");
     PrintArray(str);
 
-    println ("Alterado - ");
+    println ("Alterada - ");
     PrintArray(resultado);
   }
 
@@ -119,6 +154,7 @@ void ED1502 (void)
   // Identificacao de dados
   char* str = null;
   char* resultado = null;
+  int tamanho = 0;
 
   // Apresentacao
   println ("ED1502");
@@ -127,7 +163,8 @@ void ED1502 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  str = WriteArray<char>(5);
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
   
   // Remover ultimo caractere da cadeia
   resultado = PopBack(str);
@@ -138,7 +175,7 @@ void ED1502 (void)
     println ("Original -");
     PrintArray(str);
 
-    println ("Alterado -");
+    println ("Alterada -");
     PrintArray(resultado);
   }
 
@@ -154,6 +191,7 @@ void ED1503 (void)
   char* str = null;
   char* resultado = null;
   char x = '0';
+  int tamanho = 0;
 
   // Apresentacao
   println ("ED1503");
@@ -162,7 +200,8 @@ void ED1503 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  str = WriteArray<char>(5);
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
   x = ReadChar ("Forneca um caractere para ser adicionado na frente da cadeia: ");
 
   // Adicionar caractere na frente
@@ -175,7 +214,7 @@ void ED1503 (void)
     println ("Original -");
     PrintArray(str);
 
-    println ("Alterado -");
+    println ("Alterada -");
     PrintArray(resultado); 
   }
 
@@ -190,6 +229,7 @@ void ED1504 (void)
   // Identificacao de dados
   char* str = null;
   char* resultado = null;
+  int tamanho = 0;
 
   // Apresentacao
   println ("ED1504");
@@ -198,7 +238,8 @@ void ED1504 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  str = WriteArray<char>(5);
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
 
   // Remover primeiro caractere da cadeia
   resultado = PopFront(str);
@@ -210,7 +251,7 @@ void ED1504 (void)
     println ("Original -");
     PrintArray(str);
 
-    println ("Alterado -");
+    println ("Alterada -");
     PrintArray(resultado); 
   }
 
@@ -223,6 +264,11 @@ void ED1504 (void)
 void ED1505 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  char x = '0';
+  int tamanho = 0;
+
   // Apresentacao
   println ("ED1505");
   println ("");                  // Pular uma linha
@@ -230,8 +276,23 @@ void ED1505 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
+  x = ReadChar("Forneca um caractere a ser adicionado ao meio da cadeia fornecida: ");
+
+  // Adicionar caractere no meio da cadeia
+  resultado = PushMid(str, x);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado != null)
+  {
+    // Mostrar dados
+    println ("Original -");
+    PrintArray(str);
+
+    println ("Alterada -");
+    PrintArray(resultado);
+  }
 
   // Fim
   println ("");                  // Pular uma linha
