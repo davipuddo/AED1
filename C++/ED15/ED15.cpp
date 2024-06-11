@@ -206,7 +206,7 @@ char* StrRemove (const char* str, char index)
   return (result);
 }
 
-char* StrFind (const char* str, char x)
+char* StrFind (char* str, char x)
 {
   char* result = null;
   if (str)
@@ -216,12 +216,35 @@ char* StrFind (const char* str, char x)
     result = (char*)calloc(1, sizeof(char));
     while (i < size && str[i] != x)
     {
-      result[0] = str[i];
       i++;
     }
+    if (i < size)
+    {
+      result = &str[i];
+    }    
   }
   return (result);
 }
+
+char* StrSplit (char* str, char x)
+{
+  char* result = null;
+  if (str)
+  {
+    int i = 0;
+    int size = strlen(str);
+    result = (char*)calloc(1, sizeof(char));
+    while (i < size && str[i] != x)
+    {
+      i++;
+    }
+    if (i < size)
+    {
+      result = &str[i];
+    }    
+  }
+  return (result);
+} 
 
 void ED1501 (void)
 {
