@@ -10,7 +10,7 @@ char* PushBack (char* str, char x)
   if (str != null)
   {
     int size = strlen(str);
-    result = (char*)calloc((size+2), sizeof(char));
+    result = (char*)calloc((size+1), sizeof(char));
 
     for (int i = 0; i < size; i++)
     {
@@ -44,7 +44,7 @@ char* PushFront (char* str, char x)
   if (str != null)
   {
     int size = strlen(str);
-    result = (char*)calloc((size+2), sizeof(char));
+    result = (char*)calloc((size+1), sizeof(char));
 
     int y = 0;
     int NSize = size+1;
@@ -91,7 +91,7 @@ char* PushMid (char* str, char x)
     {
       int mid = 0;
       int y = 0;
-      result = (char*)calloc((size+2), sizeof(char));
+      result = (char*)calloc((size+1), sizeof(char));
 
       mid = ((double)size/2.0);
 
@@ -128,6 +128,44 @@ char* PopMid (char* str)
       }
       result[i] = str[y];
       y++;
+    }
+  }
+  return (result);
+}
+
+char* StrInsert (char* str, char x, int index)
+{
+  char* result = null;
+  if (str != null)
+  {
+    int size = strlen(str);
+    if (index < 0 || index > (size))
+    {
+      println ("ERRO: Posicao invalida. ");
+      std::cout << "Deseja alterar a posicao ?" << std::endl << "[S/N]";
+      char tmp = ReadChar(" ");
+      if (tmp == 's' || tmp == 'S')
+      {
+        int Nindex = ReadInt("Nova posicao: ");
+        result = StrInsert(str, x, Nindex);
+      }
+    }
+    else
+    {
+      result = (char*)calloc(size+2, sizeof(char));
+
+      int y = 0;
+      for (int i = 0; i < size; i++)
+      {
+        if ( i == index)
+        {
+          y++;
+        }
+        result[i] = str[y];
+        y++;
+      }
+      result[index] = x;
+      result[index+2] = 'W';
     }
   }
   return (result);
@@ -349,7 +387,7 @@ void ED1506 (void)
     // Mostrar dados
     println ("Original -");
     PrintArray(str);
-    
+
     println ("Alterada -");
     PrintArray(resultado);
   }
@@ -363,6 +401,12 @@ void ED1506 (void)
 void ED1507 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  char x = '0';
+  int tamanho = 0;
+  int posicao = 0;
+
   // Apresentacao
   println ("ED1507");
   println ("");                  // Pular uma linha
@@ -370,8 +414,23 @@ void ED1507 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
+  x = ReadChar ("Forneca o caractere a ser inserido na cadeia: ");
+  posicao = ReadInt ("Forneca a posicao da cadeia onde ele sera inserido: ");
+
+  // Adicionar caractere na posicao fornecida
+  resultado = StrInsert(str, x, posicao);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado != null)
+  {
+    // Mostrar dados
+    println ("Original -");
+    PrintArray(str);
+    println ("Alterada -");
+    PrintArray(resultado);
+  }
 
   // Fim
   println ("");                  // Pular uma linha
