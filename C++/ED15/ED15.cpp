@@ -110,6 +110,29 @@ char* PushMid (char* str, char x)
   return (result);
 }
 
+char* PopMid (char* str)
+{
+  char* result = null;
+  if (str != null)
+  {
+    int size = strlen(str)-1;
+    result = (char*)calloc(size, sizeof(char));
+    int mid = ((double)size/2.0);
+
+    int y = 0;
+    for (int i = 0; i < size; i++)
+    {
+      if (i == mid)
+      {
+        y++;
+      }
+      result[i] = str[y];
+      y++;
+    }
+  }
+  return (result);
+}
+
 void ED1501 (void)
 {
   // Identificacao de dados
@@ -303,6 +326,10 @@ void ED1505 (void)
 void ED1506 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  int tamanho = 0;
+
   // Apresentacao
   println ("ED1506");
   println ("");                  // Pular uma linha
@@ -310,8 +337,22 @@ void ED1506 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
+
+  // Remover caractere do meio da cadeia
+  resultado = PopMid(str);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado != null)
+  {
+    // Mostrar dados
+    println ("Original -");
+    PrintArray(str);
+    
+    println ("Alterada -");
+    PrintArray(resultado);
+  }
 
   // Fim
   println ("");                  // Pular uma linha
