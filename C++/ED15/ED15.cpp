@@ -4,7 +4,7 @@
 #include "../puddo.hpp"
 
 
-char* PushBack (char* str, char x)
+char* PushBack (const char* str, char x)
 {
   char* result = null;
   if (str != null)
@@ -22,7 +22,7 @@ char* PushBack (char* str, char x)
   return (result);
 }
 
-char* PopBack (char* str)
+char* PopBack (const char* str)
 {
   char* result = null;
   if (str != null)
@@ -38,7 +38,7 @@ char* PopBack (char* str)
   return (result);
 }
 
-char* PushFront (char* str, char x)
+char* PushFront (const char* str, char x)
 {
   char* result = null;
   if (str != null)
@@ -59,7 +59,7 @@ char* PushFront (char* str, char x)
   return (result);
 }
 
-char* PopFront (char* str)
+char* PopFront (const char* str)
 {
   char* result = null;
   if (str != null)
@@ -77,7 +77,7 @@ char* PopFront (char* str)
   return (result);
 }
 
-char* PushMid (char* str, char x)
+char* PushMid (const char* str, char x)
 {
   char* result = null;
   if (str != null)
@@ -110,7 +110,7 @@ char* PushMid (char* str, char x)
   return (result);
 }
 
-char* PopMid (char* str)
+char* PopMid (const char* str)
 {
   char* result = null;
   if (str != null)
@@ -133,7 +133,7 @@ char* PopMid (char* str)
   return (result);
 }
 
-char* StrInsert (char* str, char x, int index)
+char* StrInsert (const char* str, char x, int index)
 {
   char* result = null;
   if (str != null)
@@ -170,7 +170,7 @@ char* StrInsert (char* str, char x, int index)
   return (result);
 }
 
-char* StrRemove (char* str, char index)
+char* StrRemove (const char* str, char index)
 {
   char* result = null;
   if (str)
@@ -201,6 +201,23 @@ char* StrRemove (char* str, char index)
         result[i] = str[y];
         y++;
       }
+    }
+  }
+  return (result);
+}
+
+char* StrFind (const char* str, char x)
+{
+  char* result = null;
+  if (str)
+  {
+    int i = 0;
+    int size = strlen(str);
+    result = (char*)calloc(1, sizeof(char));
+    while (i < size && str[i] != x)
+    {
+      result[0] = str[i];
+      i++;
     }
   }
   return (result);
@@ -463,7 +480,7 @@ void ED1507 (void)
     // Mostrar dados
     println ("Original -");
     PrintArray(str);
-    
+
     println ("Alterada -");
     PrintArray(resultado);
   }
@@ -516,6 +533,11 @@ void ED1508 (void)
 void ED1509 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  int tamanho = 0;
+  char x = '0';
+
   // Apresentacao
   println ("ED1509");
   println ("");                  // Pular uma linha
@@ -523,8 +545,16 @@ void ED1509 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  tamanho = ReadInt ("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
+  x = ReadChar ("Forneca o caractere a ser procurado na cadeia: ");
+
+  // Procurar caractere na cadeia 
+  resultado = StrFind(str, x);
+
   // Verificar dados
   // Mostrar dados
+  std::cout << resultado << std::endl;
 
   // Fim
   println ("");                  // Pular uma linha
