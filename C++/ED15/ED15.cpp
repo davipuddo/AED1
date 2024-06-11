@@ -142,7 +142,7 @@ char* StrInsert (char* str, char x, int index)
     if (index < 0 || index > (size))
     {
       println ("ERRO: Posicao invalida. ");
-      std::cout << "Deseja alterar a posicao ?" << std::endl << "[S/N]";
+      std::cout << std::endl << "Deseja alterar a posicao ?" << std::endl << "[S/N]";
       char tmp = ReadChar(" ");
       if (tmp == 's' || tmp == 'S')
       {
@@ -165,7 +165,42 @@ char* StrInsert (char* str, char x, int index)
         y++;
       }
       result[index] = x;
-      result[index+2] = 'W';
+    }
+  }
+  return (result);
+}
+
+char* StrRemove (char* str, char index)
+{
+  char* result = null;
+  if (str)
+  {
+    int size = strlen(str)-1;
+    if (index < 0 || index > (size-1))
+    {
+      println ("ERRO: Posicao invalida. ");
+      std::cout << std::endl << "Deseja alterar a posicao ?" << std::endl << "[S/N]";
+      char tmp = ReadChar(" ");
+      if (tmp == 's' || tmp == 'S')
+      {
+        int Nindex = ReadInt("Nova posicao: ");
+        result = StrRemove(str, Nindex);
+      }
+    }
+    else
+    {
+      result = (char*)calloc(size, sizeof(char));
+
+      int y = 0;
+      for (int i = 0; i < size; i++)
+      {
+        if (i == index)
+        {
+          y++;
+        }
+        result[i] = str[y];
+        y++;
+      }
     }
   }
   return (result);
@@ -428,6 +463,7 @@ void ED1507 (void)
     // Mostrar dados
     println ("Original -");
     PrintArray(str);
+    
     println ("Alterada -");
     PrintArray(resultado);
   }
@@ -441,6 +477,11 @@ void ED1507 (void)
 void ED1508 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  int tamanho = 0;
+  int posicao = 0;
+
   // Apresentacao
   println ("ED1508");
   println ("");                  // Pular uma linha
@@ -448,8 +489,23 @@ void ED1508 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
+  posicao = ReadInt ("Forneca a posicao da cadeia onde o caractere sera removido: ");
+
+  // Removar caractere da posicao fornecida
+  resultado = StrRemove(str, posicao);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado != null)
+  {
+    // Mostrar dados
+    println ("Original -");
+    PrintArray(str);
+
+    println ("Alterada -");
+    PrintArray(resultado);
+  }
 
   // Fim
   println ("");                  // Pular uma linha
