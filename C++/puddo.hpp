@@ -50,7 +50,7 @@ int ReadInt (std::string text)
 {
   if (text == "")
   {
-    text = "Forneca um valor inteiro. ";
+    text = "Forneca um valor inteiro: ";
   }
   int x = 0;
   println (text);
@@ -63,7 +63,7 @@ int ReadPositiveInt (std::string text)
 {
   if (text == "")
   {
-    text = "Forneca um valor inteiro maior do que zero. ";
+    text = "Forneca um valor inteiro maior do que zero: ";
   }
   int x = 0;
   do
@@ -79,7 +79,7 @@ double ReadDouble (std::string text)
 {
   if (text == "")
   {
-    text = "Forneca um valor real. ";
+    text = "Forneca um valor real: ";
   }
   double x = 0.0;
   println (text);
@@ -92,7 +92,7 @@ char ReadChar (std::string text)
 {
   if (text == "")
   {
-    text = "Forneca um caractere. ";
+    text = "Forneca um caractere: ";
   }
   char x = '0';
   println (text);
@@ -105,7 +105,7 @@ std::string ReadString (std::string text)
 {
   if (text == "")
   {
-    text = "Forneca uma cadeia de caracteres. ";
+    text = "Forneca uma cadeia de caracteres: ";
   }
   std::string x = "";
   println (text);
