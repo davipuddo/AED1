@@ -6,81 +6,86 @@
 
 char* PushBack (const char* str, char x)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
     int size = strlen(str);
-    result = (char*)calloc((size+1), sizeof(char));
+    copy = (char*)calloc(size+1, sizeof(char));
+    char *ptr = &copy[0];
 
     for (int i = 0; i < size; i++)
     {
-      result[i] = str[i];
+      *ptr = str[i];
+      std::cout << copy[i];
+      ptr++;
     }
-    result[size] = x;
+    *ptr = x;
   }
 
-  return (result);
+  return (copy);
 }
 
 char* PopBack (const char* str)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
     int size = strlen(str)-1;
-    result = (char*)calloc(size, sizeof(char));
+    copy = (char*)calloc(size, sizeof(char));
+    char *ptr = &copy[0];
 
     for (int i = 0; i < size; i++)
     {
-      result[i] = str[i];
+      *ptr = str[i];
+      ptr++;
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* PushFront (const char* str, char x)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
     int size = strlen(str);
-    result = (char*)calloc((size+1), sizeof(char));
-
-    int y = 0;
+    copy = (char*)calloc((size+1), sizeof(char));
+    char *ptr = &copy[0];
     int NSize = size+1;
 
-    result[0] = x;
-    for (int i = 1; i < NSize; i++)
+    *ptr = x;
+    ptr++;
+    for (int i = 0; i < NSize; i++)
     {
-      result[i] = str[y];
-      y++;
+      *ptr = str[i];
+      ptr++;
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* PopFront (const char* str)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
-    int size = strlen(str)-1;
-    int y = 1;
-    result = (char*)calloc(size, sizeof(char));
+    int size = strlen(str);
+    copy = (char*)calloc(size-1, sizeof(char));
+    char *ptr = &copy[0];
 
-    for (int i = 0; i < size; i++)
+    for (int i = 1; i < size; i++)
     {
-      result[i] = str[y];
-      y++;
+      *ptr = str[i];
+      ptr++;
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* PushMid (const char* str, char x)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
     int size = strlen(str);
     if (size <= 1)
@@ -90,8 +95,8 @@ char* PushMid (const char* str, char x)
     else
     {
       int mid = 0;
-      int y = 0;
-      result = (char*)calloc((size+1), sizeof(char));
+      copy = (char*)calloc((size+1), sizeof(char));
+      char* ptr = &copy[0];
 
       mid = ((double)size/2.0);
 
@@ -99,24 +104,26 @@ char* PushMid (const char* str, char x)
       {
         if (i == mid)
         {
-          y++;
+          *ptr = x;
+          ptr++;
         }
-        result[y] = str[i];
-        y++;
+        *ptr = str[i];
+        ptr++;
       }
-      result[mid] = x;
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* PopMid (const char* str)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
     int size = strlen(str)-1;
-    result = (char*)calloc(size, sizeof(char));
+    copy = (char*)calloc(size, sizeof(char));
+    char *ptr = &copy[0];
+
     int mid = ((double)size/2.0);
 
     int y = 0;
@@ -126,17 +133,18 @@ char* PopMid (const char* str)
       {
         y++;
       }
-      result[i] = str[y];
+      *ptr = str[y];
+      ptr++;
       y++;
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* StrInsert (const char* str, char x, int index)
 {
-  char* result = null;
-  if (str != null)
+  char* copy = null;
+  if (str)
   {
     int size = strlen(str);
     if (index < 0 || index > (size))
@@ -147,32 +155,32 @@ char* StrInsert (const char* str, char x, int index)
       if (tmp == 's' || tmp == 'S')
       {
         int Nindex = ReadInt("Nova posicao: ");
-        result = StrInsert(str, x, Nindex);
+        copy = StrInsert(str, x, Nindex);
       }
     }
     else
     {
-      result = (char*)calloc(size+2, sizeof(char));
+      copy = (char*)calloc(size+2, sizeof(char));
+      char *ptr = &copy[0];
 
-      int y = 0;
       for (int i = 0; i < size; i++)
       {
-        if ( i == index)
+        if (i == index)
         {
-          y++;
+          *ptr = x;
+          ptr++;
         }
-        result[i] = str[y];
-        y++;
+        *ptr = str[i];
+        ptr++;
       }
-      result[index] = x;
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* StrRemove (const char* str, char index)
 {
-  char* result = null;
+  char* copy = null;
   if (str)
   {
     int size = strlen(str)-1;
@@ -184,12 +192,13 @@ char* StrRemove (const char* str, char index)
       if (tmp == 's' || tmp == 'S')
       {
         int Nindex = ReadInt("Nova posicao: ");
-        result = StrRemove(str, Nindex);
+        copy = StrRemove(str, Nindex);
       }
     }
     else
     {
-      result = (char*)calloc(size, sizeof(char));
+      copy = (char*)calloc(size, sizeof(char));
+      char *ptr = &copy[0];
 
       int y = 0;
       for (int i = 0; i < size; i++)
@@ -198,12 +207,13 @@ char* StrRemove (const char* str, char index)
         {
           y++;
         }
-        result[i] = str[y];
+        *ptr = str[y];
+        ptr++;
         y++;
       }
     }
   }
-  return (result);
+  return (copy);
 }
 
 char* StrFind (char* str, char x)
@@ -213,15 +223,18 @@ char* StrFind (char* str, char x)
   {
     int i = 0;
     int size = strlen(str);
-    result = (char*)calloc(1, sizeof(char));
-    while (i < size && str[i] != x)
+    char *ptr = &str[0];
+    while (i < size && *ptr != x)
     {
       i++;
+      ptr++;
     }
+
     if (i < size)
     {
-      result = &str[i];
+      result = ptr;
     }    
+    ptr = null;
   }
   return (result);
 }
