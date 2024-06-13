@@ -1,4 +1,6 @@
-//853355
+/**
+ * @author Davi Ferreira Puddo
+ */
 
 #include "../puddo.hpp"
 #include "../io.hpp"
@@ -21,26 +23,31 @@ class cell
         this->link = ptr;
     }
 
+    // Return cell data
     T getData()
     {
         return (data);
     }
 
-    void setData(int x)
+    // Set cell data
+    void setData(T x)
     {
         data = x;
     }
 
+    // Return cell link
     cell* getLink()
     {
         return (link);
     }
 
+    // Set cell link
     void setLink (cell* x)
     {
         link = x;
     }
 
+    // Show all linked cells from origin data
     void print ()
     {
         std::cout << data << std::endl;
@@ -54,6 +61,7 @@ class cell
         }
     }
 
+    // Set all linked cells from origin to 0 and desconnect them
     void free ()
     {
         if (link)
@@ -65,6 +73,7 @@ class cell
         this->link = null;
     }
 
+    // Add cell to the end
     void PushBack (T value)
     {
         if (link)
@@ -78,6 +87,7 @@ class cell
         }
     }
 
+    // Remove last cell
     void PopBack ()
     {
         if (link)
@@ -95,6 +105,7 @@ class cell
         }
     }
 
+    // Add cell to the start
     void PushFront (T value)
     {
         link = new cell<T> (data, link);
@@ -102,6 +113,7 @@ class cell
         std::cout << "added: " << data << std::endl;
     }
 
+    // Remove first cell
     void PopFront ()
     {
         if (link)
@@ -120,6 +132,7 @@ class cell
         }
     }
 
+    // Return the number of cells
     int Count (int x)
     {
         x++;
@@ -133,6 +146,7 @@ class cell
         }
     }
 
+    // Add cell in the middle
     void PushMid (int value)
     {
         cell *ptr = null;
@@ -153,6 +167,7 @@ class cell
         }
     }
 
+    // Remove middle cell
     void PopMid ()
     {
         cell *ptr = null;
@@ -172,6 +187,24 @@ class cell
             ptr->link = ptr->link->link; 
         }
     }
+
+    // Add [n] cells to the end
+    void AddCells (int n)
+    {
+        if (link)
+        {
+            link->AddCells(n);
+        }
+        else
+        {
+            for (int i = 0; i < n; i++)
+            {
+                this->PushBack(ReadT<T>(""));
+            }
+            std::cout << std::endl;
+        }
+    }
+
 };
 
 typedef cell<int >* ref_int_cell ;
@@ -179,7 +212,7 @@ typedef cell<char>* ref_char_cell;
 
 void m_01 (void)
 {
-    println ("\ncelula inteira");
+    println ("\nInt cell");
 
     ref_int_cell a = new cell<int> (1, null);
 
@@ -193,54 +226,46 @@ void m_01 (void)
     a->free();
     a = null;
 
-    pause("Aperte <ENTER> para sair. ");
+    pause("Press <ENTER> to exit. ");
 }
 
 void m_02 (void)
 {
-    println ("\ncelula de caracteres");
+    println ("\nChar cell");
 
+    // Create first cell
     ref_char_cell a = new cell<char>('#', null);
 
-    // Criar dados iniciais
-    for (int i = 0; i < 3; i++)
-    {
-        a->PushBack(ReadChar(""));
-    } 
-    println ("");   // Pular uma linha
+    // Create inicial data
+    a->AddCells(3);
+    println ("");
 
-    // Mostrar todos os dados
+    // Change data
     a->print();
 
-    // Adicionar um dado ao final
     a->PushBack('@');
     a->print();
 
-    // Adicionar um dado ao inicio
     a->PushFront('@');
     a->print();
 
-    // Remover primeiro dado
     a->PopFront();
     a->print();
 
-    // Remover ultino dado
     a->PopBack();
     a->print();
 
-    // Adicionar dado ao meio
     a->PushMid('@');
     a->print();
 
-    // Remover dado do meio
     a->PopMid();
     a->print();
 
-    // Liberar dados
+    // Free data
     a->free();
     a = null;
 
-    pause("Aperte <ENTER> para sair. ");
+    pause("Press <ENTER> to exit");
 }
 
 int main (void)
