@@ -113,6 +113,20 @@ std::string ReadString (std::string text)
   return(x);
 }
 
+template <typename T>
+T ReadT (std::string text)
+{
+  if (text == "")
+  {
+    text = "Forneca um dado: ";
+  }
+  T x = (T)0;
+  println (text);
+  std::cin >> x;
+  getchar();
+  return (x);
+}
+
 int IntRandom (int x, int y)
 {
   int resultado = rand() % x + y;
