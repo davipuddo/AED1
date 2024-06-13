@@ -7,11 +7,14 @@ template <typename T>
 class cell
 {
     private:
-    public:
 
     T data;
     cell* link;
 
+    public:
+
+
+    // Constructor
     cell (T value, cell* ptr)
     {
         this->data = value;
@@ -177,28 +180,18 @@ typedef cell<char>* ref_char_cell;
 void m_01 (void)
 {
     println ("\ncelula inteira");
-    ref_int_cell a = null;
-    ref_int_cell back = null;
 
-    ref_int_cell b = new cell<int> (1, null);
-
-    a = b;
-    back = a;
+    ref_int_cell a = new cell<int> (1, null);
 
     for (int i = 2; i < 7; i++)
     {
-        b = new cell<int> (i, null);
-
-        back->link = b;
-        back = b;
+        a->PushBack(i);
     }
+
     a->print();
-    std::cout << a->Count(0) << std::endl;
 
     a->free();
     a = null;
-    back = null;
-    b = null;
 
     pause("Aperte <ENTER> para sair. ");
 }
@@ -206,41 +199,46 @@ void m_01 (void)
 void m_02 (void)
 {
     println ("\ncelula de caracteres");
-    ref_char_cell a = null;
-    ref_char_cell back = null;
 
-    ref_char_cell b = new cell<char>('#', null);
+    ref_char_cell a = new cell<char>('#', null);
 
-    a = b;
-    back = a;
-
+    // Criar dados iniciais
     for (int i = 0; i < 3; i++)
     {
-        b = new cell<char>(ReadChar(""), null);
+        a->PushBack(ReadChar(""));
+    } 
+    println ("");   // Pular uma linha
 
-        back->link = b;
-        back = b;
-    }
-    std::cout << std::endl;
+    // Mostrar todos os dados
     a->print();
 
+    // Adicionar um dado ao final
     a->PushBack('@');
     a->print();
+
+    // Adicionar um dado ao inicio
     a->PushFront('@');
     a->print();
+
+    // Remover primeiro dado
     a->PopFront();
     a->print();
+
+    // Remover ultino dado
     a->PopBack();
     a->print();
+
+    // Adicionar dado ao meio
     a->PushMid('@');
     a->print();
+
+    // Remover dado do meio
     a->PopMid();
     a->print();
 
+    // Liberar dados
     a->free();
     a = null;
-    b = null;
-    back = null;
 
     pause("Aperte <ENTER> para sair. ");
 }
