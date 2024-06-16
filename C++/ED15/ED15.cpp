@@ -4,268 +4,11 @@
 #include "../puddo.hpp"
 
 
-char* PushBack (const char* str, char x)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str);
-    copy = (char*)calloc(size+1, sizeof(char));
-    char *ptr = &copy[0];
-
-    for (int i = 0; i < size; i++)
-    {
-      *ptr = str[i];
-      std::cout << copy[i];
-      ptr++;
-    }
-    *ptr = x;
-  }
-
-  return (copy);
-}
-
-char* PopBack (const char* str)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str)-1;
-    copy = (char*)calloc(size, sizeof(char));
-    char *ptr = &copy[0];
-
-    for (int i = 0; i < size; i++)
-    {
-      *ptr = str[i];
-      ptr++;
-    }
-  }
-  return (copy);
-}
-
-char* PushFront (const char* str, char x)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str);
-    copy = (char*)calloc((size+1), sizeof(char));
-    char *ptr = &copy[0];
-    int NSize = size+1;
-
-    *ptr = x;
-    ptr++;
-    for (int i = 0; i < NSize; i++)
-    {
-      *ptr = str[i];
-      ptr++;
-    }
-  }
-  return (copy);
-}
-
-char* PopFront (const char* str)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str);
-    copy = (char*)calloc(size-1, sizeof(char));
-    char *ptr = &copy[0];
-
-    for (int i = 1; i < size; i++)
-    {
-      *ptr = str[i];
-      ptr++;
-    }
-  }
-  return (copy);
-}
-
-char* PushMid (const char* str, char x)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str);
-    if (size <= 1)
-    {
-      println ("ERRO: Tamanho invalido. ");
-    }
-    else
-    {
-      int mid = 0;
-      copy = (char*)calloc((size+1), sizeof(char));
-      char* ptr = &copy[0];
-
-      mid = ((double)size/2.0);
-
-      for (int i = 0; i < size; i++)
-      {
-        if (i == mid)
-        {
-          *ptr = x;
-          ptr++;
-        }
-        *ptr = str[i];
-        ptr++;
-      }
-    }
-  }
-  return (copy);
-}
-
-char* PopMid (const char* str)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str)-1;
-    copy = (char*)calloc(size, sizeof(char));
-    char *ptr = &copy[0];
-
-    int mid = ((double)size/2.0);
-
-    int y = 0;
-    for (int i = 0; i < size; i++)
-    {
-      if (i == mid)
-      {
-        y++;
-      }
-      *ptr = str[y];
-      ptr++;
-      y++;
-    }
-  }
-  return (copy);
-}
-
-char* StrInsert (const char* str, char x, int index)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str);
-    if (index < 0 || index > (size))
-    {
-      println ("ERRO: Posicao invalida. ");
-      std::cout << std::endl << "Deseja alterar a posicao ?" << std::endl << "[S/N]";
-      char tmp = ReadChar(" ");
-      if (tmp == 's' || tmp == 'S')
-      {
-        int Nindex = ReadInt("Nova posicao: ");
-        copy = StrInsert(str, x, Nindex);
-      }
-    }
-    else
-    {
-      copy = (char*)calloc(size+2, sizeof(char));
-      char *ptr = &copy[0];
-
-      for (int i = 0; i < size; i++)
-      {
-        if (i == index)
-        {
-          *ptr = x;
-          ptr++;
-        }
-        *ptr = str[i];
-        ptr++;
-      }
-    }
-  }
-  return (copy);
-}
-
-char* StrRemove (const char* str, char index)
-{
-  char* copy = null;
-  if (str)
-  {
-    int size = strlen(str)-1;
-    if (index < 0 || index > (size-1))
-    {
-      println ("ERRO: Posicao invalida. ");
-      std::cout << std::endl << "Deseja alterar a posicao ?" << std::endl << "[S/N]";
-      char tmp = ReadChar(" ");
-      if (tmp == 's' || tmp == 'S')
-      {
-        int Nindex = ReadInt("Nova posicao: ");
-        copy = StrRemove(str, Nindex);
-      }
-    }
-    else
-    {
-      copy = (char*)calloc(size, sizeof(char));
-      char *ptr = &copy[0];
-
-      int y = 0;
-      for (int i = 0; i < size; i++)
-      {
-        if (i == index)
-        {
-          y++;
-        }
-        *ptr = str[y];
-        ptr++;
-        y++;
-      }
-    }
-  }
-  return (copy);
-}
-
-char* StrFind (char* str, char x)
-{
-  char* result = null;
-  if (str)
-  {
-    int i = 0;
-    int size = strlen(str);
-    char *ptr = &str[0];
-    while (i < size && *ptr != x)
-    {
-      i++;
-      ptr++;
-    }
-
-    if (i < size)
-    {
-      result = ptr;
-    }    
-    ptr = null;
-  }
-  return (result);
-}
-
-char* StrSplit (char* str, char x)
-{
-  char* result = null;
-  if (str)
-  {
-    int i = 0;
-    int size = strlen(str);
-    result = (char*)calloc(1, sizeof(char));
-    while (i < size && str[i] != x)
-    {
-      i++;
-    }
-    if (i < size)
-    {
-      result = &str[i];
-    }    
-  }
-  return (result);
-} 
-
 void ED1501 (void)
 {
   // Identificacao de dados
-  char* str;
-  char* resultado = null;
-  char x = '0';
-  int tamanho = 0;
+  Cell<char> dados('0', null);
+  char caractere = '0';
 
   // Apresentacao
   println ("ED1501");
@@ -273,24 +16,20 @@ void ED1501 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
+  // Adicionar celulas 
+  dados.AddCells(4);
+
   // Ler dados
-  tamanho = ReadInt ("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
-  x = ReadChar("Forneca um caractere para ser adicionado ao final da cadeia: ");
+  dados.WriteCells();
+  dados.print();
+  
+  caractere = ReadChar("Forneca um caractere a ser adicionado ao final: ");
 
-  // Adicionar caractere no final da cadeia
-  resultado = PushBack(str, x);
+  // Adicionar celula no final
+  dados.PushBack(caractere);
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original - ");
-    PrintArray(str);
-
-    println ("Alterada - ");
-    PrintArray(resultado);
-  }
+  // Mostrar dados
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -301,9 +40,7 @@ void ED1501 (void)
 void ED1502 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  int tamanho = 0;
+  Cell<char> dados('0', null);
 
   // Apresentacao
   println ("ED1502");
@@ -311,22 +48,22 @@ void ED1502 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
+  // Adicionar celulas 
+  dados.AddCells(5);
   
-  // Remover ultimo caractere da cadeia
-  resultado = PopBack(str);
+  // Ler dados
+  dados.WriteCells();
 
   // Mostrar dados
-  if (resultado != null)
-  {
-    println ("Original -");
-    PrintArray(str);
+  println ("Original -");
+  dados.print();
 
-    println ("Alterada -");
-    PrintArray(resultado);
-  }
+  // Remover ultima celula
+  dados.PopBack();
+
+  // Mostrar dados
+  println ("Alterada -");
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -337,10 +74,8 @@ void ED1502 (void)
 void ED1503 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  char x = '0';
-  int tamanho = 0;
+  Cell<char> dados('0', null);
+  char caractere = '0';
 
   // Apresentacao
   println ("ED1503");
@@ -348,24 +83,20 @@ void ED1503 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
+  // Adicionar celulas 
+  dados.AddCells(4);
+
   // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
-  x = ReadChar ("Forneca um caractere para ser adicionado na frente da cadeia: ");
+  dados.WriteCells();
+  dados.print();
+  
+  caractere = ReadChar("Forneca um caractere a ser adicionado ao inicio: ");
 
-  // Adicionar caractere na frente
-  resultado = PushFront(str, x);
+  // Adicionar celula no inicio
+  dados.PushFront(caractere);
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original -");
-    PrintArray(str);
-
-    println ("Alterada -");
-    PrintArray(resultado); 
-  }
+  // Mostrar dados
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -376,9 +107,7 @@ void ED1503 (void)
 void ED1504 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  int tamanho = 0;
+  Cell<char> dados('0', null);
 
   // Apresentacao
   println ("ED1504");
@@ -386,23 +115,22 @@ void ED1504 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
+  // Adicionar celulas 
+  dados.AddCells(5);
+
   // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
+  dados.WriteCells();
 
-  // Remover primeiro caractere da cadeia
-  resultado = PopFront(str);
+  // Mostrar dados
+  println ("Original -");
+  dados.print();
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original -");
-    PrintArray(str);
+  // Remover primeira celula
+  dados.PopFront();
 
-    println ("Alterada -");
-    PrintArray(resultado); 
-  }
+  // Mostrar dados
+  println ("Alterada -");
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -413,10 +141,8 @@ void ED1504 (void)
 void ED1505 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  char x = '0';
-  int tamanho = 0;
+  Cell<char> dados('0', null);
+  char caractere = '0';
 
   // Apresentacao
   println ("ED1505");
@@ -424,24 +150,20 @@ void ED1505 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
+  // Adicionar celulas 
+  dados.AddCells(5);
+
   // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
-  x = ReadChar("Forneca um caractere a ser adicionado ao meio da cadeia fornecida: ");
+  dados.WriteCells();
+  dados.print();
+  
+  caractere = ReadChar("Forneca um caractere a ser adicionado ao meio: ");
 
-  // Adicionar caractere no meio da cadeia
-  resultado = PushMid(str, x);
+  // Adicionar celula ao meio
+  dados.PushMid(caractere);
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original -");
-    PrintArray(str);
-
-    println ("Alterada -");
-    PrintArray(resultado);
-  }
+  // Mostrar dados
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -452,9 +174,7 @@ void ED1505 (void)
 void ED1506 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  int tamanho = 0;
+  Cell<char> dados('0', null);
 
   // Apresentacao
   println ("ED1506");
@@ -462,23 +182,22 @@ void ED1506 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
+  // Adicionar celulas 
+  dados.AddCells(4);
+
   // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
+  dados.WriteCells();
 
-  // Remover caractere do meio da cadeia
-  resultado = PopMid(str);
+  // Mostrar dados
+  println ("Original -");
+  dados.print();
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original -");
-    PrintArray(str);
+  // Remover celula do meio
+  dados.PopMid();
 
-    println ("Alterada -");
-    PrintArray(resultado);
-  }
+  // Mostrar dados
+  println ("Alterada -");
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -489,10 +208,8 @@ void ED1506 (void)
 void ED1507 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  char x = '0';
-  int tamanho = 0;
+  Cell<char> dados('0', null);
+  char caractere = '0';
   int posicao = 0;
 
   // Apresentacao
@@ -500,26 +217,22 @@ void ED1507 (void)
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
-    
+
+  // Adicionar celulas   
+  dados.AddCells(4);
+
   // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
-  x = ReadChar ("Forneca o caractere a ser inserido na cadeia: ");
-  posicao = ReadInt ("Forneca a posicao da cadeia onde ele sera inserido: ");
+  dados.WriteCells();
+  dados.print();
+  
+  posicao = ReadInt("Forneca uma posicao para adicionar um caractere: ");
+  caractere = ReadChar("Forneca um caractere a ser adicionado a uma posicao fornecida: ");
 
-  // Adicionar caractere na posicao fornecida
-  resultado = StrInsert(str, x, posicao);
+  // Adicionar celula a posicao fornecida
+  dados.insert(caractere, posicao);
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original -");
-    PrintArray(str);
-
-    println ("Alterada -");
-    PrintArray(resultado);
-  }
+  // Mostrar dados
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -530,9 +243,7 @@ void ED1507 (void)
 void ED1508 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  int tamanho = 0;
+  Cell<char> dados('0', null);
   int posicao = 0;
 
   // Apresentacao
@@ -540,25 +251,24 @@ void ED1508 (void)
   println ("");                  // Pular uma linha
   println (" ");
   println ("");                  // Pular uma linha
-    
+
+  // Adicionar celulas  
+  dados.AddCells(4);
+
   // Ler dados
-  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
-  posicao = ReadInt ("Forneca a posicao da cadeia onde o caractere sera removido: ");
+  dados.WriteCells();
+  posicao = ReadInt("Forneca um posicao para remover um caractere: ");
 
-  // Removar caractere da posicao fornecida
-  resultado = StrRemove(str, posicao);
+  // Mostrar dados
+  println ("Original -");
+  dados.print();
 
-  // Verificar dados
-  if (resultado != null)
-  {
-    // Mostrar dados
-    println ("Original -");
-    PrintArray(str);
+  // Remover celula da posicao fornecida
+  dados.remove(posicao);
 
-    println ("Alterada -");
-    PrintArray(resultado);
-  }
+  // Mostrar dados
+  println ("Alterada -");
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -569,10 +279,9 @@ void ED1508 (void)
 void ED1509 (void)
 {
   // Identificacao de dados
-  char* str = null;
-  char* resultado = null;
-  int tamanho = 0;
-  char x = '0';
+  Cell <char> dados('0', null);
+  ref_char_Cell resultado = null;
+  char caractere = '0';
 
   // Apresentacao
   println ("ED1509");
@@ -580,17 +289,27 @@ void ED1509 (void)
   println (" ");
   println ("");                  // Pular uma linha
     
-  // Ler dados
-  tamanho = ReadInt ("Forneca o tamanho da cadeia: ");
-  str = WriteArray<char>(tamanho);
-  x = ReadChar ("Forneca o caractere a ser procurado na cadeia: ");
+  // Adicionar celulas
+  dados.AddCells(5);
 
-  // Procurar caractere na cadeia 
-  resultado = StrFind(str, x);
+  // Ler dados
+  dados.WriteCells();
+  caractere = ReadChar("Forneca um caractere a ser procurado: ");
+
+  // Procurar caractere
+  resultado = dados.find(caractere);
 
   // Verificar dados
-  // Mostrar dados
-  std::cout << resultado << std::endl;
+  if (resultado)
+  {
+    // Mostrar dados
+    std::cout << "O caractere [" << resultado->getData() << 
+    "] foi encontrado na celula no endereco: " << resultado << std::endl; 
+  }
+  else
+  {
+    std::cout << "O caractere [" << caractere << "] nao foi encontrado na celula. ";
+  }
 
   // Fim
   println ("");                  // Pular uma linha

@@ -36,7 +36,7 @@ void pause (std::string text)
 {
     std::string dummy;
     std::cin.clear();
-    println (text);
+    std::cout << (text);
     std::cin.ignore();
     std::getline(std::cin, dummy);
     std::cout << std::endl << std::endl;
@@ -53,9 +53,10 @@ int ReadInt (std::string text)
     text = "Forneca um valor inteiro: ";
   }
   int x = 0;
-  println (text);
+  std::cout << (text);
   std::cin >> x;
   getchar( );
+  std::cout << std::endl;
   return (x);
 }
 
@@ -68,10 +69,11 @@ int ReadPositiveInt (std::string text)
   int x = 0;
   do
   { 
-    println (text);
+    std::cout << (text);
     std::cin >> x;
     getchar();
   } while (x <= 0);
+  std::cout << std::endl;
   return (x);
 }
 
@@ -82,10 +84,11 @@ double ReadDouble (std::string text)
     text = "Forneca um valor real: ";
   }
   double x = 0.0;
-  println (text);
+  std::cout << (text);
   std::cin >> x;
   getchar();
-  return(x);
+  std::cout << std::endl;
+  return (x);
 }
 
 char ReadChar (std::string text)
@@ -95,10 +98,11 @@ char ReadChar (std::string text)
     text = "Forneca um caractere: ";
   }
   char x = '0';
-  println (text);
+  std::cout << (text);
   std::cin >> x;
   getchar();
-  return(x);
+  std::cout << std::endl;
+  return (x);
 }
 
 std::string ReadString (std::string text)
@@ -108,9 +112,10 @@ std::string ReadString (std::string text)
     text = "Forneca uma cadeia de caracteres: ";
   }
   std::string x = "";
-  println (text);
+  std::cout << (text);
   std::getline(std::cin, x);
-  return(x);
+  std::cout << std::endl;
+  return (x);
 }
 
 template <typename T>
@@ -121,9 +126,10 @@ T ReadT (std::string text)
     text = "Forneca um dado: ";
   }
   T x = (T)0;
-  println (text);
+  std::cout << (text);
   std::cin >> x;
   getchar();
+  std::cout << std::endl;
   return (x);
 }
 
@@ -1778,3 +1784,280 @@ class PString
 };
 
 #endif
+
+template <typename T>
+class Cell
+{
+  private:
+
+  T data;
+  Cell* link;
+
+  public:
+
+  // Constructor
+  Cell (T value, Cell* ptr)
+  {
+      this->data = value;
+      this->link = ptr;
+  }
+
+  // Return Cell data
+  T getData()
+  {
+      return (data);
+  }
+
+  // Set Cell data
+  void setData(T x)
+  {
+      data = x;
+  }
+
+  // Return Cell link
+  Cell* getLink()
+  {
+      return (link);
+  }
+
+  // Set Cell link
+  void setLink (Cell* x)
+  {
+      link = x;
+  }
+
+  // Show all linked Cells from origin data
+  void print ()
+  {
+    std::cout << '[' << data << ']' << std::endl;
+    if (link)
+    {
+        this->link->print();
+    }
+    else
+    {
+        std::cout << std::endl;
+    }
+  }
+
+  // Set all linked Cells from origin to 0 and desconnect them
+  void free ()
+  {
+    if (link)
+    {
+        this->link->free();
+    }
+    std::cout << "removed: " << this->data << std::endl;
+    this->data = 0;
+    this->link = null;
+  }
+
+  // Add Cell to the end
+  void PushBack (T value)
+  {
+    if (link)
+    {
+        link->PushBack(value);
+    }
+    else
+    {
+        link = new Cell<T> (value, null);
+    }
+  }
+
+  // Add [n] Cells to the end
+  void AddCells (int n)
+  {
+    if (link)
+    {
+        link->AddCells(n);
+    }
+    else
+    {
+        for (int i = 0; i < n; i++)
+        {
+            this->PushBack((T)0);
+        }
+    }
+  }
+
+  void WriteCells ()
+  {
+    std::cout << "Forneca um elemento para a celula: ";
+    this->setData(ReadT<T>(" "));
+    if (link)
+    {
+      link->WriteCells();
+    }
+  }
+
+  // Remove last Cell
+  void PopBack ()
+  {
+    if (link)
+    {
+        if (link->link)
+        {
+            link->PopBack();
+        }
+        else
+        {
+            link->data = 0;
+            link = null;
+        }
+    }
+  }
+
+  // Add Cell to the start
+  void PushFront (T value)
+  {
+    link = new Cell<T> (data, link);
+    data = value;
+  }
+
+  // Remove first Cell
+  void PopFront ()
+  {
+    if (link)
+    {
+        data = link->data;
+        if (link->link)
+        {
+            link->PopFront();
+        }
+        else
+        {
+            link->data = 0;
+            link = null;
+        }
+    }
+  }
+
+  // Return the number of Cells
+  int Count (int x)
+  {
+    x++;
+    if (link)
+    {
+        return this->link->Count(x);
+    }
+    else
+    {
+        return (x);
+    }
+  }
+
+  int GetCount ()
+  {
+    return (this->Count(0));
+  }
+
+  // Add Cell in the middle
+  void PushMid (T value)
+  {
+    Cell *ptr = null;
+    if (link)
+    {
+        int c = this->Count(0);
+        int mid = ((double)c / 2.0);
+        ptr = this;
+        
+        int w = (mid-1);
+        for (int i = 0; i < w; i++)
+        {
+            ptr = ptr->link;
+        }
+        Cell *b = new Cell<T>(value, ptr->link);
+        ptr->link = b;
+    }
+  }
+
+  // Remove middle Cell
+  void PopMid ()
+  {
+    Cell *ptr = null;
+    if (link)
+    {
+        int c = this->Count(0);
+        int mid = ((double)c / 2.0);
+        ptr = this;
+        
+        int w = (mid-1);
+        for (int i = 0; i < w; i++)
+        {
+            ptr = ptr->link;
+        }
+        ptr->link->data = 0;
+        delete (ptr->link);
+        ptr->link = ptr->link->link; 
+    }
+  }
+
+  void insert (T value, int p)
+  {
+    Cell *ptr = null;
+    if (link)
+    {
+        if (this->Count(0) < p)
+        {
+            println ("ERROR: Invalid position. ");
+        }
+        else
+        {
+            ptr = this;
+            for (int i = 0; i < p; i++)
+            {
+                ptr = ptr->link;
+            }
+            ptr->PushFront(value);
+        }
+    }
+  }
+
+  void remove (int p)
+  {
+    Cell *ptr = null;
+    if (link)
+    {
+        if (this->Count(0) < p)
+        {
+            println ("ERROR: Invalid position. ");
+        }
+        else
+        {
+            ptr = this;
+            for (int i = 0; i < p; i++)
+            {
+                ptr = ptr->link;
+            }
+            ptr->PopFront();
+        }
+    }
+  }
+
+  Cell* find (T value)
+  {
+    Cell *ptr = null;
+    if (data == value)
+    {
+        ptr = this;
+    }
+    else if (link)
+    {
+        ptr = this;
+        int c = Count(0);
+        int i = 0;
+        while (i < c && ptr->data != value)
+        {
+            i++;
+            ptr = ptr->link;
+        }
+    }
+    return (ptr);
+  }
+
+};
+
+typedef Cell<int >* ref_int_Cell ;
+typedef Cell<char>* ref_char_Cell;
+typedef Cell<double>* ref_double_Cell;

@@ -5,7 +5,7 @@
 #include "../puddo.hpp"
 #include "../io.hpp"
 
-template <typename T>
+/* template <typename T>
 class cell
 {
     private:
@@ -14,7 +14,6 @@ class cell
     cell* link;
 
     public:
-
 
     // Constructor
     cell (T value, cell* ptr)
@@ -83,7 +82,24 @@ class cell
         else
         {
             link = new cell<T> (value, null);
-            std::cout << "added: " << link->data << std::endl;
+        }
+    }
+
+    // Add [n] cells to the end
+    void AddCells (int n)
+    {
+        if (link)
+        {
+            link->AddCells(n);
+        }
+        else
+        {
+            for (int i = 0; i < n; i++)
+            {
+                std::cout << "Forneca elementos para a celula [" << n-i << "]: ";
+                this->PushBack(ReadT<T>(" "));
+            }
+            std::cout << std::endl;
         }
     }
 
@@ -98,7 +114,6 @@ class cell
             }
             else
             {
-                std::cout << "removed: " << link->data << std::endl;
                 link->data = 0;
                 link = null;
             }
@@ -110,7 +125,6 @@ class cell
     {
         link = new cell<T> (data, link);
         data = value;
-        std::cout << "added: " << data << std::endl;
     }
 
     // Remove first cell
@@ -125,7 +139,6 @@ class cell
             }
             else
             {
-                std::cout << "removed: " << link->data << std::endl;
                 link->data = 0;
                 link = null;
             }
@@ -147,7 +160,7 @@ class cell
     }
 
     // Add cell in the middle
-    void PushMid (int value)
+    void PushMid (T value)
     {
         cell *ptr = null;
         if (link)
@@ -156,14 +169,13 @@ class cell
             int mid = ((double)c / 2.0);
             ptr = this;
             
-            int w = (mid-2);
+            int w = (mid-1);
             for (int i = 0; i < w; i++)
             {
                 ptr = ptr->link;
             }
-            cell *b = new cell<T>(value, ptr->link->link);
-            ptr->link->link = b;
-            std::cout << "added: " << link->link->data << std::endl;
+            cell *b = new cell<T>(value, ptr->link);
+            ptr->link = b;
         }
     }
 
@@ -182,30 +194,76 @@ class cell
             {
                 ptr = ptr->link;
             }
-            std::cout << "removed: " << ptr->link->data << std::endl;
             ptr->link->data = 0;
+            delete (ptr->link);
             ptr->link = ptr->link->link; 
         }
     }
 
-    // Add [n] cells to the end
-    void AddCells (int n)
+    void insert (T value, int p)
     {
+        cell *ptr = null;
         if (link)
         {
-            link->AddCells(n);
-        }
-        else
-        {
-            for (int i = 0; i < n; i++)
+            if (this->Count(0) < p)
             {
-                this->PushBack(ReadT<T>(""));
+                println ("ERROR: Invalid position. ");
             }
-            std::cout << std::endl;
+            else
+            {
+                ptr = this;
+                for (int i = 0; i < p; i++)
+                {
+                    ptr = ptr->link;
+                }
+                ptr->PushFront(value);
+            }
         }
     }
 
-};
+    void remove (int p)
+    {
+        cell *ptr = null;
+        if (link)
+        {
+            if (this->Count(0) < p)
+            {
+                println ("ERROR: Invalid position. ");
+            }
+            else
+            {
+                ptr = this;
+                for (int i = 0; i < p; i++)
+                {
+                    ptr = ptr->link;
+                }
+                ptr->PopFront();
+            }
+        }
+    }
+
+    cell* find (T value)
+    {
+        cell *ptr = null;
+        if (data == value)
+        {
+            ptr = this;
+        }
+        else if (link)
+        {
+            ptr = this;
+            int c = Count(0);
+            int i = 0;
+            while (i < c && ptr->data != value)
+            {
+                i++;
+                ptr = ptr->link;
+            }
+        }
+        return (ptr);
+    }
+
+}; */
 
 typedef cell<int >* ref_int_cell ;
 typedef cell<char>* ref_char_cell;
@@ -214,17 +272,11 @@ void m_01 (void)
 {
     println ("\nInt cell");
 
-    ref_int_cell a = new cell<int> (1, null);
+    cell<int> a(0, null);
 
-    for (int i = 2; i < 7; i++)
-    {
-        a->PushBack(i);
-    }
-
-    a->print();
-
-    a->free();
-    a = null;
+    a.AddCells(7);
+    a.print();
+    a.free();
 
     pause("Press <ENTER> to exit. ");
 }
@@ -234,32 +286,57 @@ void m_02 (void)
     println ("\nChar cell");
 
     // Create first cell
-    ref_char_cell a = new cell<char>('#', null);
+    ref_char_cell a = new cell<char>('0', null);
 
     // Create inicial data
     a->AddCells(3);
     println ("");
 
     // Change data
+    println ("Data: \n");
     a->print();
 
+    println ("PushBack: \n");
     a->PushBack('@');
     a->print();
 
+    println ("PushFront: \n");
     a->PushFront('@');
     a->print();
 
+    println ("PopFront: \n");
     a->PopFront();
     a->print();
 
+    println ("PopBack: \n");
     a->PopBack();
     a->print();
 
+    println ("PushMid: \n");
     a->PushMid('@');
     a->print();
 
+    println ("PopMid: \n");
     a->PopMid();
     a->print();
+
+    println ("Insert (1): \n");
+    a->insert('=', 1);
+    a->print();
+
+    println ("Remove (1): \n");
+    a->remove(1);
+    a->print();
+
+    ref_char_cell f = a->find('2');
+    if (f == null)
+    {
+        println ("O valor nao foi encontrado. "); 
+    }
+    else
+    {
+        std::cout << "O valor [" << f->getData() << ']' << " foi encontrado. " << std::endl;
+    }
 
     // Free data
     a->free();
