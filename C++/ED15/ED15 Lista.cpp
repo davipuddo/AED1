@@ -353,17 +353,79 @@ void ED1510 (void)
 
 void ED15E1 (void)
 {
+  // Identificacao de dados
   Cell<char> dados('0', null);
   ref_char_Cell resultado = null;
-  char* str = null;
-  dados.AddCells(6);
-  dados.WriteCellsB(ReadString(" "), 0);
-  str = WriteArray<char>(2);
-  resultado = dados.prefix(str);
+  char* prefixo = null;
+  std::string str = "";
+
+  // Apresentacao
+  println ("ED15E1");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+
+  // Ler dados
+  str = ReadString("Forneca uma cadeia de caracteres para fornecer os dados da celula: ");
+  dados.AddCells((str.length())-1);
+  dados.WriteCellsB(str, 0);
+  prefixo = WriteArray<char>(2);
+
+  // Procurar prefixo
+  resultado = dados.prefix(prefixo);
 
   if (resultado)
   {
+    // Separar palavras
+    resultado->tok(' ');
+
+    // Mostrar dados
     resultado->print();
+  }
+  else
+  {
+    println ("Prefixo nao encontrado. ");
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED15E2 (void)
+{
+  Cell<char> dados('0', null);
+  ref_char_Cell resultado = null;
+  char* sufixo = null;
+  std::string str = "";
+
+  // Apresentacao
+  println ("ED15E2");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+
+  // Ler dados
+  str = ReadString("Forneca uma cadeia de caracteres para fornecer os dados da celula: ");
+  dados.AddCells(str.length());
+  dados.WriteCellsB(str, 0);
+  sufixo = WriteArray<char>(2);
+
+  // Procurar sufixo
+  resultado = dados.sufix(sufixo);
+
+  if (resultado)
+  {
+    // Separar palavras
+    resultado->tok(' ');
+
+    // Mostrar dados
+    resultado->print();
+  }
+  else
+  {
+    println ("Sufixo nao encontrado. ");
   }
 
   // Fim
@@ -432,8 +494,8 @@ int main (void)
             break;
           case 11: ED15E1();
             break;
-          /* case 12: ED15E2();
-            break; */ 
+          case 12: ED15E2();
+            break; 
           default: 
               println ("");                // Pular uma linha
               println ("A opcao escolhida e invalida. ");
