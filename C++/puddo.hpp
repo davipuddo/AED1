@@ -2056,6 +2056,24 @@ class Cell
     return (ptr);
   }
 
+  Cell *tok (T dlm)
+  {
+    Cell *ptr = null;
+    if (link->data == dlm)
+    {
+      ptr = this;
+      ptr->link->free();
+      ptr->link = null;
+    }
+    else if (link)
+    {
+      this->link->tok(dlm);
+    }
+    return (ptr);
+  } 
+
+  
+
 };
 
 typedef Cell<int >* ref_int_Cell ;

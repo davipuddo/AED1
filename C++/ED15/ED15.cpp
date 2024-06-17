@@ -320,6 +320,9 @@ void ED1509 (void)
 void ED1510 (void)
 {
   // Identificacao de dados
+  Cell<char> dados('0', null);
+  char caractere = '0';
+
   // Apresentacao
   println ("ED1510");
   println ("");                  // Pular uma linha
@@ -327,8 +330,20 @@ void ED1510 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  dados.AddCells(4);
+  dados.WriteCells();
+  caractere = ReadChar("Forneca o caractere delimitador: ");
+  
   // Mostrar dados
+  println ("Original -");
+  dados.print();
+
+  // Delimitar
+  dados.tok(caractere);
+
+  // Mostrar dados
+  println ("Alterada -");
+  dados.print();
 
   // Fim
   println ("");                  // Pular uma linha

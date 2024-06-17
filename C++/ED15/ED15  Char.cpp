@@ -257,7 +257,29 @@ char* StrSplit (char* str, char x)
     }    
   }
   return (result);
-} 
+}
+
+char* tok (char* str, char x)
+{
+  char* result = null;
+  if (str)
+  {
+    int i = 0;
+    int size = strlen(str);
+    result = (char*)calloc(size+1, sizeof(char));
+    while (i < size && str[i] != x)
+    {
+      result[i] = str[i];
+      i++;
+    }
+    int Rsize = strlen(result);
+    if (Rsize < size)
+    {
+      result = (char*)realloc(result, (Rsize+1)*sizeof(char));
+    }
+  }
+  return (result);
+}
 
 void ED1501 (void)
 {
@@ -601,6 +623,11 @@ void ED1509 (void)
 void ED1510 (void)
 {
   // Identificacao de dados
+  char* str = null;
+  char* resultado = null;
+  int tamanho = 0;
+  char x = '0';
+
   // Apresentacao
   println ("ED1510");
   println ("");                  // Pular uma linha
@@ -608,6 +635,14 @@ void ED1510 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  tamanho = ReadInt("Forneca o tamanho da cadeia: ");
+  str = WriteArray<char>(tamanho);
+  x = ReadChar("");
+
+  resultado = tok(str, x);
+
+  PrintArray(str);
+  PrintArray(resultado);
   // Verificar dados
   // Mostrar dados
 
