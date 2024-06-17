@@ -147,7 +147,7 @@ void ED1605 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  dados.AddCells(4);
+  dados.AddCells(5);
   dados.WriteCells();
   elemento = ReadInt("Forneca um valor inteiro para ser adicionado ao inicio: ");
 
@@ -180,7 +180,7 @@ void ED1606 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  dados.AddCells(5);
+  dados.AddCells(4);
   dados.WriteCells();
 
   println ("Original -");
