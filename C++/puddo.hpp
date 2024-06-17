@@ -1993,6 +1993,7 @@ class Cell
     }
   }
 
+  // Adicionar uma celula em uma posicao [p]
   void insert (T value, int p)
   {
     Cell *ptr = null;
@@ -2014,6 +2015,7 @@ class Cell
     }
   }
 
+  // Remover uma celula de posicao [p]
   void remove (int p)
   {
     Cell *ptr = null;
@@ -2035,6 +2037,7 @@ class Cell
     }
   }
 
+  // Retornar apontador para uma celula com o valor fornecido
   Cell* find (T value)
   {
     Cell *ptr = null;
@@ -2056,6 +2059,7 @@ class Cell
     return (ptr);
   }
 
+  // Separar caracteres ate delimitador
   Cell *tok (T dlm)
   {
     Cell *ptr = null;
@@ -2071,7 +2075,6 @@ class Cell
     }
     return (ptr);
   } 
-
   
 
 };
