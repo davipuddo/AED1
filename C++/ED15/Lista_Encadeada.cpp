@@ -6,47 +6,47 @@
 #include "../io.hpp"
 
 /* template <typename T>
-class cell
+class Cell
 {
     private:
 
     T data;
-    cell* link;
+    Cell* link;
 
     public:
 
     // Constructor
-    cell (T value, cell* ptr)
+    Cell (T value, Cell* ptr)
     {
         this->data = value;
         this->link = ptr;
     }
 
-    // Return cell data
+    // Return Cell data
     T getData()
     {
         return (data);
     }
 
-    // Set cell data
+    // Set Cell data
     void setData(T x)
     {
         data = x;
     }
 
-    // Return cell link
-    cell* getLink()
+    // Return Cell link
+    Cell* getLink()
     {
         return (link);
     }
 
-    // Set cell link
-    void setLink (cell* x)
+    // Set Cell link
+    void setLink (Cell* x)
     {
         link = x;
     }
 
-    // Show all linked cells from origin data
+    // Show all linked Cells from origin data
     void print ()
     {
         std::cout << data << std::endl;
@@ -60,7 +60,7 @@ class cell
         }
     }
 
-    // Set all linked cells from origin to 0 and desconnect them
+    // Set all linked Cells from origin to 0 and desconnect them
     void free ()
     {
         if (link)
@@ -72,7 +72,7 @@ class cell
         this->link = null;
     }
 
-    // Add cell to the end
+    // Add Cell to the end
     void PushBack (T value)
     {
         if (link)
@@ -81,11 +81,11 @@ class cell
         }
         else
         {
-            link = new cell<T> (value, null);
+            link = new Cell<T> (value, null);
         }
     }
 
-    // Add [n] cells to the end
+    // Add [n] Cells to the end
     void AddCells (int n)
     {
         if (link)
@@ -103,7 +103,7 @@ class cell
         }
     }
 
-    // Remove last cell
+    // Remove last Cell
     void PopBack ()
     {
         if (link)
@@ -120,14 +120,14 @@ class cell
         }
     }
 
-    // Add cell to the start
+    // Add Cell to the start
     void PushFront (T value)
     {
-        link = new cell<T> (data, link);
+        link = new Cell<T> (data, link);
         data = value;
     }
 
-    // Remove first cell
+    // Remove first Cell
     void PopFront ()
     {
         if (link)
@@ -145,7 +145,7 @@ class cell
         }
     }
 
-    // Return the number of cells
+    // Return the number of Cells
     int Count (int x)
     {
         x++;
@@ -159,10 +159,10 @@ class cell
         }
     }
 
-    // Add cell in the middle
+    // Add Cell in the middle
     void PushMid (T value)
     {
-        cell *ptr = null;
+        Cell *ptr = null;
         if (link)
         {
             int c = this->Count(0);
@@ -174,15 +174,15 @@ class cell
             {
                 ptr = ptr->link;
             }
-            cell *b = new cell<T>(value, ptr->link);
+            Cell *b = new Cell<T>(value, ptr->link);
             ptr->link = b;
         }
     }
 
-    // Remove middle cell
+    // Remove middle Cell
     void PopMid ()
     {
-        cell *ptr = null;
+        Cell *ptr = null;
         if (link)
         {
             int c = this->Count(0);
@@ -202,7 +202,7 @@ class cell
 
     void insert (T value, int p)
     {
-        cell *ptr = null;
+        Cell *ptr = null;
         if (link)
         {
             if (this->Count(0) < p)
@@ -223,7 +223,7 @@ class cell
 
     void remove (int p)
     {
-        cell *ptr = null;
+        Cell *ptr = null;
         if (link)
         {
             if (this->Count(0) < p)
@@ -242,9 +242,9 @@ class cell
         }
     }
 
-    cell* find (T value)
+    Cell* find (T value)
     {
-        cell *ptr = null;
+        Cell *ptr = null;
         if (data == value)
         {
             ptr = this;
@@ -265,14 +265,14 @@ class cell
 
 }; */
 
-typedef cell<int >* ref_int_cell ;
-typedef cell<char>* ref_char_cell;
+typedef Cell<int >* ref_int_Cell ;
+typedef Cell<char>* ref_char_Cell;
 
 void m_01 (void)
 {
-    println ("\nInt cell");
+    println ("\nInt Cell");
 
-    cell<int> a(0, null);
+    Cell<int> a(0, null);
 
     a.AddCells(7);
     a.print();
@@ -283,13 +283,14 @@ void m_01 (void)
 
 void m_02 (void)
 {
-    println ("\nChar cell");
+    println ("\nChar Cell");
 
-    // Create first cell
-    ref_char_cell a = new cell<char>('0', null);
+    // Create first Cell
+    ref_char_Cell a = new Cell<char>('0', null);
 
     // Create inicial data
     a->AddCells(3);
+    a->WriteCells();
     println ("");
 
     // Change data
@@ -328,7 +329,7 @@ void m_02 (void)
     a->remove(1);
     a->print();
 
-    ref_char_cell f = a->find('2');
+    ref_char_Cell f = a->find('2');
     if (f == null)
     {
         println ("O valor nao foi encontrado. "); 

@@ -351,6 +351,27 @@ void ED1510 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
+void ED15E1 (void)
+{
+  Cell<char> dados('0', null);
+  ref_char_Cell resultado = null;
+  char* str = null;
+  dados.AddCells(6);
+  dados.WriteCellsB(ReadString(" "), 0);
+  str = WriteArray<char>(2);
+  resultado = dados.prefix(str);
+
+  if (resultado)
+  {
+    resultado->print();
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
 int main (void)
 {
 
@@ -370,12 +391,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1501   2 - ED1502");
-      println ("3 - ED1503   4 - ED1504");
-      println ("5 - ED1505   6 - ED1506");
-      println ("7 - ED1507   8 - ED1508");
-      println ("9 - ED1509  10 - ED1510");
+      println ("0  - sair");
+      println ("1  - ED1501   2 - ED1502");
+      println ("3  - ED1503   4 - ED1504");
+      println ("5  - ED1505   6 - ED1506");
+      println ("7  - ED1507   8 - ED1508");
+      println ("9  - ED1509  10 - ED1510");
+      println ("11 - ED15E1  12 - ED15E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -408,6 +430,10 @@ int main (void)
             break;
           case 10: ED1510();
             break;
+          case 11: ED15E1();
+            break;
+          /* case 12: ED15E2();
+            break; */ 
           default: 
               println ("");                // Pular uma linha
               println ("A opcao escolhida e invalida. ");

@@ -1884,11 +1884,20 @@ class Cell
   void WriteCells ()
   {
     std::cout << "Forneca um elemento para a celula: ";
-    this->setData(ReadT<T>(" "));
+    this->data = ReadT<T>(" ");
     if (link)
     {
       link->WriteCells();
     }
+  }
+
+  void WriteCellsB (const std::string x, int i)
+  {
+    this->data = x[i];
+    if (link)
+    {
+      link->WriteCellsB(x, i+1);
+    } 
   }
 
   // Remove last Cell
@@ -1987,7 +1996,7 @@ class Cell
         {
             ptr = ptr->link;
         }
-        ptr->link->data = 0;
+        ptr->data = 0;
         delete (ptr->link);
         ptr->link = ptr->link->link; 
     }
@@ -2074,8 +2083,66 @@ class Cell
       this->link->tok(dlm);
     }
     return (ptr);
-  } 
-  
+  }
+
+  Cell *prefix (const char* prefix)
+  {
+    Cell *ptr = null;
+    int size = Count(0);
+    int psize = strlen(prefix);
+    if (psize > size)
+    {
+      println ("ERRO: Tamanho de prefixo invalido. ");
+    }
+    else
+    {
+      ptr = this;
+      int i = 0;
+      int w = 0;
+      while (i < size && w < psize)
+      {
+        w = 0;
+        Cell *tmp = ptr;
+        while (prefix[w] == tmp->data)
+        {
+          tmp = tmp->link;
+          w++;
+        }
+        ptr = ptr->link;
+      }
+    }
+    return (ptr);
+  }
+
+  Cell *sufix (const char* sufixo)
+  {
+    Cell *ptr = null;
+    int size = Count(0);
+    int psize = strlen(sufixo);
+    if (psize > size)
+    {
+      println ("ERRO: Tamanho de sufixo invalido. ");
+    }
+    else
+    {
+      ptr = this;
+      int i = 0;
+      int w = 0;
+      while (i < size && w < psize)
+      {
+        w = 0;
+        Cell *tmp = ptr;
+        while (sufixo[w] == tmp->data)
+        {
+          tmp = tmp->link;
+          w++;
+        }
+        ptr = ptr->link;
+      }
+    }
+    return (ptr->link);
+  }
+
 
 };
 
