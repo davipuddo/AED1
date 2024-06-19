@@ -2143,6 +2143,30 @@ class Cell
     return (ptr->link);
   }
 
+  bool operator== (Cell& other)
+  {
+    bool result = false;
+    if (other.link)
+    {
+      int size = Count(0);
+      if (size == other.Count(0))
+      {
+        result = true;
+        int i = 0;
+        while (i < size && result)
+        {
+          result = (this->data == other.data);
+          i++;
+        }
+        if (i < size)
+        {
+          result = false;
+        }
+      }
+    }
+    return (result);
+  }
+
 
 };
 

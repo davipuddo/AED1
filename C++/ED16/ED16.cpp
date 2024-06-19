@@ -202,6 +202,10 @@ void ED1606 (void)
 void ED1607 (void)
 {
   // Identificacao de dados
+  Cell<int> dados1(0, null);
+  Cell<int> dados2(0, null);
+  bool resultado = false;
+
   // Apresentacao
   println ("ED1607");
   println ("");                  // Pular uma linha
@@ -209,8 +213,29 @@ void ED1607 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  println ("Primeira celula -");
+  dados1.AddCells(ReadInt("Forneca a quantidade de elementos da celula: ")-1);
+  dados1.WriteCells();
+  println ("Segunda celula -");
+  dados2.AddCells(ReadInt("Forneca a quantidade de elementos da celula: ")-1);
+  dados2.WriteCells();
+
+  // Comparar celulas
+  resultado = dados1 == dados2;
+
   // Mostrar dados
+  if (resultado)
+  {
+    println ("As celulas sao iguais. ");
+  }
+  else
+  {
+    println ("As celulas sao diferentes. ");
+  }
+  println ("\nPrimeira celula -\n");
+  dados1.print();
+  println ("Segunda celula -\n");
+  dados2.print();
 
   // Fim
   println ("");                  // Pular uma linha
