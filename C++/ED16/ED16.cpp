@@ -227,7 +227,7 @@ void ED1607 (void)
   if (resultado)
   {
     println ("As celulas sao iguais. ");
-  }
+  }   
   else
   {
     println ("As celulas sao diferentes. ");
