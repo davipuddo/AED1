@@ -1186,6 +1186,45 @@ ref_int_array IntDescendArray (int_array array)
   return (result);
 }
 
+ref_int_array IntAscendArray (int_array array)
+{
+  ref_int_array result = null;
+  if (array.data == null)
+  {
+    println ("ERRO: Dados invalidos. ");
+  }
+  else
+  {
+    if (array.length > 0)
+    {
+      result = IntCopyArray(array);
+      if (result == null)
+      {
+        println ("ERRO: Falta de espaco. ");
+      }
+      else
+      {
+        int tmp = 0;
+        int y = result->length-1;
+        while (y > 0)
+        {
+          for (int i = 1; i < result->length; i++)
+          {
+            if (result->data[i-1] > result->data[i])
+            {
+              tmp = result->data[i];
+              result->data[i] = result->data[i-1];
+              result->data[i-1] = tmp;
+            }
+          }
+          y--;
+        }
+      }
+    }
+  }
+  return (result);
+}
+
 /*                                                         arrays reais
  * --------------------------------------------------------------------
 */

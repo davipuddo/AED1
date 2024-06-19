@@ -643,8 +643,6 @@ void ED1510 (void)
 
   PrintArray(str);
   PrintArray(resultado);
-  // Verificar dados
-  // Mostrar dados
 
   // Fim
   println ("");                  // Pular uma linha

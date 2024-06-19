@@ -1847,7 +1847,6 @@ class Cell
     {
         this->link->free();
     }
-    std::cout << "removed: " << this->data << std::endl;
     this->data = 0;
     this->link = null;
   }
@@ -2087,7 +2086,7 @@ class Cell
 
   Cell *prefix (const char* prefix)
   {
-    Cell *ptr = null;
+    Cell *result = null;
     int size = Count(0);
     int psize = strlen(prefix);
     if (psize > size)
@@ -2096,51 +2095,72 @@ class Cell
     }
     else
     {
-      ptr = this;
+      Cell *ptr = this;
       int i = 0;
       int w = 0;
       while (i < size && w < psize)
       {
-        w = 0;
-        Cell *tmp = ptr;
-        while (prefix[w] == tmp->data)
+        if (ptr->data == ' ')
         {
-          tmp = tmp->link;
-          w++;
+          ptr = ptr->link;
+          result = ptr;
+          i++;
         }
-        ptr = ptr->link;
+        else if (ptr->data == prefix[w])
+        {
+          w++;
+          ptr = ptr->link;
+        }
+        i++;
+      }
+      if (w < psize)
+      {
+        result = null;
       }
     }
-    return (ptr);
+    return (result);
   }
 
-  Cell *sufix (const char* sufixo)
+  Cell *sufix (const char* sufix)
   {
-    Cell *ptr = null;
+    Cell *result = null;
     int size = Count(0);
-    int psize = strlen(sufixo);
+    int psize = strlen(sufix);
     if (psize > size)
     {
       println ("ERRO: Tamanho de sufixo invalido. ");
     }
     else
     {
-      ptr = this;
+      result = this;
+      Cell *ptr = this;
       int i = 0;
       int w = 0;
       while (i < size && w < psize)
       {
-        w = 0;
-        Cell *tmp = ptr;
-        while (sufixo[w] == tmp->data)
+        if (ptr->data == ' ')
         {
-          tmp = tmp->link;
+          ptr = ptr->link;
+          result = ptr;
+          i++;
+        }
+        else if (ptr->data == sufix[w])
+        {
           w++;
         }
+        else
+        {
+          w = 0;
+        }
         ptr = ptr->link;
+        i++;
+      }
+      if (w < psize)
+      {
+        result = null;
       }
     }
-    return (ptr->link);
+    return (result);
   }
 
   bool operator== (Cell& other)
