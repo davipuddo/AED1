@@ -13,7 +13,7 @@ void ED1601 (void)
   // Apresentacao
   println ("ED1601");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar valor no final. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -46,7 +46,7 @@ void ED1602 (void)
   // Apresentacao
   println ("ED1602");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover valor do final");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -78,7 +78,7 @@ void ED1603 (void)
   // Apresentacao
   println ("ED1603");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar valor no inicio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -111,7 +111,7 @@ void ED1604 (void)
   // Apresentacao
   println ("ED1604");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover valor do inicio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -143,7 +143,7 @@ void ED1605 (void)
   // Apresentacao
   println ("ED1605");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar valor no meio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -176,7 +176,7 @@ void ED1606 (void)
   // Apresentacao
   println ("ED1606");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover valor do meio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -209,7 +209,7 @@ void ED1607 (void)
   // Apresentacao
   println ("ED1607");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Comparar duas celulas. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -252,7 +252,7 @@ void ED1608 (void)
   // Apresentacao
   println ("ED1608");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Juntar duas celulas. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -285,7 +285,7 @@ void ED1609 (void)
   // Apresentacao
   println ("ED1609");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Procurar por um elemento em uma celula. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
