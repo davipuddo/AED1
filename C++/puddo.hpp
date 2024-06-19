@@ -2068,27 +2068,29 @@ class Cell
   }
 
   // Separar caracteres ate delimitador
-  Cell *tok (T dlm)
+  void tok (T dlm)
   {
     Cell *ptr = null;
-    if (link->data == dlm)
+    if (link)
     {
-      ptr = this;
-      ptr->link->free();
-      ptr->link = null;
+      if (link->data == dlm)
+      {
+        ptr = this;
+        ptr->link->free();
+        ptr->link = null;
+      }
+      else
+      {
+        this->link->tok(dlm);
+      }
     }
-    else if (link)
-    {
-      this->link->tok(dlm);
-    }
-    return (ptr);
   }
 
-  Cell *prefix (const char* prefix)
+  Cell *prefix (const std::string prefix)
   {
     Cell *result = null;
     int size = Count(0);
-    int psize = strlen(prefix);
+    int psize = prefix.length();
     if (psize > size)
     {
       println ("ERRO: Tamanho de prefixo invalido. ");
@@ -2096,6 +2098,7 @@ class Cell
     else
     {
       Cell *ptr = this;
+      result = ptr;
       int i = 0;
       int w = 0;
       while (i < size && w < psize)
@@ -2103,14 +2106,18 @@ class Cell
         if (ptr->data == ' ')
         {
           ptr = ptr->link;
-          result = ptr;
+          result = ptr;;
           i++;
         }
-        else if (ptr->data == prefix[w])
+        if (ptr->data == prefix[w])
         {
           w++;
-          ptr = ptr->link;
         }
+        else
+        {
+          w = 0;
+        }
+        ptr = ptr->link;
         i++;
       }
       if (w < psize)
@@ -2121,11 +2128,11 @@ class Cell
     return (result);
   }
 
-  Cell *sufix (const char* sufix)
+  Cell *sufix (const std::string sufix)
   {
     Cell *result = null;
     int size = Count(0);
-    int psize = strlen(sufix);
+    int psize = sufix.length();
     if (psize > size)
     {
       println ("ERRO: Tamanho de sufixo invalido. ");

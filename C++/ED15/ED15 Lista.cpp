@@ -356,20 +356,20 @@ void ED15E1 (void)
   // Identificacao de dados
   Cell<char> dados('0', null);
   ref_char_Cell resultado = null;
-  char* prefixo = null;
+  std::string prefixo = "";
   std::string str = "";
 
   // Apresentacao
   println ("ED15E1");
   println ("");                  // Pular uma linha
-  println ("Procurar por um certo sufixo. ");
+  println ("Procurar por um certo prefixo. ");
   println ("");                  // Pular uma linha
 
   // Ler dados
   str = ReadString("Forneca uma cadeia de caracteres para fornecer os dados da celula: ");
   dados.AddCells((str.length())-1);
   dados.WriteCellsB(str, 0);
-  prefixo = WriteArray<char>(2);
+  prefixo = ReadString("Forneca o prefixo: ");
 
   // Procurar prefixo
   resultado = dados.prefix(prefixo);
@@ -377,7 +377,7 @@ void ED15E1 (void)
   if (resultado)
   {
     // Separar palavras
-    resultado->tok(' ');
+    resultado->tok(' ');    
 
     // Mostrar dados
     resultado->print();
@@ -397,7 +397,7 @@ void ED15E2 (void)
 {
   Cell<char> dados('0', null);
   ref_char_Cell resultado = null;
-  char* sufixo = null;
+  std::string sufixo = "";
   std::string str = "";
 
   // Apresentacao
@@ -408,9 +408,9 @@ void ED15E2 (void)
 
   // Ler dados
   str = ReadString("Forneca uma cadeia de caracteres para fornecer os dados da celula: ");
-  dados.AddCells(str.length());
+  dados.AddCells(str.length()-1);
   dados.WriteCellsB(str, 0);
-  sufixo = WriteArray<char>(2);
+  sufixo = ReadString("Forneca o sufixo: ");
 
   // Procurar sufixo
   resultado = dados.sufix(sufixo);
