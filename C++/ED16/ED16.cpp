@@ -246,6 +246,7 @@ void ED1607 (void)
 void ED1608 (void)
 {
   // Identificacao de dados
+  
   // Apresentacao
   println ("ED1608");
   println ("");                  // Pular uma linha

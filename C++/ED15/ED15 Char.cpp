@@ -292,7 +292,7 @@ void ED1501 (void)
   // Apresentacao
   println ("ED1501");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar caractere no final. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -330,7 +330,7 @@ void ED1502 (void)
   // Apresentacao
   println ("ED1502");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover caractere no final. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -367,7 +367,7 @@ void ED1503 (void)
   // Apresentacao
   println ("ED1503");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar caractere no inicio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -405,7 +405,7 @@ void ED1504 (void)
   // Apresentacao
   println ("ED1504");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover caractere do inicio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -443,7 +443,7 @@ void ED1505 (void)
   // Apresentacao
   println ("ED1505");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar caractere no meio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -481,7 +481,7 @@ void ED1506 (void)
   // Apresentacao
   println ("ED1506");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover caractere do meio. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -520,7 +520,7 @@ void ED1507 (void)
   // Apresentacao
   println ("ED1507");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Adicionar um caractere em uma posicao [n]. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -560,7 +560,7 @@ void ED1508 (void)
   // Apresentacao
   println ("ED1508");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Remover um caractere de uma posicao [n]. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -599,7 +599,7 @@ void ED1509 (void)
   // Apresentacao
   println ("ED1509");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Procurar pela primeira ocorrencia de um simbolo. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
@@ -631,7 +631,7 @@ void ED1510 (void)
   // Apresentacao
   println ("ED1510");
   println ("");                  // Pular uma linha
-  println (" ");
+  println ("Separar caracteres ate ocorrencia de um delimitador [x]. ");
   println ("");                  // Pular uma linha
     
   // Ler dados
