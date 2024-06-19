@@ -2009,7 +2009,7 @@ class Cell
     {
         if (this->Count(0) < p)
         {
-            println ("ERROR: Invalid position. ");
+            println ("ERRO: Posicao invalida. ");
         }
         else
         {
@@ -2031,7 +2031,7 @@ class Cell
     {
         if (this->Count(0) < p)
         {
-            println ("ERROR: Invalid position. ");
+            println ("ERRO: Posicao invalida. ");
         }
         else
         {
@@ -2185,6 +2185,26 @@ class Cell
       }
     }
     return (result);
+  }
+
+  void concat (Cell& other)
+  {
+    if (other.data)
+    {
+      if (!link)
+      {
+        link = &other;
+      }
+      else
+      {
+        Cell *ptr = this;
+        while (ptr->link)
+        {
+          ptr = ptr->link;
+        }
+        ptr->link = &other;
+      }
+    }
   }
 
 

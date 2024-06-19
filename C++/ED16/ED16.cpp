@@ -246,7 +246,9 @@ void ED1607 (void)
 void ED1608 (void)
 {
   // Identificacao de dados
-  
+  Cell<int> dados1(0, null);
+  Cell<int> dados2(0, null);
+
   // Apresentacao
   println ("ED1608");
   println ("");                  // Pular uma linha
@@ -254,8 +256,18 @@ void ED1608 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
-  // Verificar dados
+  println ("Primeira celula -");
+  dados1.AddCells(ReadInt("Forneca a quantidade de elementos da celula: ")-1);
+  dados1.WriteCells();
+  println ("Segunda celula -");
+  dados2.AddCells(ReadInt("Forneca a quantidade de elementos da celula: ")-1);
+  dados2.WriteCells();
+
+  // Concatenar celulas
+  dados1.concat(dados2);
+
   // Mostrar dados
+  dados1.print();
 
   // Fim
   println ("");                  // Pular uma linha
@@ -266,6 +278,10 @@ void ED1608 (void)
 void ED1609 (void)
 {
   // Identificacao de dados
+  Cell<int> dados(0, null);
+  ref_int_Cell resultado = null;
+  int elemento = 0;
+
   // Apresentacao
   println ("ED1609");
   println ("");                  // Pular uma linha
@@ -273,8 +289,25 @@ void ED1609 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  dados.AddCells(ReadInt("Forneca a quantidade de elementos da celula: ")-1);
+  dados.WriteCells();
+  elemento = ReadInt("Forneca um valor inteiro para ser procurado na celula: ");
+
+  // Procurar elemento na celula
+  resultado = dados.find(elemento);
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado)
+  {
+    // Mostrar dados
+    std::cout << "O valor foi encontrado no endereco: " << resultado << std::endl << "com o valor: " 
+    << resultado->getData();
+  }
+  else
+  {
+    // Mostrar dados
+    println ("O valor nao foi encontrado na celula. ");
+  }
 
   // Fim
   println ("");                  // Pular uma linha
