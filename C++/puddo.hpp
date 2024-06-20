@@ -1882,7 +1882,7 @@ class Cell
 
   void WriteCells ()
   {
-    std::cout << "Forneca um elemento para a celula: ";
+    std::cout << "Forneca um elemento para a celula [" << Count(0) <<  "] : ";
     this->data = ReadT<T>(" ");
     if (link)
     {
@@ -2214,6 +2214,122 @@ class Cell
     }
   }
 
+  Cell *copy (void)
+  {
+    Cell<T>* result = new Cell<T>((T)0, null);
+    if (result)
+    {
+      int size = this->Count(0);
+      result->AddCells(size-1);
+
+      Cell *Rptr = result;
+      Cell *Tptr = this;
+
+      for (int i = 0; i < size; i++)
+      {
+        Rptr->data = Tptr->data;
+        Rptr = Rptr->link;
+        Tptr = Tptr->link;
+      }
+    }
+    return (result);
+  }
+
+  Cell *ascend (void)
+  {
+    Cell<T>* result = this->copy();
+    if (result)
+    {
+      int size = result->Count(0);
+      if (size > 1)
+      {
+        Cell *back = result;
+        int y = size-1;
+        int i = 0;
+        while (y > 0)
+        {
+          back = result;
+          i = 0;
+          while (i < size && back->link)
+          {
+            if (back->data > back->link->data)
+            {
+              int tmp = back->link->data;
+              back->link->data = back->data;
+              back->data = tmp;
+            }
+            back = back->link;
+            i++;
+          }
+          y--;
+        }
+      }
+    }
+    return (result);
+  }
+
+  Cell *intercalate (Cell& other)
+  {
+    Cell<T>* result = new Cell<T>((T)0, null);
+    
+    if (result)
+    {
+      Cell *cell_a = this;
+      Cell *cell_b = &other;
+
+      int size_a = cell_a->Count(0);
+      int size_b = cell_b->Count(0);
+      int size_r = (size_a + size_b);
+
+      result->AddCells(size_r -1);
+      
+      Cell *back = result;
+
+      bool end_a = false;
+      bool end_b = false;
+      for (int i = 0; i < size_r; i++)
+      {
+        if ((i % 2 == 0 || end_b) && !end_a)
+        {
+          back->data = cell_a->data;
+          back = back->link;
+          if (cell_a->link)
+          {
+            cell_a = cell_a->link;
+          }
+          else
+          {
+            end_a = true;
+          }
+        }
+        else if (!end_b)
+        {
+          back->data = cell_b->data;
+          back = back->link;
+          if (cell_b->link)
+          {
+            cell_b = cell_b->link;
+          }
+          else
+          {
+            end_b = true;
+          }
+        }
+      }
+    }
+    return (result);
+  }
+
+    Cell *intercalateUp (Cell& other)
+    {
+      Cell<T>* result = new Cell<T>((T)0, null);
+      if (result)
+      {
+        result = this->intercalate(other);
+        result = result->ascend();
+      }
+      return (result);
+    }
 
 };
 

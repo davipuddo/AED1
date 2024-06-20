@@ -334,6 +334,80 @@ void ED1610 (void)
   pause   ("Aperte <ENTER> para continuar. ");
 }
 
+void ED16E1 (void)
+{
+  // Identificacao de dados
+  Cell <int> dados1(0, null);
+  Cell <int> dados2(0, null);
+  ref_int_Cell resultado = null;
+
+  // Apresentacao
+  println ("ED16E1");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  println ("Celula 1-");
+  dados1.AddCells(ReadPositiveInt("Forneca a quantidade de celulas: ")-1);
+  dados1.WriteCells();
+  println ("Celula 2-");
+  dados2.AddCells(ReadPositiveInt("Forneca a quantidade de celulas: ")-1);
+  dados2.WriteCells();
+
+  // Intercalar celulas
+  resultado = dados1.intercalate(dados2);
+
+  // Verificar dados
+  if (resultado)
+  {
+    // Mostrar dados
+    resultado->print();
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
+void ED16E2 (void)
+{
+  // Identificacao de dados
+  Cell <int> dados1(0, null);
+  Cell <int> dados2(0, null);
+  ref_int_Cell resultado = null;
+
+  // Apresentacao
+  println ("ED16E2");
+  println ("");                  // Pular uma linha
+  println (" ");
+  println ("");                  // Pular uma linha
+    
+  // Ler dados
+  println ("Celula 1-");
+  dados1.AddCells(ReadPositiveInt("Forneca a quantidade de celulas: ")-1);
+  dados1.WriteCells();
+  println ("Celula 2-");
+  dados2.AddCells(ReadPositiveInt("Forneca a quantidade de celulas: ")-1);
+  dados2.WriteCells();
+
+  // Intercalar celulas
+  resultado = dados1.intercalateUp(dados2);
+
+  // Verificar dados
+  if (resultado)
+  {
+    // Mostrar dados
+    resultado->print();
+  }
+
+  // Fim
+  println ("");                  // Pular uma linha
+  println ("");                  // Pular uma linha
+  pause   ("Aperte <ENTER> para continuar. ");
+}
+
 int main (void)
 {
 
@@ -353,12 +427,13 @@ int main (void)
       // Mostrar opcoes
       println ("Exercicios: ");
       println ("");              // Pular uma linha
-      println ("0 - sair");
-      println ("1 - ED1601   2 - ED1602");
-      println ("3 - ED1603   4 - ED1604");
-      println ("5 - ED1605   6 - ED1606");
-      println ("7 - ED1607   8 - ED1608");
-      println ("9 - ED1609  10 - ED1610");
+      println ("0  - sair");
+      println ("1  - ED1601   2 - ED1602");
+      println ("3  - ED1603   4 - ED1604");
+      println ("5  - ED1605   6 - ED1606");
+      println ("7  - ED1607   8 - ED1608");
+      println ("9  - ED1609  10 - ED1610");
+      println ("11 - ED16E1  12 - ED16E2");
       println ("");              // Pular uma linha
 
       // Ler opcao
@@ -390,6 +465,10 @@ int main (void)
           case 9:  ED1609();
             break;
           case 10: ED1610();
+            break;
+          case 11: ED16E1();
+            break;
+          case 12: ED16E2();
             break;
           default: 
               println ("");                // Pular uma linha
