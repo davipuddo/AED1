@@ -2235,6 +2235,26 @@ class Cell
     return (result);
   }
 
+  Array<T> sub ()
+  {
+    int size = this->Count(0);
+    Array<T> result(size, (T)0);
+    if (result.isValid())
+    {
+      Cell *ptr = this;
+
+      int i = 0;
+      while (ptr->link)
+      {
+        result.set(i, ptr->data);
+        i++;
+        ptr = ptr->link;
+      }
+      result.set(size-1, ptr->data);
+    }
+    return (result);
+  }
+
   Cell *ascend (void)
   {
     Cell<T>* result = this->copy();

@@ -318,6 +318,10 @@ void ED1609 (void)
 void ED1610 (void)
 {
   // Identificacao de dados
+  Cell<char> dados('0', null);
+  Array<char> resultado(0, '0');
+  std::string str = "";
+
   // Apresentacao
   println ("ED1610");
   println ("");                  // Pular uma linha
@@ -325,8 +329,18 @@ void ED1610 (void)
   println ("");                  // Pular uma linha
     
   // Ler dados
+  str = ReadString("");
+  dados.AddCells(str.length()-1);
+  dados.WriteCellsB(str, 0);
+
+  resultado = dados.sub();
+
   // Verificar dados
-  // Mostrar dados
+  if (resultado.isValid())
+  {
+    // Mostrar dados
+    resultado.print();
+  }
 
   // Fim
   println ("");                  // Pular uma linha
