@@ -2235,22 +2235,33 @@ class Cell
     return (result);
   }
 
-  Array<T> sub ()
+  Array<T> sub (int start)
   {
     int size = this->Count(0);
-    Array<T> result(size, (T)0);
-    if (result.isValid())
+    Array<T> result (0, (T)0);
+    if (start > size-1)
     {
-      Cell *ptr = this;
-
-      int i = 0;
-      while (ptr->link)
+      println ("ERRO: Posicao inicial invalida. ");
+    }
+    else
+    {
+      result.init(size-start);
+      if (result.isValid())
       {
-        result.set(i, ptr->data);
-        i++;
-        ptr = ptr->link;
+        Cell *ptr = this;
+        for (int i = 0; i < start; i++)
+        {
+          ptr = ptr->link;
+        }
+        int i = 0;
+        while (ptr->link)
+        {
+          result.set(i, ptr->data);
+          i++;
+          ptr = ptr->link;
+        }
+        result.set(result.getlength()-1, ptr->data);
       }
-      result.set(size-1, ptr->data);
     }
     return (result);
   }
