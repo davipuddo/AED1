@@ -8,6 +8,7 @@ void ED1701 (void)
 {
   // Identificacao de dados
   ref_int_Stack dados = null;
+  int elemento = 0;
 
   // Apresentacao
   println ("ED1701");
@@ -19,10 +20,19 @@ void ED1701 (void)
   dados = new Stack<int>;
   dados->write();
   
+  elemento = ReadInt("Forneca um valor a ser adicionado ao topo da pilha: ");
   // Verificar dados
   if (dados)
   {
     // Mostrar dados
+    println ("Original -");
+    dados->print();
+
+    // Adicionar elemento do topo
+    dados->push(elemento);
+
+    // Mostrar dados
+    println ("Elemento adicionado ao topo -");
     dados->print();
   }
 
@@ -194,7 +204,7 @@ void ED1706 (void)
   // Ler dados
   dados = new Queue<int>;
   dados->write();
-  elemento = ReadInt("Forneca um valor a ser adicionado na fila. ");
+  elemento = ReadInt("Forneca um valor a ser adicionado ao inicio da fila: ");
 
   // Verificar dados
   if (dados)
@@ -203,7 +213,7 @@ void ED1706 (void)
     println ("Original -");
     dados->print();
 
-    // Remover primeiro da fila
+    // Adicionar elemento ao inicio da fila
     dados->push(elemento);
 
     // Verificar dados
