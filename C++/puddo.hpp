@@ -155,7 +155,7 @@ T* WriteArray (int size)
   
   if (typeid(T) == typeid(char))
   {
-    data = (char*)calloc(size+1, sizeof(char));
+    data = (T*)calloc(size+1, sizeof(T));
   }
   else
   {
@@ -164,7 +164,7 @@ T* WriteArray (int size)
 
   for (int i = 0; i < size; i++)
   {
-    std::cout << "Forneca [" << i << "] elementos para o arranjo: ";
+    std::cout << "Forneca [" << (size-i) << "] elementos para o arranjo: ";
     std::cin >> x; getchar();
     data[i] = x;
   }
@@ -172,9 +172,8 @@ T* WriteArray (int size)
 }
 
 template <typename T>
-void PrintArray (T* data)
+void PrintArray (T* data, int size)
 {
-  int size = strlen(data);
   std::cout << std::endl;
   for (int i = 0; i < size; i++)
   {
