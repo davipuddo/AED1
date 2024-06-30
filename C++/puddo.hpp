@@ -1790,7 +1790,7 @@ class Cell
   private:
 
   T data;
-  Cell* link;
+  Cell<T>* link;
 
   public:
 
@@ -1954,7 +1954,7 @@ class Cell
     }
   }
 
-  int GetCount ()
+  int getCount ()
   {
     return (this->Count(0));
   }
@@ -2366,3 +2366,572 @@ class Cell
 typedef Cell<int >* ref_int_Cell ;
 typedef Cell<char>* ref_char_Cell;
 typedef Cell<double>* ref_double_Cell;
+
+template <typename T>
+class Stack
+{
+  private:
+
+  Cell<T>* head;
+  Cell<T>* top;
+
+  public:
+
+  /** Construtor
+   *  @param Valor inicial da pilha
+   */
+  Stack (T value)
+  {
+    top = new Cell<T>(value, null);
+    head = new Cell<T>((T)0, top);
+  }
+
+  // Construtor sem parametros
+  Stack (void)
+  {
+    top = null;
+    head = new Cell<T>((T)0, top);
+    if (!head)
+    {
+      println ("ERRO: Falta de espaco. ");
+    }
+  }
+
+  /** Inicializar pilha
+   *  @param Valor inicial da pilha
+   */
+  void init (T value)
+  {
+    top = new Cell<T>(value, null);
+    if (top)
+    {
+      head = new Cell<T>((T)0, top);
+    }
+    else
+    {
+      println ("ERRO: Falta de espaco. ");
+    }
+  }
+
+  /** Adicionar elemento ao topo da pilha
+   *  @param Valor a ser adicionado
+   */
+  void push (T value)
+  {
+    if (top)
+    {
+      top->PushFront(value);
+    }
+    else
+    {
+      this->init(value);
+    }
+  }
+
+  // Adcionar elementos a pilha
+  void write (void)
+  {
+    int n = ReadPositiveInt("Forneca a quantidade de dados a serem adicionados a pilha: ");
+    for (int i = 0; i < n; i++)
+    {
+      std::cout << "Forneca [" << n-i << "] valores para a pilha: ";
+      this->push(ReadT<T>(" "));
+    }
+  }
+
+  // Remover primeiro elemento da pilha
+  void pop (void)
+  {
+    if (top)
+    {
+      head->getLink()->PopFront();
+    }
+  }
+
+  /** 
+   *  @returns Primeiro elemento da pilha
+   */ 
+  T getTop (void)
+  {
+    return (top->getData());
+  }
+
+  /** 
+   *  @returns Valor inteiro relativo ao tamanho da pilha
+   */
+  int getSize (void)
+  {
+    return (head->getLink()->Count(0));
+  }
+
+  // Mostrar pilha completa
+  void print (void)
+  {
+    if (head)
+    {
+      head->getLink()->print();
+    }
+  }
+
+  /** Verificar existencia de dados
+   *  @returns Valor booleano relativo ao resultado
+   */
+  bool isValid (void)
+  {
+    bool result = false;
+    if (head && top)
+    {
+      result = true;
+    }
+    return (result);
+  }
+
+  /** Copiar uma pilha
+   *  @returns Apontador para a copia
+   */
+  Stack<T>* copy (void)
+  {
+    Stack<T>* result = new Stack<T>;
+    if (result)
+    {
+      Cell<T>* ptr = this->top;
+
+      int size = getSize();
+      for (int i = 0; i < size; i++)
+      {
+        result->push(ptr->getData());
+        ptr = ptr->getLink();
+      }
+      result = result->invert();
+    }
+    return (result);
+  }
+
+  /** Duplicar valor do topo da pilha
+   *  @returns Apontador para a nova pilha
+   */
+  Stack<T>* dupTop (void)
+  {
+    Stack<T>* result = this->copy();
+    if (result)
+    {
+      result->top->setData(result->getTop() * 2);
+    }
+    return (result);
+  }
+
+  /** Trocar a ordem dos primeiros valores da pilha
+   *  @returns Apontador para a nova pilha
+   */
+  Stack<T>* swap (void)
+  {
+    Stack<T>* result = this->copy();
+    if (!result)
+    {
+      println ("Erro: Falta de espaco. ");
+    }
+    else
+    {
+      if (getSize() > 1)
+      {
+        T tmp = result->getTop();
+        result->top->setData(result->top->getLink()->getData());
+        result->top->getLink()->setData(tmp);
+      }
+    }
+    return (result);
+  }
+
+  /** Inverter a ordem dos valores da pilha
+   *  @returns Apontador para a nova pilha
+   */
+  Stack<T>* invert (void)
+  {
+    Stack<T>* result = new Stack<T>(this->top->getData());
+    if (result)
+    {
+      Cell<T>* ptr = this->top->getLink();
+
+      int i = 1;
+      int size = getSize();
+      while (i < size)
+      {
+        result->push(ptr->getData());
+        if (ptr->getLink())
+        {
+          ptr = ptr->getLink();
+        }
+        i++;
+      }
+    }
+    return (result);
+  }
+};
+
+typedef Stack<int>* ref_int_Stack;
+typedef Stack<char>* ref_char_Stack;
+typedef Stack<double>* ref_double_Stack;
+
+
+template <typename T>
+class Queue
+{
+  private:
+
+  Cell<T>* back;
+  Cell<T>* front;
+
+  public:
+
+  /** Construtor
+   *  @param Valor inicial da fila
+   */
+  Queue (T value)
+  {
+    front = new Cell<T>(value, null);
+    back = new Cell<T>((T)0, front);
+  }
+
+  // Construtor sem parametros
+  Queue (void)
+  {
+    front = null;
+    back = null;
+  }
+
+  /** Inicializar fila
+   *  @param Valor inicial da fila
+   */
+  void init (T value)
+  { 
+    *this = Queue<T> (value);
+  }
+
+  /** Verificar existencia dos dados
+   *  @returns Valor booleano referente ao resultado
+   */
+  bool isValid (void)
+  {
+    bool result = (back && front);
+    return (result);
+  }
+
+  /** Adicionar um valor ao final da fila
+   *  @param Valor a ser adicionado
+   */
+  void push (T value)
+  {
+    if (isValid())
+    {
+      back->getLink()->PushFront(value);
+      if (front->getLink())
+      {
+        front = front->getLink();
+      }
+    }
+    else
+    {
+      this->init(value);
+    }
+  }
+
+  // Remover primeiro elemento da fila
+  void pop (void)
+  {
+    Cell<T>* ptr = back;
+    while (ptr->getLink() != front)
+    {
+      ptr = ptr->getLink();
+    }
+    ptr->setLink(null);
+    if (ptr != back)
+    {
+      front = ptr;
+    }
+  }
+
+  // Mostrar fila
+  void print (void)
+  {
+    if (back)
+    {
+      Cell<T>* ptr = back->getLink();
+
+      int size = ptr->Count(0);
+      for (int i = 0; i < size; i++)
+      {
+        std::cout << "[" << ptr->getData() << "] ";
+        if (ptr->getLink())
+        {
+          ptr = ptr->getLink();
+        }
+      }
+      std::cout << std::endl << std::endl;
+    }
+  }
+
+  /** 
+   *  @returns Valor do inicio da fila 
+   */
+  T getBack (void)
+  {
+    T result = (T)0;
+    if (back)
+    {
+      result = back->getData();
+    }
+    return (result);
+  }
+
+  /** 
+   *  @returns Valor do final da fila 
+   */
+  T getFront (void)
+  {
+    T result = (T)0;
+    if (front)
+    {
+      result = front->getData();
+    }
+    return (result);
+  }
+
+  /** 
+   *  @returns Tamanho da fila
+   */
+  int getSize(void)
+  {
+    return (back->getLink()->Count(0));
+  }
+  
+  // Ler dados para a fila
+  void write (void)
+  {
+    int n = ReadPositiveInt("Forneca a quantidade de dados a serem adicionados a fila: ");
+    for (int i = 0; i < n; i++)
+    {
+      std::cout << "Forneca [" << n-i << "] valores para a fila: ";
+      this->push(ReadT<T>(" "));
+    }
+  }
+
+  Queue<T>* invert (void)
+  {
+    Queue<T>* result = new Queue<T>;
+    if (result)
+    {
+      Cell<T>* ptr = this->back->getLink();
+      int size = this->getSize();
+      for (int i = 0; i < size; i++)
+      {
+        result->push(ptr->getData());
+        ptr = ptr->getLink();
+      }
+    }
+    return (result);
+  }
+
+  /** Copiar uma fila
+   *  @returns Apontador para a copia
+   */
+  Queue<T>* copy (void)
+  {
+    Queue<T>* result = this->invert();
+    if (result)
+    {
+      result = result->invert();
+    }
+    return (result);
+  }
+
+  /** Comparar tamanho de duas filas
+   *  @param Apontador para outra fila
+   *  @returns 1 se a primeira (this) for maior 0 se forem iguais e -1 se a segunda for maior
+   */
+  int compare (Queue<T>* other)
+  {
+    int result = 0;
+    int thisSize = getSize();
+    int otherSize = other->getSize();
+
+    result = thisSize - otherSize;
+
+    if (result != 0)
+    {
+      if (result > 0)
+      {
+        result = 1;
+      }
+      else
+      {
+        result = -1;
+      }
+    }
+
+    return (result);
+  }
+
+  /** Juntar duas filas
+   *  @param Apontador para outra fila
+   *  @returns Apontador para a nova fila
+   */
+  Queue<T>* join (Queue<T>* other)
+  {
+    Queue<T>* result = null;
+    if (other)
+    {
+      result = this->copy();
+      Queue<T>* tmp = other->copy();
+      int i = 0;
+      int size = tmp->getSize();
+      while (i < size)
+      {
+        result->push(tmp->getFront());
+        tmp->pop();
+        i++;
+      }
+    }
+    return (result);
+  }
+
+  /** Procurar um elemento na fila
+   *  @param Valor a ser procurado
+   *  @returns Valor boolearno referente a responsta
+   */
+  bool search (T value)
+  {
+    bool result = false;
+    
+    int i = 0;
+    int size = getSize();
+
+    Cell<T>* ptr = back->getLink();
+    while (i < size && ptr->getData() != value)
+    {
+      ptr = ptr->getLink();
+      i++;
+    }
+    if (i < size)
+    {
+      result = true;
+    }
+    return (result);
+  }
+
+  /** Intercalar pilhas
+   *  @param Apontador para outra pilha
+   *  @returns Apontador para a nova pilha
+   */
+  Queue<T>* merge (Queue<T>* other)
+  {
+    Queue<T>* result = null;
+    if (other)
+    {
+      result = new Queue<T>;
+
+      if (result)
+      {
+        Cell<T>* THIS = this->back->getLink();
+        Cell<T>* OTHER = other->back->getLink();
+
+        int size = other->getSize() + this->getSize();
+        for (int i = 0; i < size; i++)
+        {
+          if (i % 2 == 0)
+          {
+            result->push(THIS->getData());
+            THIS = THIS->getLink();
+          }
+          else
+          {
+            result->push(OTHER->getData());
+            OTHER = OTHER->getLink();
+          }
+        }
+        result = result->invert();
+      }
+    }
+    return (result);
+  }
+
+  /** Ordenar a pilha em ordem crescente
+   *  @returns Apontador para a nova pilha
+   */
+  Queue<T>* ascend (void)
+  {
+    Queue<T>* result = this->copy();
+    if (result && result->isValid())
+    {
+      Cell<T>* first = result->back->getLink();
+      Cell<T>* ptr = first;
+      Cell<T>* sm = ptr;
+
+      int size = result->getSize();
+      int r = size;
+      int w = 0;
+      int i = 0;
+      while (w < r)
+      {
+        for (i = w; i < size; i++)
+        {
+          if (sm->getData() > ptr->getData())
+          {
+            sm = ptr;
+          }
+          ptr = ptr->getLink();
+        }
+        if (first->getData() != sm->getData())
+        {
+          int tmp = first->getData();
+          first->setData(sm->getData());
+          sm->setData(tmp);
+        }
+        first = first->getLink();
+        ptr = first;
+        sm = ptr;
+        w++;
+      }
+    }
+    return (result);
+  }
+
+  /** Ordenar a pilha em ordem decrescente
+    * @returns Apontador para a nova pilha
+   */
+  Queue<T>* descend (void)
+  {
+    Queue<T>* result = this->copy();
+    if (result && result->isValid())
+    {
+      result = result->ascend();
+      if (result->isValid())
+      {
+        result = result->invert();
+      }
+    }
+    return (result);
+  }
+
+  /** Intercalar e ordenar a pilha em ordem crescente
+   *  @param Apontador para outra pilha
+   *  @returns Apontador para a nova pilha
+   */
+  Queue<T>* mergeUp (Queue<T>* other)
+  {
+    Queue<T>* result = null;
+    if (other && other->isValid())
+    {
+      result = this->copy();
+      if (result && result->isValid())
+      {
+        result = result->merge(other);
+        result = result->ascend();
+      }
+    }
+    return (result);
+  }
+};
+
+typedef Queue<int>* ref_int_Queue;
+typedef Queue<char>* ref_char_Queue;
+typedef Queue<double>* ref_double_Queue;
