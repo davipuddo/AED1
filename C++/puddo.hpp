@@ -2867,22 +2867,21 @@ class Queue
       Cell<T>* sm = ptr;
 
       int size = result->getSize();
-      int r = size;
       int w = 0;
       int i = 0;
-      while (w < r)
+      while (w < size)
       {
         for (i = w; i < size; i++)
         {
           if (sm->getData() > ptr->getData())
           {
             sm = ptr;
-          }
+          } 
           ptr = ptr->getLink();
         }
         if (first->getData() != sm->getData())
         {
-          int tmp = first->getData();
+          T tmp = first->getData();
           first->setData(sm->getData());
           sm->setData(tmp);
         }
